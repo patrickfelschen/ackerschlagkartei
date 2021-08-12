@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Ackerschlagkartei</string>
+    <string name="etEmailHint">E-Mail Adresse</string>
+    <string name="etPasswordHint">Passwort</string>
+    <string name="btnSignInText">Anmelden</string>
+    <string name="btnOpenPasswordResetText">Passwort vergessen?</string>
+    <string name="btnOpenSignUpText">Neues Konto erstellen</string>
 </resources>
