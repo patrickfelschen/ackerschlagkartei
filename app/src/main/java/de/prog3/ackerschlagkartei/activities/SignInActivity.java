@@ -29,7 +29,6 @@ public class SignInActivity extends AppCompatActivity {
         this.passwordEditText = findViewById(R.id.etPassword);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void openPasswordResetClick(View v) {
-
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        this.startActivity(intent);
     }
 
 }

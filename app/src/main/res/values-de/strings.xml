@@ -17,4 +17,8 @@
     <string name="menu_sign_out">Abmelden</string>
     <string name="menu_search">Suchen</string>
     <string name="menu_add_field">Hinzufügen</string>
+
+    <!-- ForgotPasswordActivity -->
+    <string name="et_forgot_password_hint">Passwort vergessen</string>
+    <string name="btn_return_to_sign_in">Zurück zur Anmeldung</string>
 </resources>

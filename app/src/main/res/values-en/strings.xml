@@ -17,4 +17,8 @@
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_search">Search</string>
     <string name="menu_add_field">Add</string>
+
+    <!-- ForgotPasswordActivity -->
+    <string name="et_forgot_password_hint">Forgot password</string>
+    <string name="btn_return_to_sign_in">Return to Login</string>
 </resources>
