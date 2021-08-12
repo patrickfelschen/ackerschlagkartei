@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.FieldsOverviewActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </androidx.core.widget.NestedScrollView>
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,5 +21,14 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_toolbar"
+        android:fitsSystemWindows="true"
+        tools:context="com.port.android.ui.ActivityMain" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

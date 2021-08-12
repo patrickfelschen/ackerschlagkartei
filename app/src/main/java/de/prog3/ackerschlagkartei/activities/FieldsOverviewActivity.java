@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment;
 
 public class FieldsOverviewActivity extends AppCompatActivity {
 
@@ -19,6 +20,13 @@ public class FieldsOverviewActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragmentContainerView, FieldsOverviewMapFragment.class, null)
+                    .commit();
+        }
     }
 
     @Override
