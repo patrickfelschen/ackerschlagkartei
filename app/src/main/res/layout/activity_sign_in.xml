@@ -69,20 +69,21 @@
             android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary"
-            android:text="@string/btnSignInText"
-            android:textSize="14sp"
             android:layout_margin="10dp"
-            />
+            android:backgroundTint="@color/primary"
+            android:onClick="signInButtonClick"
+            android:text="@string/btnSignInText"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btnOpenPasswordReset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            android:textColor="@color/primary"
+            android:onClick="openPasswordResetClick"
             android:text="@string/btnOpenPasswordResetText"
-            android:textSize="14sp"/>
+            android:textColor="@color/primary"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -97,11 +98,12 @@
             android:id="@+id/btnOpenSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/secondary"
-            android:text="@string/btnOpenSignUpText"
-            android:textSize="14sp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="50dp"
-            android:layout_marginHorizontal="10dp"/>
+            android:backgroundTint="@color/secondary"
+            android:onClick="openSignUpButtonClick"
+            android:text="@string/btnOpenSignUpText"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

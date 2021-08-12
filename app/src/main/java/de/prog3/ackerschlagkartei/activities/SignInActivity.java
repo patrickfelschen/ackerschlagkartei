@@ -19,11 +19,11 @@ public class SignInActivity extends AppCompatActivity {
     private EditText passwordEditText;
 
     private void instantiateUI() {
-        this.signInButton = (Button) findViewById(R.id.btnSignIn);
-        this.openSignUpButton = (Button) findViewById(R.id.btnOpenSignUp);
-        this.openPasswordResetButton = (Button) findViewById(R.id.btnOpenPasswordReset);
-        this.emailEditText = (EditText) findViewById(R.id.etEmail);
-        this.passwordEditText = (EditText) findViewById(R.id.etPassword);
+        this.signInButton = findViewById(R.id.btnSignIn);
+        this.openSignUpButton = findViewById(R.id.btnOpenSignUp);
+        this.openPasswordResetButton = findViewById(R.id.btnOpenPasswordReset);
+        this.emailEditText = findViewById(R.id.etEmail);
+        this.passwordEditText = findViewById(R.id.etPassword);
     }
 
     @Override
@@ -36,6 +36,10 @@ public class SignInActivity extends AppCompatActivity {
     public void signInButtonClick(View v) {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+
+        Intent intent = new Intent(this, FieldlistActivity.class);
+        intent.putExtra("Key", "Value"); //optional um Argumente ins naechste Activity zu uebergeben
+        this.startActivity(intent);
     }
 
     public void openSignUpButtonClick(View v) {
