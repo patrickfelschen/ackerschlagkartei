@@ -8,12 +8,12 @@
     <string name="et_password_hint">Passwort</string>
     <string name="btn_sign_in_text">Anmelden</string>
     <string name="btn_open_password_reset_text">Passwort vergessen?</string>
-    <string name="lb_divider_text">Oder</string>
+    <string name="lb_divider_text">ODER</string>
     <string name="btn_open_sign_up_text">Neues Konto erstellen</string>
 
-    <!-- FieldlistActivity -->
-    <string name="appbar_title">Felderliste</string>
-    <string name="menu_map_view">Kartenansicht</string>
+    <!-- FieldsOverviewActivity -->
+    <string name="appbar_title">Felderübersicht</string>
+    <string name="menu_change_view">Ansicht ändern</string>
     <string name="menu_sign_out">Abmelden</string>
     <string name="menu_search">Suchen</string>
     <string name="menu_add_field">Hinzufügen</string>

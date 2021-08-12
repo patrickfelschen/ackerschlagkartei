@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -45,7 +43,7 @@ public class SignInActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        Intent intent = new Intent(this, FieldlistActivity.class);
+        Intent intent = new Intent(this, FieldsOverviewActivity.class);
         intent.putExtra("Key", "Value"); //optional um Argumente ins naechste Activity zu uebergeben
         this.startActivity(intent);
     }
