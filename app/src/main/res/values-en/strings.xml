@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Ackerschlagkartei</string>
+
+    <!-- SignInActivity -->
+    <string name="et_email_hint">E-Mail</string>
+    <string name="et_password_hint">Password</string>
+    <string name="btn_sign_in_text">Sign in</string>
+    <string name="btn_open_password_reset_text">Forgot Password?</string>
+    <string name="lb_divider_text">Or</string>
+    <string name="btn_open_sign_up_text">Sign up</string>
+
+    <!-- FieldlistActivity -->
+    <string name="appbar_title">Fieldlist</string>
+    <string name="menu_map_view">Mapview</string>
+    <string name="menu_sign_out">Sign out</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_add_field">Add</string>
+</resources>
