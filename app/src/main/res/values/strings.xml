@@ -25,7 +25,15 @@
     <!-- SignUpActivity -->
     <string name="et_sign_up_password_confirm">Passwort wiederholen</string>
     <string name="btn_sign_up_text">Konto erstellen</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- FieldsOverviewActivity -->
+
+    <!-- FieldDetailsActivity -->
+    <string name="nav_cultivation">Anbau</string>
+    <string name="nav_ground">Boden</string>
+    <string name="nav_actions">Maßnahmen</string>
+    <string name="nav_info">Info</string>
+    <string name="nav_images">Album</string>
+
 
 </resources>

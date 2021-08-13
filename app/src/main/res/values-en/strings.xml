@@ -25,4 +25,13 @@
     <!-- SignUpActivity -->
     <string name="et_sign_up_password_confirm">Confirm</string>
     <string name="btn_sign_up_text">Create account</string>
+
+    <!-- FieldsOverviewActivity -->
+
+    <!-- FieldDetailsActivity -->
+    <string name="nav_cultivation">Cultivation</string>
+    <string name="nav_ground">Ground</string>
+    <string name="nav_actions">Actions</string>
+    <string name="nav_info">Info</string>
+    <string name="nav_images">Album</string>
 </resources>
