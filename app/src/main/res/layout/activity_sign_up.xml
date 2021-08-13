@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".activities.SignUpActivity">
 
     <ImageView
@@ -18,18 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/SignInImage">
-
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etSignUpMailLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:hint="@string/et_email_hint">
+            android:hint="@string/et_email_hint"
+            app:layout_constraintTop_toBottomOf="@+id/SignInImage">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSignUpMail"
@@ -43,12 +39,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etSignUpPasswordLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-
-            android:hint="@string/et_password_hint">
+            android:hint="@string/et_password_hint"
+            app:layout_constraintTop_toBottomOf="@+id/etSignUpMailLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSignUpPassword"
@@ -62,12 +59,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etSignUpPasswordConfirmLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-
-            android:hint="@string/et_sign_up_password_confirm">
+            android:hint="@string/et_sign_up_password_confirm"
+            app:layout_constraintTop_toBottomOf="@id/etSignUpPasswordLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSignUpPasswordConfirm"
@@ -89,7 +87,8 @@
             android:backgroundTint="@color/primary"
             android:onClick="signUpButtonClick"
             android:text="@string/btn_sign_up_text"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/etSignUpPasswordConfirmLayout"/>
 
         <Button
             android:id="@+id/btnReturnToSignIn"
@@ -100,8 +99,6 @@
             android:text="@string/btn_return_to_sign_in"
             android:textColor="@color/primary"
             android:textSize="14sp"
-            android:layout_marginTop="95dp"/>
-
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
