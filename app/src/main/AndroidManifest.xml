@@ -28,16 +28,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
-        <activity android:name=".activities.FieldsOverviewActivity" />
-        <activity android:name=".activities.FieldDetailsActivity" />
         <activity android:name=".activities.SignInActivity">
-
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activities.FieldsOverviewActivity" />
+        <activity android:name=".activities.FieldDetailsActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.ForgotPasswordActivity" />
     </application>
