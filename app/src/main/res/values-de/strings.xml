@@ -21,4 +21,8 @@
     <!-- ForgotPasswordActivity -->
     <string name="et_forgot_password_hint">Passwort vergessen</string>
     <string name="btn_return_to_sign_in">Zurück zur Anmeldung</string>
+
+    <!-- SignUpActivity -->
+    <string name="et_sign_up_password_confirm">Passwort wiederholen</string>
+    <string name="btn_sign_up_text">Konto erstellen</string>
 </resources>
