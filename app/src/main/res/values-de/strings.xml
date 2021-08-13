@@ -13,7 +13,7 @@
 
     <!-- FieldsOverviewActivity -->
     <string name="appbar_title">Felderübersicht</string>
-    <string name="menu_change_view">Ansicht ändern</string>
+    <string name="menu_change_view">Ansicht wechseln</string>
     <string name="menu_sign_out">Abmelden</string>
     <string name="menu_search">Suchen</string>
     <string name="menu_add_field">Hinzufügen</string>
