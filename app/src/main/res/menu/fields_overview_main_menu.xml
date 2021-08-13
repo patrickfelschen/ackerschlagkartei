@@ -8,9 +8,12 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/app_bar_map_view"
+        android:checkable="false"
+        android:icon="@drawable/ic_baseline_cached_24"
         android:title="@string/menu_change_view" />
     <item
         android:id="@+id/app_bar_sign_out"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
         android:title="@string/menu_sign_out" />
     <item
         android:id="@+id/app_bar_search"
