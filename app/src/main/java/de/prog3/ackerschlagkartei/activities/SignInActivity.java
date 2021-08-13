@@ -48,7 +48,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void openSignUpButtonClick(View v) {
-
+        Intent intent = new Intent(this, SignUpActivity.class);
+        this.startActivity(intent);
     }
 
     public void openPasswordResetClick(View v) {
