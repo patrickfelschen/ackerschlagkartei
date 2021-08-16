@@ -44,12 +44,4 @@
         </AutoCompleteTextView>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_new_action_button"
-        android:layout_below="@id/new_action_layout"
-        android:layout_marginHorizontal="10dp"
-        android:text="@string/add_action_button"/>
-
 </RelativeLayout>
