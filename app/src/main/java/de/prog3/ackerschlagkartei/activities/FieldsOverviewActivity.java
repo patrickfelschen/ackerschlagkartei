@@ -1,5 +1,6 @@
 package de.prog3.ackerschlagkartei.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,7 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.app_bar_add_field:
+                this.showAddField();
                 return true;
             case R.id.app_bar_change_view:
                 this.switchViewMode();
@@ -79,6 +81,11 @@ public class FieldsOverviewActivity extends AppCompatActivity {
                 .replace(R.id.fragmentContainerView, FieldsOverviewListFragment.class, null)
                 .commit();
         this.viewMode = ViewMode.LIST;
+    }
+
+    private void showAddField() {
+        Intent i = new Intent(this, AddFieldActivity.class);
+        startActivity(i);
     }
 
 }
