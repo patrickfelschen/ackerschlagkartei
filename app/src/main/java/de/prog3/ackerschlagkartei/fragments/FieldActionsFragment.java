@@ -96,18 +96,20 @@ public class FieldActionsFragment extends Fragment {
         this.action = new HashMap<>();
         this.addActionButton = view.findViewById(R.id.add_action_button);
 
-        addActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CustomPopupWindow popup = new CustomPopupWindow();
-                popup.show(getActivity().getSupportFragmentManager(), "test");
-            }
-        });
+        addActionButton.setOnClickListener(addActionButtonClick);
 
         adapter = new MainAdapter(this.getContext(), actionList, action);
         actionsListView.setAdapter(adapter);
         initListData();
         return view;
     }
+
+    private View.OnClickListener addActionButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CustomPopupWindow popup = new CustomPopupWindow();
+            popup.show(getActivity().getSupportFragmentManager(), "test");
+        }
+    };
 
 }
