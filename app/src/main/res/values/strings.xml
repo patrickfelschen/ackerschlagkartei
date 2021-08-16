@@ -26,8 +26,6 @@
     <string name="et_sign_up_password_confirm">Passwort wiederholen</string>
     <string name="btn_sign_up_text">Konto erstellen</string>
 
-    <!-- FieldsOverviewActivity -->
-
     <!-- FieldDetailsActivity -->
     <string name="nav_cultivation">Anbau</string>
     <string name="nav_ground">Boden</string>
@@ -49,5 +47,15 @@
     <string name="dd_secondary_crop">Nebenfrucht</string>
     <string name="dd_zwf_group">ZWF-Gruppe</string>
     <string name="dd_zwf_culture">ZWF-Kultur</string>
+
+    <!-- FieldGroundFragment -->
+    <string name="dd_ground">Boden</string>
+    <string name="dd_bkr">BKR</string>
+    <string name="et_humus">Humus</string>
+    <string name="et_ph_value">PH-Wert</string>
+    <string name="et_phosphorus">Phosphor</string>
+    <string name="et_potassium">Kalium</string>
+    <string name="et_magnesium">Magnesium</string>
+    <string name="et_analysis_date">Analysedatum</string>
 
 </resources>

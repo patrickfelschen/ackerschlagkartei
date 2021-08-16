@@ -49,4 +49,14 @@
     <string name="dd_secondary_crop">Secondary Crop</string>
     <string name="dd_zwf_group">ZWF-Group</string>
     <string name="dd_zwf_culture">ZWF-Culture</string>
+
+    <!-- FieldGroundFragment -->
+    <string name="dd_ground">Ground</string>
+    <string name="dd_bkr">BKR</string>
+    <string name="et_humus">Humus</string>
+    <string name="et_ph_value">PH-Value</string>
+    <string name="et_phosphorus">Phosphorus</string>
+    <string name="et_potassium">Potassium</string>
+    <string name="et_magnesium">Magnesium</string>
+    <string name="et_analysis_date">Analysis Date</string>
 </resources>
