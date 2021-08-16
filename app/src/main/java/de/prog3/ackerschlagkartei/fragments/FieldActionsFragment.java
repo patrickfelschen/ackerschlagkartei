@@ -1,65 +1,113 @@
 package de.prog3.ackerschlagkartei.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.PopupWindow;
 
 import androidx.fragment.app.Fragment;
 
-import de.prog3.ackerschlagkartei.R;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FieldActionsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.adapters.MainAdapter;
+
 public class FieldActionsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ExpandableListView actionsListView;
+    private List<String> actionList;
+    HashMap<String, List<String>> action;
+    MainAdapter adapter;
+    private Button addActionButton;
 
     public FieldActionsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FieldActionsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FieldActionsFragment newInstance(String param1, String param2) {
-        FieldActionsFragment fragment = new FieldActionsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+
+    }
+
+    private void initListData() {
+        this.actionList.add(getString(R.string.soil_cultivation));
+        this.actionList.add(getString(R.string.sowing));
+        this.actionList.add(getString(R.string.fertilization));
+        this.actionList.add(getString(R.string.plant_protection));
+        this.actionList.add(getString(R.string.harvest));
+
+        String array[];
+
+        List<String> soilCultivationActions = new ArrayList<>();
+        array = getResources().getStringArray(R.array.soil_cultivation);
+        for(String item : array) {
+            soilCultivationActions.add(item);
         }
+
+        List<String> sowingActions = new ArrayList<>();
+        array = getResources().getStringArray(R.array.sowing);
+        for(String item : array) {
+            sowingActions.add(item);
+        }
+
+        List<String> fertilizationActions = new ArrayList<>();
+        array = getResources().getStringArray(R.array.fertilization);
+        for(String item : array) {
+            fertilizationActions.add(item);
+        }
+
+        List<String> plantProtectionActions = new ArrayList<>();
+        array = getResources().getStringArray(R.array.plant_protection);
+        for(String item : array) {
+            plantProtectionActions.add(item);
+        }
+
+        List<String> harvestActions = new ArrayList<>();
+        array = getResources().getStringArray(R.array.harvest);
+        for(String item : array) {
+            harvestActions.add(item);
+        }
+
+        action.put(actionList.get(0), soilCultivationActions);
+        action.put(actionList.get(1), sowingActions);
+        action.put(actionList.get(2), fertilizationActions);
+        action.put(actionList.get(3), plantProtectionActions);
+        action.put(actionList.get(4), harvestActions);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_field_actions, container, false);
+        View view = inflater.inflate(R.layout.fragment_field_actions, container, false);
+
+        this.actionsListView = view.findViewById(R.id.field_actions_listView);
+        this.actionList = new ArrayList<>();
+        this.action = new HashMap<>();
+        this.addActionButton = view.findViewById(R.id.add_action_button);
+
+        addActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomPopupWindow popup = new CustomPopupWindow();
+                popup.show(getActivity().getSupportFragmentManager(), "test");
+            }
+        });
+
+        adapter = new MainAdapter(this.getContext(), actionList, action);
+        actionsListView.setAdapter(adapter);
+        initListData();
+        return view;
     }
+
 }

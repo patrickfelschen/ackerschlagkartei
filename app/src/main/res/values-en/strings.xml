@@ -59,4 +59,15 @@
     <string name="et_potassium">Potassium</string>
     <string name="et_magnesium">Magnesium</string>
     <string name="et_analysis_date">Analysis Date</string>
+
+    <!-- FieldActionsFragment -->
+    <string name="soil_cultivation">Soil Cultivation</string>
+    <string name="sowing">Sowing</string>
+    <string name="fertilization">Fertilization</string>
+    <string name="plant_protection">Plant protection</string>
+    <string name="harvest">Harvest</string>
+    <string name="action_category">Category</string>
+    <string name="action">Action</string>
+    <string name="add_action_button">Add action</string>
+    <string name="cancel_action_button">Cancel</string>
 </resources>

@@ -58,4 +58,37 @@
     <string name="et_magnesium">Magnesium</string>
     <string name="et_analysis_date">Analysedatum</string>
 
+    <!-- FieldActionsFragment -->
+    <string name="soil_cultivation">Bodenbearbeitung</string>
+    <string name="sowing">Aussaat</string>
+    <string name="fertilization">Düngung</string>
+    <string name="plant_protection">Pflanzenschutz</string>
+    <string name="harvest">Ernte</string>
+    <string name="action_category">Kategorie</string>
+    <string name="action">Maßnahme</string>
+    <string name="add_action_button">Maßnahme hinzufügen</string>
+    <string name="cancel_action_button">Abbrechen</string>
+    
+    <string-array name="soil_cultivation">
+        <item>Scheibenegge</item>
+        <item>Stoppelumbruch</item>
+        <item>Grubber</item>
+    </string-array>
+
+    <string-array name="sowing">
+        <item>Test</item>
+    </string-array>
+
+    <string-array name="fertilization">
+        <item>1</item>
+    </string-array>
+
+    <string-array name="plant_protection">
+        <item>2</item>
+    </string-array>
+
+    <string-array name="harvest">
+        <item>3</item>
+    </string-array>
+
 </resources>

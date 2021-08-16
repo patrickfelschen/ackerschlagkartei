@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/action_category_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+    >
+
+    <AutoCompleteTextView
+        android:id="@+id/action_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/action_category"
+        android:inputType="none">
+
+    </AutoCompleteTextView>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_action_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/action_category_layout"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/new_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/action"
+            android:inputType="none">
+
+        </AutoCompleteTextView>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_new_action_button"
+        android:layout_below="@id/new_action_layout"
+        android:layout_marginHorizontal="10dp"
+        android:text="@string/add_action_button"/>
+
+</RelativeLayout>
