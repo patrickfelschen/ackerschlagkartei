@@ -59,4 +59,14 @@
     <string name="et_potassium">Potassium</string>
     <string name="et_magnesium">Magnesium</string>
     <string name="et_analysis_date">Analysis Date</string>
+
+    <!-- FieldInfoFragment -->
+    <string name="et_description">Description</string>
+    <string name="et_area">Area</string>
+    <string name="et_area_suffix">ha</string>
+    <string name="cb_water_protection_area">Water Protection Area</string>
+    <string name="cb_red_area">Red Area</string>
+    <string name="cb_phosphate_sensitive_area">Phosphate Sensitive Area</string>
+
+    <string name="btn_delete_field">Delete field</string>
 </resources>

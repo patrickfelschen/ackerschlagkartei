@@ -58,4 +58,13 @@
     <string name="et_magnesium">Magnesium</string>
     <string name="et_analysis_date">Analysedatum</string>
 
+    <!-- FieldInfoFragment -->
+    <string name="et_description">Bezeichnung</string>
+    <string name="et_area">Fläche</string>
+    <string name="et_area_suffix">ha</string>
+    <string name="cb_water_protection_area">Wasserschutzgebiet</string>
+    <string name="cb_red_area">Rotes Gebiet</string>
+    <string name="cb_phosphate_sensitive_area">Posphatsensibles Gebiet</string>
+    <string name="btn_delete_field">Feld entfernen</string>
+
 </resources>

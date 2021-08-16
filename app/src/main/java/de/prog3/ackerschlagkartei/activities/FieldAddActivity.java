@@ -9,13 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+
 import de.prog3.ackerschlagkartei.R;
 
 
-public class FieldAddActivity extends AppCompatActivity {
+public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Toolbar addFieldToolbar;
     private TextView instructions;
+
+    private MapView mapView;
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,10 @@ public class FieldAddActivity extends AppCompatActivity {
         this.instructions = findViewById(R.id.add_field_instructions);
         setSupportActionBar(addFieldToolbar);
 
+        this.mapView = findViewById(R.id.mv_field_add);
+        this.mapView.onCreate(savedInstanceState);
+
+        this.mapView.getMapAsync(this);
     }
 
     @Override
@@ -37,11 +50,40 @@ public class FieldAddActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.add_fiel_menu_confirm) {
+        if (item.getItemId() == R.id.add_fiel_menu_confirm) {
 
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        this.googleMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(52.52143, 7.31845)));
+    }
+
+    @Override
+    public void onResume() {
+        this.mapView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        this.mapView.onLowMemory();
+    }
 }

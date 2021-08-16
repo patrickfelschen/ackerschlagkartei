@@ -31,17 +31,14 @@
         android:layout_below="@+id/add_field_layout"
         android:padding="5dp"
         android:textSize="20sp"
-        android:text="@string/add_field_map_point_instruction"
-        />
+        android:text="@string/add_field_map_point_instruction" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mv_field_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="de.prog3.ackerschlagkartei.activities.FieldAddActivity"
         android:layout_above="@id/add_field_description"
-        android:layout_below="@id/add_field_instructions"/>
+        android:layout_below="@id/add_field_instructions" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_field_description"
