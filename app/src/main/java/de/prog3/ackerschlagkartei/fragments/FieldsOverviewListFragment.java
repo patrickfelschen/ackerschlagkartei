@@ -31,16 +31,17 @@ public class FieldsOverviewListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fields_overview_list, container, false);
 
         Button btnOpenDetails = view.findViewById(R.id.btn_open_details);
-
-        btnOpenDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), FieldDetailsActivity.class);
-                startActivity(i);
-            }
-        });
+        btnOpenDetails.setOnClickListener(btnOpenDetailsClick);
 
         return view;
     }
+
+    private final View.OnClickListener btnOpenDetailsClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(getActivity(), FieldDetailsActivity.class);
+            startActivity(i);
+        }
+    };
 
 }
