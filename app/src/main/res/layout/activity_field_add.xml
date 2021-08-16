@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AddFieldActivity">
+    tools:context=".activities.FieldAddActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/add_field_layout"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/add_field_layout"
         android:padding="5dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="@string/add_field_map_point_instruction"
         />
 
@@ -39,7 +39,7 @@
         android:name="de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="de.prog3.ackerschlagkartei.activities.AddFieldActivity"
+        tools:context="de.prog3.ackerschlagkartei.activities.FieldAddActivity"
         android:layout_above="@id/add_field_description"
         android:layout_below="@id/add_field_instructions"/>
 

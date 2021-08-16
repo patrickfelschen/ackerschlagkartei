@@ -1,19 +1,18 @@
 package de.prog3.ackerschlagkartei.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import de.prog3.ackerschlagkartei.R;
 
 
-public class AddFieldActivity extends AppCompatActivity {
+public class FieldAddActivity extends AppCompatActivity {
 
     private Toolbar addFieldToolbar;
     private TextView instructions;
@@ -21,7 +20,7 @@ public class AddFieldActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_field);
+        setContentView(R.layout.activity_field_add);
 
         this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
         this.instructions = findViewById(R.id.add_field_instructions);
@@ -32,7 +31,7 @@ public class AddFieldActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.add_field_menu, menu);
+        getMenuInflater().inflate(R.menu.field_add_menu, menu);
         return true;
     }
 

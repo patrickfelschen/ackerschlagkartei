@@ -61,6 +61,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/et_humus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dd_bkr_layout"
         app:suffixText="%">
 
@@ -81,6 +83,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/et_ph_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_humus_layout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -100,6 +104,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/et_phosphorus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_ph_value_layout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -119,6 +125,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/et_potassium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_phosphorus_layout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -138,6 +146,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/et_magnesium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_potassium_layout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -157,6 +167,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/et_analysis_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_magnesium_layout">
 
         <com.google.android.material.textfield.TextInputEditText
