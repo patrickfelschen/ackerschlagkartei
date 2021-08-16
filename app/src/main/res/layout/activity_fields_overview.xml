@@ -7,7 +7,7 @@
     tools:context=".activities.FieldsOverviewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main_toolbar_layout"
+        android:id="@+id/field_details_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,7 +16,7 @@
         app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            android:id="@+id/fields_overview_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/appbar_title">
@@ -30,11 +30,11 @@
         android:name="de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_below="@+id/main_toolbar_layout"
+        android:layout_below="@+id/field_details_toolbar_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar_layout"
+        app:layout_constraintTop_toBottomOf="@+id/field_details_toolbar_layout"
         tools:context="com.port.android.ui.ActivityMain" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

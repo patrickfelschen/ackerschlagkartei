@@ -28,15 +28,11 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private MapView mapView;
     private GoogleMap googleMap;
 
-    private Button addFieldConfirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field_add);
-
-        this.addFieldConfirmButton = findViewById(R.id.add_fiel_menu_confirm);
-        this.addFieldConfirmButton.setOnClickListener(addFieldConfirmButtonClick);
 
         this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
         this.instructions = findViewById(R.id.add_field_instructions);
@@ -48,12 +44,14 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.mapView.getMapAsync(this);
     }
 
-    private final View.OnClickListener addFieldConfirmButtonClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.add_fiel_menu_confirm) {
+            this.finish();
+            return true;
         }
-    };
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
