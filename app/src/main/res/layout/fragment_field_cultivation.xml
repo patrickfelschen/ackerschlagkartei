@@ -1,14 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.FieldCultivationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dd_previous_crop_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Anbau" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <AutoCompleteTextView
+            android:id="@+id/dd_previous_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dd_previous_crop"
+            android:inputType="none">
+
+        </AutoCompleteTextView>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dd_primary_crop_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dd_previous_crop_layout">
+
+        <AutoCompleteTextView
+            android:id="@+id/dd_primary_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dd_primary_crop"
+            android:inputType="none">
+
+        </AutoCompleteTextView>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dd_secondary_crop_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dd_primary_crop_layout">
+
+        <AutoCompleteTextView
+            android:id="@+id/dd_secondary_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dd_secondary_crop"
+            android:inputType="none">
+
+        </AutoCompleteTextView>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dd_zwf_group_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dd_secondary_crop_layout">
+
+        <AutoCompleteTextView
+            android:id="@+id/dd_zwf_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dd_zwf_group"
+            android:inputType="none">
+
+        </AutoCompleteTextView>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dd_zwf_culture_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dd_zwf_group_layout">
+
+        <AutoCompleteTextView
+            android:id="@+id/dd_zwf_culture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dd_zwf_culture"
+            android:inputType="none">
+
+        </AutoCompleteTextView>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

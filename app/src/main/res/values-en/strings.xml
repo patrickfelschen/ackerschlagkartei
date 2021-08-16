@@ -42,4 +42,11 @@
     <string name="add_field_confirm_instruction">Please verify your input. The information can be changed later.</string>
     <string name="add_field_description_hint">Description</string>
     <string name="add_field_confirm_toolbar_title">Verify</string>
+
+    <!-- FieldCultivationFragment -->
+    <string name="dd_previous_crop">Previous Crop</string>
+    <string name="dd_primary_crop">Primary Crop</string>
+    <string name="dd_secondary_crop">Secondary Crop</string>
+    <string name="dd_zwf_group">ZWF-Group</string>
+    <string name="dd_zwf_culture">ZWF-Culture</string>
 </resources>

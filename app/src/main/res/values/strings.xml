@@ -42,4 +42,12 @@
     <string name="add_field_confirm_instruction">Überprüfen Sie Ihre Eingaben. Die Informationen können zu einem späteren Zeitpunkt gändert werden.</string>
     <string name="add_field_description_hint">Bezeichnung</string>
     <string name="add_field_confirm_toolbar_title">Überprüfen</string>
+
+    <!-- FieldCultivationFragment -->
+    <string name="dd_previous_crop">Vorfrucht</string>
+    <string name="dd_primary_crop">Hauptfrucht</string>
+    <string name="dd_secondary_crop">Nebenfrucht</string>
+    <string name="dd_zwf_group">ZWF-Gruppe</string>
+    <string name="dd_zwf_culture">ZWF-Kultur</string>
+
 </resources>
