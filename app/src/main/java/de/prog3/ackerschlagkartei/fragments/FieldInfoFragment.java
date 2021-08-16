@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
     private GoogleMap googleMap;
+    private Button deleteFieldButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +36,20 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
         this.mapView = v.findViewById(R.id.mv_field_info);
         this.mapView.onCreate(savedInstanceState);
+        this.deleteFieldButton = v.findViewById(R.id.btn_delete_field);
+        this.deleteFieldButton.setOnClickListener(deleteFieldButtonClick);
 
         this.mapView.getMapAsync(this);
 
         return v;
     }
+
+    private final View.OnClickListener deleteFieldButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
