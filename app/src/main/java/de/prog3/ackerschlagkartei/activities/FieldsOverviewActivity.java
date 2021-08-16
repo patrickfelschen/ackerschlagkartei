@@ -84,7 +84,7 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     }
 
     private void showAddField() {
-        Intent i = new Intent(this, AddFieldActivity.class);
+        Intent i = new Intent(this, FieldAddActivity.class);
         startActivity(i);
     }
 

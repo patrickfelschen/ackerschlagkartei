@@ -1,13 +1,13 @@
-package de.prog3.ackerschlagkartei.fragments;
+package de.prog3.ackerschlagkartei.activities;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,27 +17,44 @@ import com.google.android.gms.maps.model.LatLng;
 
 import de.prog3.ackerschlagkartei.R;
 
-public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
+
+public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    private Toolbar addFieldToolbar;
+    private TextView instructions;
 
     private MapView mapView;
     private GoogleMap googleMap;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_field_add);
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_field_info, container, false);
+        this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
+        this.instructions = findViewById(R.id.add_field_instructions);
+        setSupportActionBar(addFieldToolbar);
 
-        this.mapView = v.findViewById(R.id.mv_field_info);
+        this.mapView = findViewById(R.id.mv_field_add);
         this.mapView.onCreate(savedInstanceState);
 
         this.mapView.getMapAsync(this);
+    }
 
-        return v;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.field_add_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.add_fiel_menu_confirm) {
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
