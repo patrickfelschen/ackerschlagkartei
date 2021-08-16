@@ -104,7 +104,7 @@ public class FieldActionsFragment extends Fragment {
         return view;
     }
 
-    private View.OnClickListener addActionButtonClick = new View.OnClickListener() {
+    private final View.OnClickListener addActionButtonClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             CustomPopupWindow popup = new CustomPopupWindow();
