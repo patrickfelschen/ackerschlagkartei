@@ -1,12 +1,12 @@
 package de.prog3.ackerschlagkartei.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import de.prog3.ackerschlagkartei.R;
 
@@ -17,9 +17,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button returnToSignInButton;
 
     private void instantiateUI() {
-        this.emailEditText = (EditText) findViewById(R.id.etForgotPasswordMail);
-        this.forgotPasswordButton = (Button) findViewById(R.id.btnForgotPassword);
-        this.returnToSignInButton = (Button) findViewById(R.id.btnReturnToSignIn);
+        this.emailEditText = findViewById(R.id.etForgotPasswordMail);
+        this.forgotPasswordButton = findViewById(R.id.btnForgotPassword);
+        this.returnToSignInButton = findViewById(R.id.btn_return_to_sign_in);
     }
 
 

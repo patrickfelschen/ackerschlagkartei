@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewListFragment;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment;
@@ -16,6 +19,8 @@ import de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment;
 enum ViewMode {LIST, MAP}
 
 public class FieldsOverviewActivity extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
 
     private Toolbar mToolbar;
     private ViewMode viewMode;
@@ -25,6 +30,8 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fields_overview);
 
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
         this.mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
 
@@ -32,6 +39,15 @@ public class FieldsOverviewActivity extends AppCompatActivity {
             this.setMapView();
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser == null) {
+            startActivity(new Intent(this, SignInActivity.class));
+        }
     }
 
     @Override
