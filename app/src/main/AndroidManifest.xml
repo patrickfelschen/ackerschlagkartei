@@ -40,6 +40,7 @@
         <activity android:name=".activities.FieldDetailsActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.ForgotPasswordActivity" />
+        <activity android:name=".activities.AddFieldActivity"/>
     </application>
 
 </manifest>
