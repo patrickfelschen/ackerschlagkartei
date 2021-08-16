@@ -31,19 +31,36 @@
         android:layout_below="@+id/add_field_layout"
         android:padding="5dp"
         android:textSize="20dp"
+        android:text="@string/add_field_map_point_instruction"
         />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="de.prog3.ackerschlagkartei.fragments.AddFieldChooseMappointFragment"
+        android:name="de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_field_instructions"
         tools:context="de.prog3.ackerschlagkartei.activities.AddFieldActivity"
-        android:layout_marginBottom="5dp"
-        />
+        android:layout_above="@id/add_field_description"
+        android:layout_below="@id/add_field_instructions"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_field_description"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_create_24"
+            android:drawablePadding="5dp"
+            android:hint="@string/add_field_description_hint"
+            android:textSize="14sp"
+            android:layout_marginBottom="5dp"/>
 
 
-
+    </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
 
