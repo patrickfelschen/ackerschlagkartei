@@ -21,7 +21,7 @@ public class FieldDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field_details);
 
-        this.bottomNavigationView = findViewById(R.id.bottom_navigatin_view);
+        this.bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
