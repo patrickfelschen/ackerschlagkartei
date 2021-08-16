@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "866895572642-irn5kitdeeji0i88anre5p5lmqvdeshg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.prog3.ackerschlagkartei",
+            "certificate_hash": "efcbf0aeff3345f5fbe548806550079802d6d624"
+          }
+        },
+        {
+          "client_id": "866895572642-thg8cqh9r7t2gd89e6d0r94hep11pt2u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.prog3.ackerschlagkartei",
+            "certificate_hash": "cbddaac6d81f8a603c3e6eaea6fb6e9b11dbe081"
+          }
+        },
+        {
           "client_id": "866895572642-7so3dpp0qtf59afsefa8klj6ulf5tivp.apps.googleusercontent.com",
           "client_type": 3
         }
