@@ -3,6 +3,8 @@ package de.prog3.ackerschlagkartei.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,10 +28,15 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private MapView mapView;
     private GoogleMap googleMap;
 
+    private Button addFieldConfirmButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field_add);
+
+        this.addFieldConfirmButton = findViewById(R.id.add_fiel_menu_confirm);
+        this.addFieldConfirmButton.setOnClickListener(addFieldConfirmButtonClick);
 
         this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
         this.instructions = findViewById(R.id.add_field_instructions);
@@ -41,20 +48,18 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.mapView.getMapAsync(this);
     }
 
+    private final View.OnClickListener addFieldConfirmButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.field_add_menu, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.add_fiel_menu_confirm) {
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
