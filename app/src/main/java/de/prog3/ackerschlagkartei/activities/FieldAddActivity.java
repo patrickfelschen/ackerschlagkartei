@@ -42,7 +42,7 @@ import static android.content.ContentValues.TAG;
 
 public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private Toolbar addFieldToolbar;
+    private Toolbar fieldAddToolbar;
 
     private MapView mapView;
     private GoogleMap googleMap;
@@ -64,10 +64,10 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.firebaseAuth = FirebaseAuth.getInstance();
         this.firebaseFirestore = FirebaseFirestore.getInstance();
 
-        this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
+        this.fieldAddToolbar = findViewById(R.id.field_add_toolbar);
         this.etDescription = findViewById(R.id.field_add_description);
 
-        setSupportActionBar(addFieldToolbar);
+        setSupportActionBar(fieldAddToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.mapView = findViewById(R.id.mv_field_add);

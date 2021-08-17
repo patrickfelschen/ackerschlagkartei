@@ -7,15 +7,16 @@
     tools:context=".activities.FieldAddActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/add_field_layout"
+        android:id="@+id/field_add_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/add_field_toolbar"
+            android:id="@+id/field_add_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/add_field_title">
@@ -24,19 +25,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <com.google.android.gms.maps.MapView
         android:id="@+id/mv_field_add"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@id/field_add_description_layout"
-        android:layout_below="@+id/add_field_layout"
+        android:layout_below="@+id/field_add_layout"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/field_add_description_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_field_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/field_add_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/field_add_description_layout"
