@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +30,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,6 @@ import static android.content.ContentValues.TAG;
 public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Toolbar addFieldToolbar;
-    private TextView instructions;
 
     private MapView mapView;
     private GoogleMap googleMap;
@@ -67,7 +66,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.firebaseFirestore = FirebaseFirestore.getInstance();
 
         this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
-        this.instructions = findViewById(R.id.add_field_instructions);
         this.etDescription = findViewById(R.id.field_add_description);
 
         setSupportActionBar(addFieldToolbar);
@@ -95,6 +93,8 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
             if (!fieldLatLngs.isEmpty()) {
                 PolygonOptions polygonOptions = new PolygonOptions().addAll(fieldLatLngs).fillColor(Color.BLUE);
                 polygon = googleMap.addPolygon(polygonOptions);
+
+                etDescription.setText(Double.toString(SphericalUtil.computeArea(fieldLatLngs) / 10000));
             }
         }
     };

@@ -37,11 +37,9 @@
 
     <!-- AddFieldActivity -->
     <string name="add_field_title">Choose map points</string>
-    <string name="add_field_map_point_instruction">Add corner points of the field, to set the location</string>
-    <string name="add_field_description_instruction">Add a name or a description to your field</string>
-    <string name="add_field_confirm_instruction">Please verify your input. The information can be changed later.</string>
     <string name="add_field_description_hint">Description</string>
-    <string name="add_field_confirm_toolbar_title">Verify</string>
+    <string name="add_field_confirm_toolbar_title">Create</string>
+    <string name="add_field_reset_title">Reset</string>
 
     <!-- FieldCultivationFragment -->
     <string name="dd_previous_crop">Previous Crop</string>

@@ -35,11 +35,9 @@
 
     <!-- AddFieldActivity -->
     <string name="add_field_title">Kartenpunkt wählen</string>
-    <string name="add_field_map_point_instruction">Fügen Sie nun Kartenpunkte des Feldes hinzu, um den Standort festzulegen</string>
-    <string name="add_field_description_instruction">Fügen Sie Ihrem Feld einen Namen oder eine Bezeichnung hinzu</string>
-    <string name="add_field_confirm_instruction">Überprüfen Sie Ihre Eingaben. Die Informationen können zu einem späteren Zeitpunkt gändert werden.</string>
     <string name="add_field_description_hint">Bezeichnung</string>
-    <string name="add_field_confirm_toolbar_title">Überprüfen</string>
+    <string name="add_field_confirm_toolbar_title">Hinzufügen</string>
+    <string name="add_field_reset_title">Zurücksetzen</string>
 
     <!-- FieldCultivationFragment -->
     <string name="dd_previous_crop">Vorfrucht</string>
