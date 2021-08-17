@@ -3,7 +3,6 @@ package de.prog3.ackerschlagkartei.fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +48,8 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private FirebaseFirestore firebaseFirestore;
 
     private ListenerRegistration fieldListener;
+
+    LatLngBounds.Builder latLngBounds;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,16 +120,28 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private void createFieldPolygons(List<FieldModel> fieldModels) {
 
         googleMap.clear();
+        latLngBounds = new LatLngBounds.Builder();
+
         for (FieldModel field : fieldModels) {
 
             List<LatLng> latLngs = new ArrayList<>();
+
             for (GeoPoint point : field.getInfo().getPositions()) {
-                latLngs.add(new LatLng(point.getLatitude(), point.getLongitude()));
+                LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
+                latLngs.add(latLng);
+                latLngBounds.include(latLng);
             }
 
-            Polygon polygon = googleMap.addPolygon(new PolygonOptions().addAll(latLngs).fillColor(Color.BLUE).clickable(true));
+            Polygon polygon = googleMap.addPolygon(new PolygonOptions()
+                    .addAll(latLngs)
+                    .fillColor(R.color.field_polygon)
+                    .clickable(true)
+                    .strokeWidth(2));
+
             polygon.setTag(field);
         }
+
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
 
     }
 
@@ -146,9 +161,27 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        this.mapView.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.mapView.onStop();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         this.mapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        this.mapView.onSaveInstanceState(outState);
     }
 
     @Override

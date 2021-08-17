@@ -2,7 +2,6 @@ package de.prog3.ackerschlagkartei.activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -91,8 +90,11 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         @Override
         public void onMapLongClick(@NonNull LatLng latLng) {
             if (!fieldLatLngs.isEmpty()) {
-                PolygonOptions polygonOptions = new PolygonOptions().addAll(fieldLatLngs).fillColor(Color.BLUE);
-                polygon = googleMap.addPolygon(polygonOptions);
+
+                polygon = googleMap.addPolygon(new PolygonOptions()
+                        .addAll(fieldLatLngs)
+                        .fillColor(R.color.field_polygon)
+                        .strokeWidth(2));
 
                 etDescription.setText(Double.toString(SphericalUtil.computeArea(fieldLatLngs) / 10000));
             }
