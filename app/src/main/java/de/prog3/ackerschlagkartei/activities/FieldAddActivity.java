@@ -111,7 +111,9 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private void resetAll() {
         etDescription.getText().clear();
         googleMap.clear();
-        polygon.remove();
+        if (polygon != null) {
+            polygon.remove();
+        }
         fieldPositions.clear();
         fieldLatLngs.clear();
     }

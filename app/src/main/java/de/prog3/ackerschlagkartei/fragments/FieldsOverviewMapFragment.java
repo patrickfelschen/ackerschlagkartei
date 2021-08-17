@@ -48,8 +48,7 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private FirebaseFirestore firebaseFirestore;
 
     private ListenerRegistration fieldListener;
-
-    LatLngBounds.Builder latLngBounds;
+    private LatLngBounds.Builder latLngBounds;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
