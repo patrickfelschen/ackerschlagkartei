@@ -1,5 +1,7 @@
 package de.prog3.ackerschlagkartei.models;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +17,11 @@ public class FieldModel {
         // Firestore
     }
 
-    public FieldModel(CultivationModel cultivation, GroundModel ground, InfoModel info) {
+    public FieldModel(String description, List<GeoPoint> positions) {
         this.uid = "";
-        this.cultivation = cultivation;
-        this.ground = ground;
-        this.info = info;
+        this.cultivation = new CultivationModel("", "", "", "", "");
+        this.ground = new GroundModel("", "", "", 0, 0, 0, 0);
+        this.info = new InfoModel(0, description, false, false, false, positions);
         this.actions = new ArrayList<>();
         this.images = new ArrayList<>();
     }
