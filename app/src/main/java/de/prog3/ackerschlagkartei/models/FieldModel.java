@@ -49,4 +49,16 @@ public class FieldModel {
     public List<ImageModel> getImages() {
         return images;
     }
+
+    @Override
+    public String toString() {
+        return "FieldModel{" +
+                "uid='" + uid + '\'' +
+                ", cultivation=" + cultivation +
+                ", ground=" + ground +
+                ", info=" + info +
+                ", actions=" + actions +
+                ", images=" + images +
+                '}';
+    }
 }

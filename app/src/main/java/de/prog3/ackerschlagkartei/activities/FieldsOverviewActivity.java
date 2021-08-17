@@ -2,6 +2,7 @@ package de.prog3.ackerschlagkartei.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,18 +10,34 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewListFragment;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment;
+import de.prog3.ackerschlagkartei.models.FieldModel;
+
+import static android.content.ContentValues.TAG;
 
 enum ViewMode {LIST, MAP}
 
 public class FieldsOverviewActivity extends AppCompatActivity {
+    private List<FieldModel> fieldList;
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
 
     private Toolbar mToolbar;
     private ViewMode viewMode;
@@ -30,15 +47,42 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fields_overview);
 
+        this.fieldList = new ArrayList<>();
+
         this.firebaseAuth = FirebaseAuth.getInstance();
+        this.db = FirebaseFirestore.getInstance();
 
         this.mToolbar = findViewById(R.id.fields_overview_toolbar);
         setSupportActionBar(mToolbar);
+
+        this.getFieldsFromFirestore();
 
         if (savedInstanceState == null) {
             this.setMapView();
         }
 
+    }
+
+    private void getFieldsFromFirestore() {
+        String firebaseUserUid = firebaseAuth.getUid();
+        db.collection("Users").document(firebaseUserUid).collection("Fields")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                            FieldModel fieldModel = document.toObject(FieldModel.class);
+                            Log.d("Firestore Field", fieldModel.toString());
+                            fieldList.add(fieldModel);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Firestore Field", e.getMessage());
+                    }
+                });
     }
 
     @Override

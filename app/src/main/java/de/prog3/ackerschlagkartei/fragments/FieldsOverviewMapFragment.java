@@ -15,7 +15,10 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
+
 import de.prog3.ackerschlagkartei.R;
+
+import static android.content.ContentValues.TAG;
 
 public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -43,6 +46,8 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.googleMap = googleMap;
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
         this.googleMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(52.52143, 7.31845)));
     }
 
