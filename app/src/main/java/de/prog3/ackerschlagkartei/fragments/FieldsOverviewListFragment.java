@@ -88,14 +88,6 @@ public class FieldsOverviewListFragment extends Fragment {
         });
     }
 
-    private final View.OnClickListener btnOpenDetailsClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(getActivity(), FieldDetailsActivity.class);
-            startActivity(i);
-        }
-    };
-
     @Override
     public void onDestroy() {
         super.onDestroy();

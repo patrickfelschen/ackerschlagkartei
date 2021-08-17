@@ -1,5 +1,6 @@
 package de.prog3.ackerschlagkartei.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
 public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.ViewHolder> {
@@ -31,6 +33,13 @@ public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mFieldName.setText(fieldModelList.get(position).getInfo().getDescription());
+        holder.mFieldName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(holder.itemView.getContext(), FieldDetailsActivity.class);
+                holder.itemView.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
