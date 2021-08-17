@@ -33,6 +33,13 @@ public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mFieldName.setText(fieldModelList.get(position).getInfo().getDescription());
+        holder.mFieldName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(holder.itemView.getContext(), FieldDetailsActivity.class);
+                holder.itemView.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -50,13 +57,6 @@ public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.View
             mView = itemView;
 
             mFieldName = mView.findViewById(R.id.tv_list_item);
-            mFieldName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(itemView.getContext(), FieldDetailsActivity.class);
-                    itemView.getContext().startActivity(i);
-                }
-            });
         }
     }
 }
