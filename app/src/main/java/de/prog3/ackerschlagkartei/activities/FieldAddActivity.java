@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,9 +54,8 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private FirebaseFirestore firebaseFirestore;
 
     private final List<GeoPoint> fieldPositions = new ArrayList<>();
-    List<LatLng> fieldLatLngs = new ArrayList<>();
+    private final List<LatLng> fieldLatLngs = new ArrayList<>();
 
-    private PolygonOptions polygonOptions;
     private Polygon polygon;
 
     @Override
@@ -69,14 +69,14 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.addFieldToolbar = findViewById(R.id.add_field_toolbar);
         this.instructions = findViewById(R.id.add_field_instructions);
         this.etDescription = findViewById(R.id.field_add_description);
+
         setSupportActionBar(addFieldToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.mapView = findViewById(R.id.mv_field_add);
         this.mapView.onCreate(savedInstanceState);
-
         this.mapView.getMapAsync(this);
 
-        this.polygonOptions = new PolygonOptions();
     }
 
     private final GoogleMap.OnMapClickListener onMapClick = new GoogleMap.OnMapClickListener() {
@@ -85,6 +85,7 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
             MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Marker");
             googleMap.addMarker(markerOptions);
             fieldLatLngs.add(latLng);
+            fieldPositions.add(new GeoPoint(latLng.latitude, latLng.longitude));
         }
     };
 
@@ -92,7 +93,7 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         @Override
         public void onMapLongClick(@NonNull LatLng latLng) {
             if (!fieldLatLngs.isEmpty()) {
-                polygonOptions.addAll(fieldLatLngs).fillColor(Color.BLUE);
+                PolygonOptions polygonOptions = new PolygonOptions().addAll(fieldLatLngs).fillColor(Color.BLUE);
                 polygon = googleMap.addPolygon(polygonOptions);
             }
         }
@@ -101,11 +102,17 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private final GoogleMap.OnMarkerClickListener onMarkerClick = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(@NonNull Marker marker) {
-            //marker.remove();
-            //fieldLatLngs.remove(marker.getPosition());
             return false;
         }
     };
+
+    private void resetAll() {
+        etDescription.getText().clear();
+        googleMap.clear();
+        polygon.remove();
+        fieldPositions.clear();
+        fieldLatLngs.clear();
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -113,6 +120,17 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
             onAddConfirmClick();
             return true;
         }
+
+        if (item.getItemId() == R.id.add_fiel_menu_reset) {
+            resetAll();
+            return true;
+        }
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,13 +143,23 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void onAddConfirmClick() {
         addFieldData();
-        this.finish();
     }
 
     private void addFieldData() {
         String firebaseUserUid = firebaseAuth.getUid();
         String fieldDescription = etDescription.getText().toString();
 
+        if (TextUtils.isEmpty(fieldDescription)) {
+            etDescription.setError("Description cannot be empty");
+            etDescription.requestFocus();
+            return;
+        }
+
+        if (fieldPositions.isEmpty()) {
+            etDescription.setError("Positions cannot be empty");
+            etDescription.requestFocus();
+            return;
+        }
 
         FieldModel newField = new FieldModel(fieldDescription, this.fieldPositions);
 
@@ -144,6 +172,7 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
