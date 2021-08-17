@@ -1,11 +1,14 @@
 package de.prog3.ackerschlagkartei.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieldModel {
+public class FieldModel implements Parcelable {
     private String uid;
     private CultivationModel cultivation;
     private GroundModel ground;
@@ -25,6 +28,22 @@ public class FieldModel {
         this.actions = new ArrayList<>();
         this.images = new ArrayList<>();
     }
+
+    protected FieldModel(Parcel in) {
+        uid = in.readString();
+    }
+
+    public static final Creator<FieldModel> CREATOR = new Creator<FieldModel>() {
+        @Override
+        public FieldModel createFromParcel(Parcel in) {
+            return new FieldModel(in);
+        }
+
+        @Override
+        public FieldModel[] newArray(int size) {
+            return new FieldModel[size];
+        }
+    };
 
     public String getUid() {
         return uid;
@@ -48,5 +67,27 @@ public class FieldModel {
 
     public List<ImageModel> getImages() {
         return images;
+    }
+
+    @Override
+    public String toString() {
+        return "FieldModel{" +
+                "uid='" + uid + '\'' +
+                ", cultivation=" + cultivation +
+                ", ground=" + ground +
+                ", info=" + info +
+                ", actions=" + actions +
+                ", images=" + images +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }
