@@ -34,7 +34,7 @@ import static android.content.ContentValues.TAG;
 enum ViewMode {LIST, MAP}
 
 public class FieldsOverviewActivity extends AppCompatActivity {
-    private List<FieldModel> fieldList;
+    private ArrayList<FieldModel> fieldList;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
@@ -72,7 +72,7 @@ public class FieldsOverviewActivity extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                             FieldModel fieldModel = document.toObject(FieldModel.class);
-                            Log.d("Firestore Field", fieldModel.toString());
+                            //Log.d("Firestore Field", fieldModel.toString());
                             fieldList.add(fieldModel);
                         }
                     }
@@ -80,9 +80,13 @@ public class FieldsOverviewActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("Firestore Field", e.getMessage());
+                        //Log.d("Firestore Field", e.getMessage());
                     }
                 });
+    }
+
+    public List<FieldModel> getFieldList() {
+        return fieldList;
     }
 
     @Override
@@ -138,10 +142,22 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     }
 
     private void setListView() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("list", this.fieldList);
+        FieldsOverviewListFragment fieldsOverviewListFragment = new FieldsOverviewListFragment();
+        fieldsOverviewListFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainerView, fieldsOverviewListFragment)
+                .commit();
+
+        /*
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.fragmentContainerView, FieldsOverviewListFragment.class, null)
                 .commit();
+
+         */
         this.viewMode = ViewMode.LIST;
     }
 
