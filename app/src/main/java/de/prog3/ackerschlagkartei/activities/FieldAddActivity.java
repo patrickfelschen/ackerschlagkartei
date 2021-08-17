@@ -1,5 +1,8 @@
 package de.prog3.ackerschlagkartei.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,12 +13,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +52,11 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
 
+    private final List<GeoPoint> fieldPositions = new ArrayList<>();
+    List<LatLng> fieldLatLngs = new ArrayList<>();
+
+    private PolygonOptions polygonOptions;
+    private Polygon polygon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +75,37 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.mapView.onCreate(savedInstanceState);
 
         this.mapView.getMapAsync(this);
+
+        this.polygonOptions = new PolygonOptions();
     }
+
+    private final GoogleMap.OnMapClickListener onMapClick = new GoogleMap.OnMapClickListener() {
+        @Override
+        public void onMapClick(@NonNull LatLng latLng) {
+            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Marker");
+            googleMap.addMarker(markerOptions);
+            fieldLatLngs.add(latLng);
+        }
+    };
+
+    private final GoogleMap.OnMapLongClickListener onMapLongClick = new GoogleMap.OnMapLongClickListener() {
+        @Override
+        public void onMapLongClick(@NonNull LatLng latLng) {
+            if (!fieldLatLngs.isEmpty()) {
+                polygonOptions.addAll(fieldLatLngs).fillColor(Color.BLUE);
+                polygon = googleMap.addPolygon(polygonOptions);
+            }
+        }
+    };
+
+    private final GoogleMap.OnMarkerClickListener onMarkerClick = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(@NonNull Marker marker) {
+            //marker.remove();
+            //fieldLatLngs.remove(marker.getPosition());
+            return false;
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -83,7 +125,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void onAddConfirmClick() {
         addFieldData();
-
         this.finish();
     }
 
@@ -91,11 +132,8 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         String firebaseUserUid = firebaseAuth.getUid();
         String fieldDescription = etDescription.getText().toString();
 
-        //TODO: get positions from maps
-        List<GeoPoint> fieldPositions = new ArrayList<>();
-        fieldPositions.add(new GeoPoint(10, 11));
 
-        FieldModel newField = new FieldModel(fieldDescription, fieldPositions);
+        FieldModel newField = new FieldModel(fieldDescription, this.fieldPositions);
 
         CollectionReference ref = this.firebaseFirestore
                 .collection("Users")
@@ -118,7 +156,26 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.googleMap = googleMap;
-        this.googleMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(52.52143, 7.31845)));
+        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        this.googleMap.setMyLocationEnabled(true);
+        this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        this.googleMap.setOnMapClickListener(onMapClick);
+        this.googleMap.setOnMapLongClickListener(onMapLongClick);
+        this.googleMap.setOnMarkerClickListener(onMarkerClick);
     }
 
     @Override
