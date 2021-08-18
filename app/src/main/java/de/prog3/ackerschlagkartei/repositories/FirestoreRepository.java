@@ -48,6 +48,7 @@ public class FirestoreRepository {
                 .collection("Fields");
     }
 
+
     public MutableLiveData<List<FieldModel>> getFieldListMutableLiveData() {
         this.fieldCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
