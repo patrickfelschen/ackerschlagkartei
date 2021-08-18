@@ -1,21 +1,21 @@
 package de.prog3.ackerschlagkartei.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieldModel implements Parcelable {
+public class FieldModel {
     @DocumentId
     private String uid;
     private CultivationModel cultivation;
     private GroundModel ground;
     private InfoModel info;
+    @Exclude
     private List<ActionModel> actions;
+    @Exclude
     private List<ImageModel> images;
 
     public FieldModel() {
@@ -23,29 +23,12 @@ public class FieldModel implements Parcelable {
     }
 
     public FieldModel(String description, List<GeoPoint> positions) {
-        this.uid = "";
         this.cultivation = new CultivationModel("", "", "", "", "");
         this.ground = new GroundModel("", "", "", 0, 0, 0, 0);
         this.info = new InfoModel(0, description, false, false, false, positions);
         this.actions = new ArrayList<>();
         this.images = new ArrayList<>();
     }
-
-    protected FieldModel(Parcel in) {
-        uid = in.readString();
-    }
-
-    public static final Creator<FieldModel> CREATOR = new Creator<FieldModel>() {
-        @Override
-        public FieldModel createFromParcel(Parcel in) {
-            return new FieldModel(in);
-        }
-
-        @Override
-        public FieldModel[] newArray(int size) {
-            return new FieldModel[size];
-        }
-    };
 
     public String getUid() {
         return uid;
@@ -81,15 +64,5 @@ public class FieldModel implements Parcelable {
                 ", actions=" + actions +
                 ", images=" + images +
                 '}';
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
     }
 }

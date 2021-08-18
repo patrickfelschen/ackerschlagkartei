@@ -66,15 +66,15 @@ public class FieldsOverviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.app_bar_add_field) {
+        if (item.getItemId() == R.id.app_bar_add_field) {
             this.showAddField();
             return true;
-        }else if(item.getItemId() == R.id.app_bar_change_view) {
+        } else if (item.getItemId() == R.id.app_bar_change_view) {
             this.switchViewMode();
             return true;
-        }else if(item.getItemId() == R.id.app_bar_search) {
+        } else if (item.getItemId() == R.id.app_bar_search) {
             return true;
-        }else if(item.getItemId() == R.id.app_bar_sign_out) {
+        } else if (item.getItemId() == R.id.app_bar_sign_out) {
             fieldsOverviewViewModel.logout();
             return true;
         }
@@ -100,22 +100,12 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     }
 
     private void setListView() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("list", this.fieldList);
-        FieldsOverviewListFragment fieldsOverviewListFragment = new FieldsOverviewListFragment();
-        fieldsOverviewListFragment.setArguments(bundle);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainerView, fieldsOverviewListFragment)
-                .commit();
-
-        /*
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.fragmentContainerView, FieldsOverviewListFragment.class, null)
                 .commit();
 
-         */
+
         this.viewMode = ViewMode.LIST;
     }
 
