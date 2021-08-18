@@ -12,13 +12,13 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 
-public class MainAdapter extends BaseExpandableListAdapter {
+public class FieldActionsAdapter extends BaseExpandableListAdapter {
 
     Context context;
     List<String> listGroup;
     HashMap<String, List<String>> listItem;
 
-    public MainAdapter(Context context, List<String> listGroup, HashMap<String,List<String>> listItem) {
+    public FieldActionsAdapter(Context context, List<String> listGroup, HashMap<String, List<String>> listItem) {
         this.context = context;
         this.listGroup = listGroup;
         this.listItem = listItem;

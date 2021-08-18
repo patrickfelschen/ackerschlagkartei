@@ -16,10 +16,10 @@ import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
 public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.ViewHolder> {
-    private List<FieldModel> fieldModelList;
+    private final List<FieldModel> fieldModelList;
 
     public FieldListAdapter(List<FieldModel> fieldModelList) {
-    this.fieldModelList = fieldModelList;
+        this.fieldModelList = fieldModelList;
     }
 
     @NonNull

@@ -1,13 +1,11 @@
 package de.prog3.ackerschlagkartei.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.PopupWindow;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,14 +14,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.adapters.MainAdapter;
+import de.prog3.ackerschlagkartei.adapters.FieldActionsAdapter;
 
 public class FieldActionsFragment extends Fragment {
 
     private ExpandableListView actionsListView;
     private List<String> actionList;
     HashMap<String, List<String>> action;
-    MainAdapter adapter;
+    FieldActionsAdapter adapter;
     private Button addActionButton;
 
     public FieldActionsFragment() {
@@ -45,7 +43,7 @@ public class FieldActionsFragment extends Fragment {
         this.actionList.add(getString(R.string.plant_protection));
         this.actionList.add(getString(R.string.harvest));
 
-        String array[];
+        String[] array;
 
         List<String> soilCultivationActions = new ArrayList<>();
         array = getResources().getStringArray(R.array.soil_cultivation);
@@ -98,7 +96,7 @@ public class FieldActionsFragment extends Fragment {
 
         addActionButton.setOnClickListener(addActionButtonClick);
 
-        adapter = new MainAdapter(this.getContext(), actionList, action);
+        adapter = new FieldActionsAdapter(this.getContext(), actionList, action);
         actionsListView.setAdapter(adapter);
         initListData();
         return view;
