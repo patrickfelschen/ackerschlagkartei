@@ -40,6 +40,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null) {
                     startActivity(new Intent(SignInActivity.this, FieldsOverviewActivity.class));
+                    finish();
                 }
             }
         });

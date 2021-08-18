@@ -8,14 +8,9 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewListFragment;
@@ -30,7 +25,6 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     private FieldsOverviewViewModel fieldsOverviewViewModel;
 
     private ArrayList<FieldModel> fieldList;
-    private FirebaseFirestore db;
 
     private Toolbar mToolbar;
     private ViewMode viewMode;
@@ -41,27 +35,8 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fields_overview);
 
         this.fieldsOverviewViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
-        this.fieldsOverviewViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser != null) {
-                    // User is logged in
-                }
-            }
-        });
-
-        this.fieldsOverviewViewModel.getLoggedOutMutableLiveData().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    startActivity(new Intent(FieldsOverviewActivity.this, SignInActivity.class));
-                }
-            }
-        });
 
         this.fieldList = new ArrayList<>();
-
-        this.db = FirebaseFirestore.getInstance();
 
         this.mToolbar = findViewById(R.id.fields_overview_toolbar);
         setSupportActionBar(mToolbar);
@@ -70,10 +45,6 @@ public class FieldsOverviewActivity extends AppCompatActivity {
             this.setMapView();
         }
 
-    }
-
-    public List<FieldModel> getFieldList() {
-        return fieldList;
     }
 
     @Override
@@ -152,6 +123,5 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         Intent i = new Intent(this, FieldAddActivity.class);
         startActivity(i);
     }
-
 
 }

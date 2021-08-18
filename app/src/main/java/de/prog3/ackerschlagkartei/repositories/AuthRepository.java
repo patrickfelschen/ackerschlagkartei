@@ -16,18 +16,15 @@ public class AuthRepository {
     private final Application application;
     private final FirebaseAuth firebaseAuth;
     private final MutableLiveData<FirebaseUser> userMutableLiveData;
-    private final MutableLiveData<Boolean> loggedOutMutableLiveData;
 
     public AuthRepository(Application application) {
         this.application = application;
 
         this.firebaseAuth = FirebaseAuth.getInstance();
         this.userMutableLiveData = new MutableLiveData<>();
-        this.loggedOutMutableLiveData = new MutableLiveData<>();
 
         if (firebaseAuth.getCurrentUser() != null) {
             userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
-            loggedOutMutableLiveData.postValue(false);
         }
     }
 
@@ -61,14 +58,10 @@ public class AuthRepository {
 
     public void logout() {
         firebaseAuth.signOut();
-        loggedOutMutableLiveData.postValue(true);
     }
 
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
         return userMutableLiveData;
     }
 
-    public MutableLiveData<Boolean> getLoggedOutMutableLiveData() {
-        return loggedOutMutableLiveData;
-    }
 }

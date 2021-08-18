@@ -89,7 +89,7 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         this.googleMap.setOnPolygonClickListener(onPolygonClick);
 
-        //this.loadFields();
+        this.loadFields();
     }
 
     private void loadFields() {
