@@ -15,12 +15,12 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
-public class FieldsOverviewListRepository {
+public class FirestoreRepository {
     private MutableLiveData<List<FieldModel>> fieldListMutableLiveData;
     private FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
 
-    public FieldsOverviewListRepository() {
+    public FirestoreRepository() {
         this.fieldListMutableLiveData = new MutableLiveData<>();
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.firebaseAuth = FirebaseAuth.getInstance();

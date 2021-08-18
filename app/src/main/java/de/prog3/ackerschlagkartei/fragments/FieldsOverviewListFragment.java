@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.adapters.FieldsOverviewListAdapter;
-import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewListViewModel;
+import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
 public class FieldsOverviewListFragment extends Fragment {
-    private FieldsOverviewListViewModel fieldViewModel;
+    private FieldsOverviewViewModel fieldViewModel;
     private FieldsOverviewListAdapter fieldListAdapter;
     private RecyclerView fieldListRecyclerView;
 
@@ -32,7 +32,7 @@ public class FieldsOverviewListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fields_overview_list, container, false);
 
-        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewListViewModel.class);
+        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
         this.fieldListRecyclerView = view.findViewById(R.id.rv_field_overview_list);
         this.fieldListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.fieldListRecyclerView.setHasFixedSize(true);
