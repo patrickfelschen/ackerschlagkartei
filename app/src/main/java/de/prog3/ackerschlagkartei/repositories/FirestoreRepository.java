@@ -1,9 +1,15 @@
 package de.prog3.ackerschlagkartei.repositories;
 
+import android.app.Application;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -16,30 +22,75 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
 public class FirestoreRepository {
-    private MutableLiveData<List<FieldModel>> fieldListMutableLiveData;
-    private FirebaseFirestore firebaseFirestore;
+    private final Application application;
+    private final FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
 
-    public FirestoreRepository() {
-        this.fieldListMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<FieldModel>> fieldListMutableLiveData;
+    private final MutableLiveData<FieldModel> fieldMutableLiveData;
+
+    private final CollectionReference fieldCollection;
+
+    public FirestoreRepository(Application application) {
+        this.application = application;
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.firebaseAuth = FirebaseAuth.getInstance();
+
+        this.fieldListMutableLiveData = new MutableLiveData<>();
+        this.fieldMutableLiveData = new MutableLiveData<>();
+
+        this.fieldCollection = this.firebaseFirestore
+                .collection("Users")
+                .document(firebaseAuth.getUid())
+                .collection("Fields");
     }
 
     public MutableLiveData<List<FieldModel>> getFieldListMutableLiveData() {
-        firebaseFirestore.collection("Users").document(firebaseAuth.getUid()).collection("Fields")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        List<FieldModel> fieldList = new ArrayList<>();
-                        for(QueryDocumentSnapshot doc : value) {
-                            if(doc != null) {
-                                fieldList.add(doc.toObject(FieldModel.class));
-                            }
+        this.fieldCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+                    Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (value != null) {
+                    List<FieldModel> fieldList = new ArrayList<>();
+
+                    for (QueryDocumentSnapshot doc : value) {
+                        if (doc != null) {
+                            fieldList.add(doc.toObject(FieldModel.class));
                         }
-                        fieldListMutableLiveData.postValue(fieldList);
                     }
-                });
+
+                    fieldListMutableLiveData.postValue(fieldList);
+
+                }
+            }
+        });
+
         return fieldListMutableLiveData;
+    }
+
+    public MutableLiveData<FieldModel> getFieldMutableLiveData(@NonNull String uid) {
+        this.fieldCollection.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+                    Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (value != null && value.exists()) {
+                    FieldModel fieldModel = value.toObject(FieldModel.class);
+                    fieldMutableLiveData.postValue(fieldModel);
+                }
+
+            }
+        });
+
+        return fieldMutableLiveData;
     }
 }
