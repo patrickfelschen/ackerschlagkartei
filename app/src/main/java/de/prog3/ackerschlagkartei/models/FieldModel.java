@@ -3,12 +3,14 @@ package de.prog3.ackerschlagkartei.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FieldModel implements Parcelable {
+    @DocumentId
     private String uid;
     private CultivationModel cultivation;
     private GroundModel ground;
