@@ -15,10 +15,10 @@ import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
-public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.ViewHolder> {
+public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOverviewListAdapter.ViewHolder> {
     private final List<FieldModel> fieldModelList;
 
-    public FieldListAdapter(List<FieldModel> fieldModelList) {
+    public FieldsOverviewListAdapter(List<FieldModel> fieldModelList) {
         this.fieldModelList = fieldModelList;
     }
 
@@ -26,7 +26,6 @@ public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fieldlist_item, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -44,7 +43,7 @@ public class FieldListAdapter extends RecyclerView.Adapter<FieldListAdapter.View
 
     @Override
     public int getItemCount() {
-        return fieldModelList.size();
+        return this.fieldModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
