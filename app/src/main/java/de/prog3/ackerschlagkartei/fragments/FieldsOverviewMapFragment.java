@@ -152,7 +152,7 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         this.mapView.onSaveInstanceState(outState);
     }

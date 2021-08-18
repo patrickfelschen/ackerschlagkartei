@@ -215,9 +215,27 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        this.mapView.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.mapView.onStop();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         this.mapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        this.mapView.onSaveInstanceState(outState);
     }
 
     @Override
