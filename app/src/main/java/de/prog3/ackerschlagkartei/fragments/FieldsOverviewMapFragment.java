@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,15 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,30 +31,26 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
+import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
 public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCallback {
+    private FieldsOverviewViewModel fieldViewModel;
 
     private MapView mapView;
     private GoogleMap googleMap;
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firebaseFirestore;
-
-    private ListenerRegistration fieldListener;
     private LatLngBounds.Builder latLngBounds;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_fields_overview_map, container, false);
-
-        this.firebaseAuth = FirebaseAuth.getInstance();
-        this.firebaseFirestore = FirebaseFirestore.getInstance();
 
         this.mapView = v.findViewById(R.id.mv_fields_overview);
         this.mapView.onCreate(savedInstanceState);
@@ -89,31 +78,16 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         this.googleMap.setOnPolygonClickListener(onPolygonClick);
 
-        this.loadFields();
+        this.loadFieldModels();
     }
 
-    private void loadFields() {
-        String firebaseUserUid = firebaseAuth.getUid();
-        final CollectionReference ref = firebaseFirestore.collection("Users").document(firebaseUserUid).collection("Fields");
-
-        fieldListener = ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+    private void loadFieldModels() {
+        this.fieldViewModel.getLiveFieldData().observe(this, new Observer<List<FieldModel>>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    Log.w("Fielddata", "Listen failed!");
-                    return;
-                }
-
-                List<FieldModel> fieldModels = new ArrayList<>();
-                for (QueryDocumentSnapshot doc : value) {
-                    fieldModels.add(doc.toObject(FieldModel.class));
-                }
-                Log.d("Fielddata", fieldModels.toString());
-
+            public void onChanged(List<FieldModel> fieldModels) {
                 createFieldPolygons(fieldModels);
             }
         });
-
     }
 
     private void createFieldPolygons(List<FieldModel> fieldModels) {
