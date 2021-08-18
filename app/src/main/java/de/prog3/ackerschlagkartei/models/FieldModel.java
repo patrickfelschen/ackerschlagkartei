@@ -13,7 +13,7 @@ public class FieldModel implements Parcelable {
     private CultivationModel cultivation;
     private GroundModel ground;
     private InfoModel info;
-    private List<AccountModel> actions;
+    private List<ActionModel> actions;
     private List<ImageModel> images;
 
     public FieldModel() {
@@ -61,7 +61,7 @@ public class FieldModel implements Parcelable {
         return info;
     }
 
-    public List<AccountModel> getActions() {
+    public List<ActionModel> getActions() {
         return actions;
     }
 

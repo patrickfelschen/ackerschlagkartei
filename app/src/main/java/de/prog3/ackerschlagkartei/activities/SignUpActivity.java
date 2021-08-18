@@ -7,27 +7,25 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.viewmodels.AuthViewModel;
 
 public class SignUpActivity extends AppCompatActivity {
 
-
-    private FirebaseAuth firebaseAuth;
     private EditText etSignUpEmail;
     private EditText etSignUpPassword;
     private EditText etSignUpPasswordConfirm;
     private Button btnSignUp;
     private Button btnReturnToSignIn;
+
+    private AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,15 @@ public class SignUpActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         setContentView(R.layout.activity_sign_up);
 
-        this.firebaseAuth = FirebaseAuth.getInstance();
+        this.authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        this.authViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
+                    startActivity(new Intent(SignUpActivity.this, FieldsOverviewActivity.class));
+                }
+            }
+        });
 
         this.etSignUpEmail = findViewById(R.id.et_sign_up_email);
         this.etSignUpPassword = findViewById(R.id.et_sign_up_password);
@@ -77,23 +83,9 @@ public class SignUpActivity extends AppCompatActivity {
             etSignUpPasswordConfirm.setError("Password doesn't match");
             etSignUpPasswordConfirm.requestFocus();
         } else {
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(signUpOnCompleteListener());
+            authViewModel.register(email, password);
         }
 
-    }
-
-    private OnCompleteListener<AuthResult> signUpOnCompleteListener() {
-        return new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(SignUpActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Sign up failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
     }
 
     private void finishActivity() {

@@ -4,27 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewListFragment;
 import de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment;
 import de.prog3.ackerschlagkartei.models.FieldModel;
-
-import static android.content.ContentValues.TAG;
+import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
 enum ViewMode {LIST, MAP}
 
 public class FieldsOverviewActivity extends AppCompatActivity {
-    private ArrayList<FieldModel> fieldList;
 
-    private FirebaseAuth firebaseAuth;
+    private FieldsOverviewViewModel fieldsOverviewViewModel;
+
+    private ArrayList<FieldModel> fieldList;
     private FirebaseFirestore db;
 
     private Toolbar mToolbar;
@@ -35,9 +40,27 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fields_overview);
 
+        this.fieldsOverviewViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
+        this.fieldsOverviewViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
+                    // User is logged in
+                }
+            }
+        });
+
+        this.fieldsOverviewViewModel.getLoggedOutMutableLiveData().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    startActivity(new Intent(FieldsOverviewActivity.this, SignInActivity.class));
+                }
+            }
+        });
+
         this.fieldList = new ArrayList<>();
 
-        this.firebaseAuth = FirebaseAuth.getInstance();
         this.db = FirebaseFirestore.getInstance();
 
         this.mToolbar = findViewById(R.id.fields_overview_toolbar);
@@ -56,10 +79,6 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if (firebaseUser == null) {
-            startActivity(new Intent(this, SignInActivity.class));
-        }
     }
 
     @Override
@@ -85,8 +104,7 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         }else if(item.getItemId() == R.id.app_bar_search) {
             return true;
         }else if(item.getItemId() == R.id.app_bar_sign_out) {
-            firebaseAuth.signOut();
-            startActivity(new Intent(this, SignInActivity.class));
+            fieldsOverviewViewModel.logout();
             return true;
         }
 

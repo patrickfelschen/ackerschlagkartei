@@ -7,21 +7,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.viewmodels.AuthViewModel;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
+    private AuthViewModel authViewModel;
 
     private Button btnSignIn;
     private Button btnOpenSignUp;
@@ -34,10 +32,17 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
-
-        this.firebaseAuth = FirebaseAuth.getInstance();
-
         this.setContentView(R.layout.activity_sign_in);
+
+        this.authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        this.authViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
+                    startActivity(new Intent(SignInActivity.this, FieldsOverviewActivity.class));
+                }
+            }
+        });
 
         this.btnSignIn = findViewById(R.id.btn_sign_in);
         this.btnOpenSignUp = findViewById(R.id.btn_open_sign_up);
@@ -82,22 +87,8 @@ public class SignInActivity extends AppCompatActivity {
             etSignInPassword.setError("Password too short - must be at least 8 characters");
             etSignInPassword.requestFocus();
         } else {
-            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(signInOnCompleteListener());
+            authViewModel.login(email, password);
         }
-    }
-
-    private OnCompleteListener<AuthResult> signInOnCompleteListener() {
-        return new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(SignInActivity.this, "Sign in successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignInActivity.this, FieldsOverviewActivity.class));
-                } else {
-                    Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
     }
 
 }
