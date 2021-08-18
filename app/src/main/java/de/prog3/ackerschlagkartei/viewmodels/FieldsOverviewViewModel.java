@@ -26,7 +26,7 @@ public class FieldsOverviewViewModel extends AndroidViewModel {
         authRepository = new AuthRepository(application);
         userMutableLiveData = authRepository.getUserMutableLiveData();
 
-        fieldsOverviewListRepository = new FirestoreRepository();
+        fieldsOverviewListRepository = new FirestoreRepository(application);
         fieldMutableLiveData = fieldsOverviewListRepository.getFieldListMutableLiveData();
     }
 
