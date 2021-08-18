@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -13,20 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.maps.android.SphericalUtil;
@@ -36,11 +31,10 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.models.FieldModel;
-
-import static android.content.ContentValues.TAG;
-
+import de.prog3.ackerschlagkartei.viewmodels.FieldAddViewModel;
 
 public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private FieldAddViewModel fieldAddViewModel;
 
     private Toolbar fieldAddToolbar;
 
@@ -61,8 +55,7 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field_add);
 
-        this.firebaseAuth = FirebaseAuth.getInstance();
-        this.firebaseFirestore = FirebaseFirestore.getInstance();
+        this.fieldAddViewModel = new ViewModelProvider(this).get(FieldAddViewModel.class);
 
         this.fieldAddToolbar = findViewById(R.id.field_add_toolbar);
         this.etDescription = findViewById(R.id.field_add_description);
@@ -98,13 +91,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
 
                 etDescription.setText(Double.toString(SphericalUtil.computeArea(fieldLatLngs) / 10000));
             }
-        }
-    };
-
-    private final GoogleMap.OnMarkerClickListener onMarkerClick = new GoogleMap.OnMarkerClickListener() {
-        @Override
-        public boolean onMarkerClick(@NonNull Marker marker) {
-            return false;
         }
     };
 
@@ -150,7 +136,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void addFieldData() {
-        String firebaseUserUid = firebaseAuth.getUid();
         String fieldDescription = etDescription.getText().toString();
 
         if (TextUtils.isEmpty(fieldDescription)) {
@@ -167,23 +152,8 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
 
         FieldModel newField = new FieldModel(fieldDescription, this.fieldPositions);
 
-        CollectionReference ref = this.firebaseFirestore
-                .collection("Users")
-                .document(firebaseUserUid)
-                .collection("Fields");
-
-        ref.add(newField).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
-            }
-        });
+        this.fieldAddViewModel.createFieldModel(newField);
+        finish();
     }
 
     @Override
@@ -205,7 +175,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
 
         this.googleMap.setOnMapClickListener(onMapClick);
         this.googleMap.setOnMapLongClickListener(onMapLongClick);
-        this.googleMap.setOnMarkerClickListener(onMarkerClick);
     }
 
     @Override

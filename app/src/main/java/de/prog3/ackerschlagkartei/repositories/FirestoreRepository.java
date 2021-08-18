@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -94,6 +95,20 @@ public class FirestoreRepository {
         });
 
         return fieldMutableLiveData;
+    }
+
+    public void createFieldModel(@NonNull FieldModel fieldModel) {
+        this.fieldCollection.add(fieldModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void updateFieldModel(@NonNull FieldModel fieldModel) {
