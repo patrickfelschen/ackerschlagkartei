@@ -32,6 +32,10 @@ public class AuthRepository {
         this.firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+                if (authResult.getUser() != null) {
+                    authResult.getUser().sendEmailVerification();
+                }
+
                 userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
             }
         }).addOnFailureListener(new OnFailureListener() {
