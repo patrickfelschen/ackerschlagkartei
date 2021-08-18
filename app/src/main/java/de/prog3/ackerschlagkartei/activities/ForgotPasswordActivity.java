@@ -7,21 +7,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.viewmodels.AuthViewModel;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
+    private AuthViewModel authViewModel;
 
     private EditText emailEditText;
     private Button forgotPasswordButton;
     private Button returnToSignInButton;
-
-    private void instantiateUI() {
-        this.emailEditText = findViewById(R.id.etForgotPasswordMail);
-        this.forgotPasswordButton = findViewById(R.id.btnForgotPassword);
-        this.returnToSignInButton = findViewById(R.id.btn_return_to_sign_in);
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +25,34 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         setContentView(R.layout.activity_forgot_password);
-        instantiateUI();
+
+        this.authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+
+        this.emailEditText = findViewById(R.id.et_forgot_password_email);
+        this.forgotPasswordButton = findViewById(R.id.btn_forgot_password);
+        this.returnToSignInButton = findViewById(R.id.btn_return_to_sign_in);
+
+        this.forgotPasswordButton.setOnClickListener(forgotPasswordButtonClick());
+        this.returnToSignInButton.setOnClickListener(returnToSignInButtonClick());
     }
 
-    public void forgotPasswordClick(View v) {
-
+    private View.OnClickListener forgotPasswordButtonClick() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = emailEditText.getText().toString().trim();
+                authViewModel.resetPassword(email);
+            }
+        };
     }
 
-    public void returnToSignInClick(View v) {
-        this.finish();
+    private View.OnClickListener returnToSignInButtonClick() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        };
     }
+
 }
