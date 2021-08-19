@@ -27,6 +27,8 @@ public class FieldDetailsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
 
+    private String fieldUid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,8 @@ public class FieldDetailsActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        Toast.makeText(this, fieldViewModel.getSelectedField().getInfo().getDescription(), Toast.LENGTH_SHORT).show();
-
+        this.fieldUid = getIntent().getStringExtra("fieldModelUid");
+        Toast.makeText(this,fieldUid,Toast.LENGTH_SHORT).show();
     }
 
     @Override

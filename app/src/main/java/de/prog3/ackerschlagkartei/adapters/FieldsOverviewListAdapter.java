@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
@@ -16,9 +18,13 @@ import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
 public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOverviewListAdapter.ViewHolder> {
-    private final List<FieldModel> fieldModelList;
+    private List<FieldModel> fieldModelList;
 
-    public FieldsOverviewListAdapter(List<FieldModel> fieldModelList) {
+    public FieldsOverviewListAdapter() {
+       fieldModelList = new ArrayList<>();
+    }
+
+    public void setFieldModelList(List<FieldModel> fieldModelList) {
         this.fieldModelList = fieldModelList;
     }
 
@@ -31,7 +37,9 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.itemView.setTag(fieldModelList.get(position));
         holder.mFieldName.setText(fieldModelList.get(position).getInfo().getDescription());
+
     }
 
     @Override
@@ -39,16 +47,22 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
         return this.fieldModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        View mView;
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mFieldName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mView = itemView;
 
-            mFieldName = mView.findViewById(R.id.tv_list_item);
+            mFieldName = itemView.findViewById(R.id.tv_list_item);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FieldModel fieldModel = (FieldModel) itemView.getTag();
+                    Intent i = new Intent(v.getContext(), FieldDetailsActivity.class);
+                    i.putExtra("fieldModelUid", fieldModel.getUid());
+                    v.getContext().startActivity(i);
+                }
+            });
         }
     }
 }
