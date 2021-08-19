@@ -4,62 +4,45 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FieldCultivationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FieldCultivationFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FieldDetailsViewModel fieldDetailsViewModel;
+    private AutoCompleteTextView ddPreviousCrop;
+    private AutoCompleteTextView ddPrimaryCrop;
+    private AutoCompleteTextView ddSecondaryCrop;
+    private AutoCompleteTextView ddZwfGroup;
+    private AutoCompleteTextView ddZwfCulture;
 
     public FieldCultivationFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FieldCultivationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FieldCultivationFragment newInstance(String param1, String param2) {
-        FieldCultivationFragment fragment = new FieldCultivationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_field_cultivation, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_field_cultivation, container, false);
+
+        this.ddPreviousCrop = view.findViewById(R.id.dd_previous_crop);
+        this.ddPrimaryCrop = view.findViewById(R.id.dd_primary_crop);
+        this.ddSecondaryCrop = view.findViewById(R.id.dd_secondary_crop);
+        this.ddZwfGroup = view.findViewById(R.id.dd_zwf_group);
+        this.ddZwfCulture = view.findViewById(R.id.dd_zwf_culture);
+
+        return view;
     }
+
 }
