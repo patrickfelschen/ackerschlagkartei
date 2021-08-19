@@ -3,7 +3,6 @@ package de.prog3.ackerschlagkartei.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,13 +35,12 @@ public class FieldDetailsActivity extends AppCompatActivity {
 
         this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
 
+        this.fieldUid = getIntent().getStringExtra("fieldModelUid");
+        this.fieldDetailsViewModel.setFieldModelUid(fieldUid);
+
         this.fieldDetailsToolbar = findViewById(R.id.field_details_toolbar);
         this.bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
-        this.fieldUid = getIntent().getStringExtra("fieldModelUid");
-
-        fieldDetailsViewModel.setFieldModelUid(fieldUid);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
