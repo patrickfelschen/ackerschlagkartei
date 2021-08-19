@@ -32,13 +32,6 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mFieldName.setText(fieldModelList.get(position).getInfo().getDescription());
-        holder.mFieldName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(holder.itemView.getContext(), FieldDetailsActivity.class);
-                holder.itemView.getContext().startActivity(i);
-            }
-        });
     }
 
     @Override

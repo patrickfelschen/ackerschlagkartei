@@ -2,9 +2,12 @@ package de.prog3.ackerschlagkartei.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +18,7 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.adapters.FieldsOverviewListAdapter;
+import de.prog3.ackerschlagkartei.interfaces.RecyclerTouchListener;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
@@ -32,14 +36,6 @@ public class FieldsOverviewListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
-        this.fieldViewModel.getLiveFieldData().observe(this, new Observer<List<FieldModel>>() {
-            @Override
-            public void onChanged(List<FieldModel> fieldModels) {
-                fieldListAdapter = new FieldsOverviewListAdapter(fieldModels);
-                fieldListRecyclerView.setAdapter(fieldListAdapter);
-                fieldListAdapter.notifyDataSetChanged();
-            }
-        });
 
     }
 
@@ -50,6 +46,25 @@ public class FieldsOverviewListFragment extends Fragment {
         this.fieldListRecyclerView = view.findViewById(R.id.rv_field_overview_list);
         this.fieldListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.fieldListRecyclerView.setHasFixedSize(true);
+        this.fieldViewModel.getLiveFieldData().observe(getActivity(), new Observer<List<FieldModel>>() {
+            @Override
+            public void onChanged(List<FieldModel> fieldModels) {
+                fieldListAdapter = new FieldsOverviewListAdapter(fieldModels);
+                fieldListRecyclerView.setAdapter(fieldListAdapter);
+                fieldListRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), fieldListRecyclerView, new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Toast.makeText(getContext(), fieldModels.get(position).getInfo().getDescription(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
+                fieldListAdapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }
