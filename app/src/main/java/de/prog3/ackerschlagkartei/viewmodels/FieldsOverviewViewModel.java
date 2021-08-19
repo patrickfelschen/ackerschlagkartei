@@ -18,18 +18,16 @@ public class FieldsOverviewViewModel extends AndroidViewModel {
     private final MutableLiveData<FirebaseUser> userMutableLiveData;
 
     private final MutableLiveData<List<FieldModel>> fieldMutableLiveData;
-    private final FirestoreRepository fieldsOverviewListRepository;
-
-    private FieldModel selectedField;
+    private final FirestoreRepository firestoreRepository;
 
     public FieldsOverviewViewModel(Application application) {
         super(application);
 
-        authRepository = new AuthRepository(application);
-        userMutableLiveData = authRepository.getUserMutableLiveData();
+        this.authRepository = new AuthRepository(application);
+        this.userMutableLiveData = authRepository.getUserMutableLiveData();
 
-        fieldsOverviewListRepository = new FirestoreRepository(application);
-        fieldMutableLiveData = fieldsOverviewListRepository.getFieldListMutableLiveData();
+        this.firestoreRepository = new FirestoreRepository(application);
+        this.fieldMutableLiveData = firestoreRepository.getFieldListMutableLiveData();
     }
 
     public void logout() {
@@ -44,11 +42,4 @@ public class FieldsOverviewViewModel extends AndroidViewModel {
         return this.fieldMutableLiveData;
     }
 
-    public FieldModel getSelectedField() {
-        return selectedField;
-    }
-
-    public void setSelectedField(FieldModel selectedField) {
-        this.selectedField = selectedField;
-    }
 }

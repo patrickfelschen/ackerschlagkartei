@@ -1,12 +1,12 @@
 package de.prog3.ackerschlagkartei.fragments;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
@@ -38,8 +37,6 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
 
     private MapView mapView;
     private GoogleMap googleMap;
-
-    private LatLngBounds.Builder latLngBounds;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +90,7 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private void createFieldPolygons(List<FieldModel> fieldModels) {
 
         googleMap.clear();
-        latLngBounds = new LatLngBounds.Builder();
+        LatLngBounds.Builder latLngBounds = new LatLngBounds.Builder();
 
         for (FieldModel field : fieldModels) {
 
@@ -121,9 +118,9 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private final GoogleMap.OnPolygonClickListener onPolygonClick = new GoogleMap.OnPolygonClickListener() {
         @Override
         public void onPolygonClick(@NonNull Polygon polygon) {
-            Intent i = new Intent(getActivity(), FieldDetailsActivity.class);
-            //TODO: put field id
-            startActivity(i);
+            fieldViewModel.setSelectedField((FieldModel) polygon.getTag());
+            Toast.makeText(getContext(), ((FieldModel) polygon.getTag()).getInfo().getDescription(), Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(getActivity(), FieldDetailsActivity.class));
         }
     };
 
