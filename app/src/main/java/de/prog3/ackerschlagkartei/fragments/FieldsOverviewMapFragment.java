@@ -1,6 +1,7 @@
 package de.prog3.ackerschlagkartei.fragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.activities.FieldDetailsActivity;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
@@ -118,9 +120,10 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private final GoogleMap.OnPolygonClickListener onPolygonClick = new GoogleMap.OnPolygonClickListener() {
         @Override
         public void onPolygonClick(@NonNull Polygon polygon) {
-            fieldViewModel.setSelectedField((FieldModel) polygon.getTag());
-            Toast.makeText(getContext(), ((FieldModel) polygon.getTag()).getInfo().getDescription(), Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(getActivity(), FieldDetailsActivity.class));
+            FieldModel fieldModel = (FieldModel) polygon.getTag();
+            Intent i = new Intent(getContext(), FieldDetailsActivity.class);
+            i.putExtra("fieldModelUid", fieldModel.getUid());
+            startActivity(i);
         }
     };
 
