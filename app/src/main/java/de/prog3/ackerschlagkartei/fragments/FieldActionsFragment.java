@@ -1,13 +1,16 @@
 package de.prog3.ackerschlagkartei.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +18,11 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.adapters.FieldActionsAdapter;
+import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldActionsFragment extends Fragment {
 
+    private FieldDetailsViewModel fieldDetailsViewModel;
     private ExpandableListView actionsListView;
     private List<String> actionList;
     HashMap<String, List<String>> action;
@@ -88,6 +93,12 @@ public class FieldActionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_field_actions, container, false);
+
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
+            Toast.makeText(getContext(), fieldData + " " , Toast.LENGTH_SHORT).show();
+            Log.d("FieldUid", fieldData.getUid());
+        });
 
         this.actionsListView = view.findViewById(R.id.field_actions_listView);
         this.actionList = new ArrayList<>();
