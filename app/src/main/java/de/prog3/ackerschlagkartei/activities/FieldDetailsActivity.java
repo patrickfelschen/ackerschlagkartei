@@ -3,6 +3,7 @@ package de.prog3.ackerschlagkartei.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,14 +40,11 @@ public class FieldDetailsActivity extends AppCompatActivity {
         this.bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        setSupportActionBar(fieldDetailsToolbar);
+        this.fieldUid = getIntent().getStringExtra("fieldModelUid");
+
+        fieldDetailsViewModel.setFieldModelUid(fieldUid);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-        this.fieldUid = getIntent().getStringExtra("fieldModelUid");
-        //Toast.makeText(this,fieldUid,Toast.LENGTH_SHORT).show();
-
-        this.fieldDetailsViewModel.setFieldModelUid(this.fieldUid);
     }
 
     @Override
@@ -58,6 +56,7 @@ public class FieldDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
