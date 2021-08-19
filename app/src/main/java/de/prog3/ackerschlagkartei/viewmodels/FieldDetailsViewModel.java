@@ -14,26 +14,32 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     private final FirestoreRepository firestoreRepository;
     private final MutableLiveData<FieldModel> fieldModelMutableLiveData;
 
-    private final String fieldUid;
+    private String fieldModelUid;
 
-    public FieldDetailsViewModel(@NonNull Application application, @NonNull String fieldUid) {
+    public FieldDetailsViewModel(@NonNull Application application) {
         super(application);
 
         this.firestoreRepository = new FirestoreRepository(application);
         this.fieldModelMutableLiveData = new MutableLiveData<>();
+    }
 
-        this.fieldUid = fieldUid;
+    public String getFieldModelUid() {
+        return fieldModelUid;
+    }
+
+    public void setFieldModelUid(String fieldModelUid) {
+        this.fieldModelUid = fieldModelUid;
     }
 
     public MutableLiveData<FieldModel> getFieldModelMutableLiveData() {
-        return this.firestoreRepository.getFieldMutableLiveData(this.fieldUid);
+        return this.firestoreRepository.getFieldMutableLiveData(this.fieldModelUid);
     }
 
-    public void updateField(FieldModel fieldModel) {
+    public void updateField(@NonNull FieldModel fieldModel) {
         updateField(fieldModel);
     }
 
-    public void deleteField(FieldModel fieldModel) {
+    public void deleteField(@NonNull FieldModel fieldModel) {
         deleteField(fieldModel);
     }
 }

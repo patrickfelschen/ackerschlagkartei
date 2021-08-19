@@ -3,7 +3,6 @@ package de.prog3.ackerschlagkartei.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +15,11 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
+import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldDetailsActivity extends AppCompatActivity {
 
-    private FieldsOverviewViewModel fieldViewModel;
+    private FieldDetailsViewModel fieldDetailsViewModel;
 
     private Toolbar fieldDetailsToolbar;
 
@@ -34,7 +33,7 @@ public class FieldDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field_details);
 
-        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
+        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
 
         this.fieldDetailsToolbar = findViewById(R.id.field_details_toolbar);
         this.bottomNavigationView = findViewById(R.id.bottom_navigation_view);
@@ -45,7 +44,9 @@ public class FieldDetailsActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         this.fieldUid = getIntent().getStringExtra("fieldModelUid");
-        Toast.makeText(this,fieldUid,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,fieldUid,Toast.LENGTH_SHORT).show();
+
+        this.fieldDetailsViewModel.setFieldModelUid(this.fieldUid);
     }
 
     @Override
