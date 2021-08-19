@@ -28,8 +28,6 @@ public class FieldCultivationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
     }
 
     @Override
@@ -45,4 +43,17 @@ public class FieldCultivationFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
+            ddPreviousCrop.setText(fieldData.getCultivation().getPreviousCrop());
+            ddPrimaryCrop.setText(fieldData.getCultivation().getPrimaryCrop());
+            ddSecondaryCrop.setText(fieldData.getCultivation().getSecondaryCrop());
+            ddZwfGroup.setText(fieldData.getCultivation().getZwfGroup());
+            ddZwfCulture.setText(fieldData.getCultivation().getZwfCulture());
+        });
+    }
 }
