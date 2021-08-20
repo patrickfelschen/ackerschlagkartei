@@ -75,12 +75,17 @@ public class FieldsOverviewActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.app_bar_search) {
             return true;
         } else if (item.getItemId() == R.id.app_bar_sign_out) {
-            fieldsOverviewViewModel.logout();
+            this.logout();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void logout() {
+        this.fieldsOverviewViewModel.logout();
+        startActivity(new Intent(this, SignInActivity.class));
     }
 
     private void switchViewMode() {
@@ -104,7 +109,6 @@ public class FieldsOverviewActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .replace(R.id.fragmentContainerView, FieldsOverviewListFragment.class, null)
                 .commit();
-
 
         this.viewMode = ViewMode.LIST;
     }
