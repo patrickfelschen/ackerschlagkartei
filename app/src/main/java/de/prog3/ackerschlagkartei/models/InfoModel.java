@@ -5,7 +5,7 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.List;
 
 public class InfoModel {
-    private float area;
+    private double area;
     private String description;
     private boolean phosphateSensitiveArea;
     private boolean redArea;
@@ -24,7 +24,7 @@ public class InfoModel {
         this.positions = positions;
     }
 
-    public float getArea() {
+    public double getArea() {
         return area;
     }
 
