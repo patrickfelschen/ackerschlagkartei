@@ -383,6 +383,22 @@
     <string name="et_magnesium">Magnesium</string>
     <string name="et_analysis_date">Analysedatum</string>
 
+    <string-array name="ground_type_array">
+        <item>Sand</item>
+        <item>lehmiger Sand</item>
+        <item>Schluff</item>
+        <item>Hochmoor</item>
+        <item>Ton</item>
+    </string-array>
+
+    <string-array name="bkr_array">
+        <item>9</item>
+        <item>11</item>
+        <item>46</item>
+        <item>48</item>
+        <item>51</item>
+    </string-array>
+
     <!-- FieldActionsFragment -->
     <string name="soil_cultivation">Bodenbearbeitung</string>
     <string name="sowing">Aussaat</string>
