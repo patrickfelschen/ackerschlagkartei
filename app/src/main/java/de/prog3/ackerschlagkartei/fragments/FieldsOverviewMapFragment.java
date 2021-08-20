@@ -39,10 +39,12 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private MapView mapView;
     private GoogleMap googleMap;
 
+    private List<FieldModel> currentFieldModels;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
+
     }
 
     @Nullable
@@ -57,6 +59,26 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
 
         return v;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.mapView.onStart();
+
+        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
+
+        this.fieldViewModel.getLiveFieldData().observe(this, new Observer<List<FieldModel>>() {
+            @Override
+            public void onChanged(List<FieldModel> fieldModels) {
+                currentFieldModels = fieldModels;
+                createFieldPolygons();
+            }
+        });
+
+        this.createFieldPolygons();
+
+    }
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -76,27 +98,18 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         this.googleMap.setOnPolygonClickListener(onPolygonClick);
 
-        this.loadFieldModels();
+        this.createFieldPolygons();
     }
 
-    private void loadFieldModels() {
-        this.fieldViewModel.getLiveFieldData().observe(this, new Observer<List<FieldModel>>() {
-            @Override
-            public void onChanged(List<FieldModel> fieldModels) {
-                createFieldPolygons(fieldModels);
-            }
-        });
-    }
-
-    private void createFieldPolygons(List<FieldModel> fieldModels) {
-        if (fieldModels.isEmpty()) {
+    private void createFieldPolygons() {
+        if (googleMap == null || currentFieldModels == null || currentFieldModels.isEmpty()) {
             return;
         }
 
         googleMap.clear();
         LatLngBounds.Builder latLngBounds = new LatLngBounds.Builder();
 
-        for (FieldModel field : fieldModels) {
+        for (FieldModel field : currentFieldModels) {
 
             List<LatLng> latLngs = new ArrayList<>();
 
@@ -133,12 +146,6 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     public void onResume() {
         this.mapView.onResume();
         super.onResume();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        this.mapView.onStart();
     }
 
     @Override
