@@ -24,7 +24,7 @@ public class FieldModel {
 
     public FieldModel(String description, List<GeoPoint> positions) {
         this.cultivation = new CultivationModel("", "", "", "", "");
-        this.ground = new GroundModel("", "", "", 0, 0, 0, 0);
+        this.ground = new GroundModel("", "", "", "", 0, 0, 0, 0);
         this.info = new InfoModel(0, description, false, false, false, positions);
         this.actions = new ArrayList<>();
         this.images = new ArrayList<>();
