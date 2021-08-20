@@ -48,6 +48,7 @@
     <string name="dd_next_crop">Next Crop</string>
     <string name="dd_zwf_group">ZWF-Group</string>
 
+    <!-- https://www.deepl.com/de/translator -->
     <string-array name="previous_primary_next_crop_array">
         <item>Field bean Whole plant</item>
         <item>Field grass 3–4 cuts/year (DM)</item>
