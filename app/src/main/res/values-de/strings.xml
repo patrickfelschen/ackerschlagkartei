@@ -440,6 +440,46 @@
         <item>Ernte</item>
     </string-array>
 
+    <string-array name="soil_cultivation_array">
+        <item>Stoppelumbruch</item>
+        <item>Scheibenegge</item>
+        <item>Grubber</item>
+        <item>Wiesenwalze</item>
+        <item>Sobbelbearbeitung</item>
+    </string-array>
+
+    <string-array name="sowing_array">
+        <item>Stoppelumbruch</item>
+        <item>Scheibenegge</item>
+        <item>Grubber</item>
+        <item>Wiesenwalze</item>
+        <item>Sobbelbearbeitung</item>
+    </string-array>
+
+    <string-array name="fertilization_array">
+        <item>Stoppelumbruch</item>
+        <item>Scheibenegge</item>
+        <item>Grubber</item>
+        <item>Wiesenwalze</item>
+        <item>Sobbelbearbeitung</item>
+    </string-array>
+
+    <string-array name="plant_protection_array">
+        <item>Accurate</item>
+        <item>Aclon 600</item>
+        <item>ATR Schneckenkorn</item>
+        <item>Bayer Garten Unkrautfrei</item>
+        <item>Agro Halmstärker</item>
+    </string-array>
+
+    <string-array name="harvest_array">
+        <item>Silomais</item>
+        <item>Sommerfuttergerste</item>
+        <item>Winterweizen</item>
+        <item>Raps</item>
+        <item>Ackergras</item>
+    </string-array>
+
     <!-- FieldInfoFragment -->
     <string name="et_description">Bezeichnung</string>
     <string name="et_area">Fläche</string>

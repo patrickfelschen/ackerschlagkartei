@@ -402,10 +402,10 @@
     </string-array>
 
     <!-- FieldActionsFragment -->
-    <string name="soil_cultivation">Soil Cultivation</string>
+    <string name="soil_cultivation">Soil cultivation</string>
     <string name="sowing">Sowing</string>
     <string name="fertilization">Fertilization</string>
-    <string name="plant_protection">Plant Protection</string>
+    <string name="plant_protection">Plant protection</string>
     <string name="harvest">Harvest</string>
     <string name="action_category">Category</string>
     <string name="action">Action</string>
@@ -440,6 +440,46 @@
         <item>Fertilization</item>
         <item>Plant protection</item>
         <item>Harvest</item>
+    </string-array>
+
+    <string-array name="soil_cultivation_array">
+        <item>Stubble turning</item>
+        <item>Disc harrow</item>
+        <item>Cultivator</item>
+        <item>Meadow roller</item>
+        <item>Sobbel machining</item>
+    </string-array>
+
+    <string-array name="sowing_array">
+        <item>Adreo Nachsaat</item>
+        <item>Nachsaatmischung</item>
+        <item>RGT Reform</item>
+        <item>Bender</item>
+        <item>Quadriga</item>
+    </string-array>
+
+    <string-array name="fertilization_array">
+        <item>40er Kali</item>
+        <item>AHL</item>
+        <item>Ammoniumnitrat</item>
+        <item>Bittersalz</item>
+        <item>Carbokalk 45</item>
+    </string-array>
+
+    <string-array name="plant_protection_array">
+        <item>Accurate</item>
+        <item>Aclon 600</item>
+        <item>ATR Schneckenkorn</item>
+        <item>Bayer Garten Unkrautfrei</item>
+        <item>Agro Halmstärker</item>
+    </string-array>
+
+    <string-array name="harvest_array">
+        <item>Silomais</item>
+        <item>Sommerfuttergerste</item>
+        <item>Winterweizen</item>
+        <item>Raps</item>
+        <item>Ackergras</item>
     </string-array>
 
     <!-- FieldInfoFragment -->
