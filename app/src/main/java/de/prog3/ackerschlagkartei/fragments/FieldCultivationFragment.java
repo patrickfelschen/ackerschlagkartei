@@ -100,7 +100,7 @@ public class FieldCultivationFragment extends Fragment {
 
                 cultivationChanges.put("previousCrop", changes);
 
-                fieldDetailsViewModel.updateFieldModel(cultivationChanges);
+                fieldDetailsViewModel.updateCultivation(cultivationChanges);
 
                 view.clearFocus();
                 ddPreviousCrop.clearFocus();
@@ -114,7 +114,7 @@ public class FieldCultivationFragment extends Fragment {
 
                 cultivationChanges.put("primaryCrop", changes);
 
-                fieldDetailsViewModel.updateFieldModel(cultivationChanges);
+                fieldDetailsViewModel.updateCultivation(cultivationChanges);
                 view.clearFocus();
                 ddPrimaryCrop.clearFocus();
             }
@@ -127,7 +127,7 @@ public class FieldCultivationFragment extends Fragment {
 
                 cultivationChanges.put("secondaryCrop", changes);
 
-                fieldDetailsViewModel.updateFieldModel(cultivationChanges);
+                fieldDetailsViewModel.updateCultivation(cultivationChanges);
                 view.clearFocus();
                 ddSecondaryCrop.clearFocus();
             }
@@ -140,7 +140,7 @@ public class FieldCultivationFragment extends Fragment {
 
                 cultivationChanges.put("zwfGroup", changes);
 
-                fieldDetailsViewModel.updateFieldModel(cultivationChanges);
+                fieldDetailsViewModel.updateCultivation(cultivationChanges);
                 view.clearFocus();
                 ddZwfGroup.clearFocus();
             }
@@ -153,7 +153,7 @@ public class FieldCultivationFragment extends Fragment {
 
                 cultivationChanges.put("nextCrop", changes);
 
-                fieldDetailsViewModel.updateFieldModel(cultivationChanges);
+                fieldDetailsViewModel.updateCultivation(cultivationChanges);
                 view.clearFocus();
                 ddNextCrop.clearFocus();
             }

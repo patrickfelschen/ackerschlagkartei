@@ -45,8 +45,14 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         //this.firestoreRepository.updateField(fieldModel);
     }
 
-    public void updateFieldModel(Map<String, Object> changes) {
-        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), changes);
+    public void updateCultivation(Map<String, Object> changes) {
+        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), changes, "cultivation");
+
+    }
+
+    public void updateGround(Map<String, Object> changes) {
+        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), changes, "ground");
+
     }
 
     public void deleteField(@NonNull FieldModel fieldModel) {

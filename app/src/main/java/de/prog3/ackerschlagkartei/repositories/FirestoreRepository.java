@@ -127,8 +127,8 @@ public class FirestoreRepository {
         });
     }
 
-    public void updateFieldModel(String uid, Map<String, Object> changes) {
-        this.fieldCollection.document(uid).update("cultivation", changes).addOnSuccessListener(new OnSuccessListener<Void>() {
+    public void updateFieldModel(String uid, Map<String, Object> changes, String updateField) {
+        this.fieldCollection.document(uid).update(updateField, changes).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
 
