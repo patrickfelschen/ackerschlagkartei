@@ -49,9 +49,299 @@
     <string name="dd_zwf_group">ZWF-Group</string>
 
     <string-array name="previous_primary_next_crop_array">
-        <item>Ackerbohne Genzpflanze</item>
-        <item>Ackergras 3–4 Schnitte/Jahr (TM)</item>
+        <item>Ackerbohne Ganzpflanze</item>
+        <item>Ackergras 3-4 Schnitte/Jahr (TM)</item>
         <item>Ackergras 5 Schnitte (TM)</item>
+        <item>Amaranth</item>
+        <item>Arzneifenchel (Frucht, Droge)</item>
+        <item>Aubergine</item>
+        <item>Baldrian (Erntegut Wurzeln)</item>
+        <item>Basilikum</item>
+        <item>Blumenkohl</item>
+        <item>Blühstreifen Ansaatjahr mehrjährig mit Leguminosen</item>
+        <item>Blühstreifen Ansaatjahr mehrjährig ohne Leguminosen</item>
+        <item>Blühstreifen einjährig mit Leguminosen</item>
+        <item>Blühstreifen einjährig ohne Düngung mit Leguminosen</item>
+        <item>Blühstreifen einjährig ohne Düngung ohne Leguminosen</item>
+        <item>Blühstreifen einjährig ohne Leguminosen</item>
+        <item>Blühstreifen mehrjährig ab. 2. Standjahr mit Leguminosen</item>
+        <item>Blühstreifen mehrjährig ab. 2. Standjahr ohne Leguminosen</item>
+        <item>Bohnenkraut</item>
+        <item>Borretsch</item>
+        <item>Brache Begrün. mit Leguminosen ab Fühj.</item>
+        <item>Brache Begrün. mit Leguminosen ab Herbst</item>
+        <item>Brache Begrün. ohne Leguminosen ab Frühj.</item>
+        <item>Brache Begrün. ohne Leguminosen ab Herbst</item>
+        <item>Braugerste 10% RP</item>
+        <item>Braugerste 11% RP</item>
+        <item>Brennnessel (Fasernutzung)</item>
+        <item>Brokkoli</item>
+        <item>Buchweizen</item>
+        <item>Buchweizen Ganzpflanze Sommer</item>
+        <item>Buschbohne</item>
+        <item>Chicoreerüben</item>
+        <item>Chinakohl</item>
+        <item>Corn-Cob-Mix</item>
+        <item>Dauerbrache</item>
+        <item>Dill, Frischmarkt</item>
+        <item>Dill, Industrieware</item>
+        <item>Dinkel, Sommer-</item>
+        <item>Dinkel, Winter-</item>
+        <item>Engelwurzen (Arznei-Engelwurz, Echter Engelwurz)</item>
+        <item>Enzian</item>
+        <item>Erbsen/Bohnengemenge 50:50</item>
+        <item>Erdbeeren, Frühjahr</item>
+        <item>Erdbeeren, nach Ernte</item>
+        <item>Erdbeeren, Pflanzung</item>
+        <item>Erdbeeren, Vermehrung</item>
+        <item>Esparsette Ganzpflanze</item>
+        <item>Faserhanf Ganzpflanze</item>
+        <item>Feldsalat</item>
+        <item>Feldsalat, Großblättrig</item>
+        <item>Flachs (Faserlein) Ganzpflanze</item>
+        <item>Frauenmantel</item>
+        <item>Frühkartoffeln</item>
+        <item>Futtererbse Ganzpflanze</item>
+        <item>Futterkohl Ganzpflanze-Sommer</item>
+        <item>Futterraps Ganzpflanze-Sommer</item>
+        <item>Futterrübsen Ganzpflanze-Sommer</item>
+        <item>Gehaltsrüben</item>
+        <item>Geißraute</item>
+        <item>Gemenge >50% Leguminosenanteil, Ganzpflanze-Sommer</item>
+        <item>Gemenge kleiner 50% Leguminosenanteil, Ganzpflanze-Sommer</item>
+        <item>Gemenge Silomais/Leguminosen (32 % TS) (>50% Mais)</item>
+        <item>Gemenge Silomais/Leguminosen (35 % TS) (>50% Mais)</item>
+        <item>Gemenge Silomais/Nichtleguminosen (32 % TS) (>50% Mais)</item>
+        <item>Gemenge Silomais/Nichtleguminosen (35 % TS) (>50% Mais)</item>
+        <item>Gemüseerbse</item>
+        <item>Getreide/Leguminosen-Gemenge</item>
+        <item>Getreidegemenge-Sommer</item>
+        <item>Getreidegemenge-Winter</item>
+        <item>GPS-Wintergetreide Gerste</item>
+        <item>GPS-Wintergetreide Roggen</item>
+        <item>GPS-Wintergetreide Triticale</item>
+        <item>GPS-Wintergetreide Weizen</item>
+        <item>Grasvermehrung (Samenschnitt)</item>
+        <item>Gründüngung (mit Leguminosen) im Hauptfruchtanbau</item>
+        <item>Gründüngung (Nicht-Leguminose) im Hauptfruchtanbau</item>
+        <item>Grünkohl</item>
+        <item>Grünkohl, Hd. Ernte</item>
+        <item>Grünl. 1 Nutz./J 40dt TM</item>
+        <item>Grünl. 2 Nutz./J 55dt TM</item>
+        <item>Grünl. 3 Nutz./J 80dt TM</item>
+        <item>Grünl. 4 Nutz./J 90dt TM</item>
+        <item>Grünl. 5 Nutz./J 110dt TM</item>
+        <item>Grünl. 6 Nutz./J 120dt TM</item>
+        <item>Grünland nur Beweidung ohne org. Düngung (55 dt/ha TM)</item>
+        <item>Grünroggen Ganzpflanze-Sommer</item>
+        <item>Gurke, Einleger. Gepflanzt</item>
+        <item>Hafer, 11% RP</item>
+        <item>Hafer, 12% RP</item>
+        <item>Hanf Körner</item>
+        <item>Hartweizen (Durum), Sommer-</item>
+        <item>Hartweizen (Durum), Winter-</item>
+        <item>Hybridsommerrapsvermehrung</item>
+        <item>Industriekartoffeln</item>
+        <item>Kamillen (Echte Kamille)</item>
+        <item>Kartoffeln</item>
+        <item>Kenaf Ganzpflanze</item>
+        <item>Kichererbsen</item>
+        <item>Klee-, Luzernevermehrung (Samenschnitt)</item>
+        <item>Kleegras</item>
+        <item>Kleegras (Grasanteil >50%, 3-4 Schnittre/Jahr) TM</item>
+        <item>Kleegras (Grasanteil kleiner = 50%, 3-4 Schnittre/Jahr) TM</item>
+        <item>Knoblauchzehe, trocken</item>
+        <item>Knollenfenchel</item>
+        <item>Kohl-/Steckrübe</item>
+        <item>Kohlrabi</item>
+        <item>Kohlrübe (Gemüseanbau)</item>
+        <item>Koriander</item>
+        <item>Krambe (Ölkrambe)</item>
+        <item>Kurzumtriebsplantage</item>
+        <item>Küchenkräuter</item>
+        <item>Kürbis</item>
+        <item>Körnermais 10% RP</item>
+        <item>Körnermais 11% RP</item>
+        <item>Landsberger Gemenge-Sommer</item>
+        <item>Lavendel (Echter Lavendel, Speik-Lavendel, Hybrid-Lavendel)</item>
+        <item>Leindotter</item>
+        <item>Liebstöckel/Maggikraut</item>
+        <item>Linsen</item>
+        <item>Lupine blau 33% RP</item>
+        <item>Lupine Ganzpflanze</item>
+        <item>Luzerne</item>
+        <item>Luzernegras</item>
+        <item>Luzernegras (Grasanteil >50%, 3-4 Schnittre/Jahr) TM</item>
+        <item>Luzernegras (Grasanteil kleiner = 50%, 3-4 Schnittre/Jahr) TM</item>
+        <item>Löwenzahn</item>
+        <item>Mairüben (mit Laub)</item>
+        <item>Malve (wilde Malve)</item>
+        <item>Mangold</item>
+        <item>Mariendisteln</item>
+        <item>Massenrüben</item>
+        <item>Meerrettich</item>
+        <item>Melde</item>
+        <item>Melisse (Zitronenmelisse)</item>
+        <item>Miscanthus Ganzpflanze</item>
+        <item>Mohn (Schlafmohn, Backmohn)</item>
+        <item>Mähweiden, 20% Weideanteil</item>
+        <item>Mähweiden, 40% Weideanteil</item>
+        <item>Mähweiden, 60% Weideanteil</item>
+        <item>Mähweiden, 80% Weideanteil</item>
+        <item>Möhre, Bund-</item>
+        <item>Möhren, Industrie</item>
+        <item>Möhren, Wasch-</item>
+        <item>Paprika</item>
+        <item>Pastinake</item>
+        <item>Petersilie, 1-Schnittnutzung</item>
+        <item>Petersilie, Blatt-, bis 1. Schnitt</item>
+        <item>Petersilie, Blatt-, letzter Schnitt</item>
+        <item>Petersilie, nach einem Schnitt</item>
+        <item>Petersilie, Wurzel-</item>
+        <item>Pfefferminze (nicht blühendes Kraut)</item>
+        <item>Pflanzkartoffel</item>
+        <item>Phacelia Ganzpflanze-Sommer</item>
+        <item>Phaceliavermehrung</item>
+        <item>Porree</item>
+        <item>Radies</item>
+        <item>Raps 23% RP</item>
+        <item>Reismelde Quinoa</item>
+        <item>Rettich, Bund-</item>
+        <item>Rettich, deutsch</item>
+        <item>Rettich, japanisch</item>
+        <item>Rhabarber 1. Standjahr</item>
+        <item>Rhabarber 2. Standjahr Austrieb</item>
+        <item>Rhabarber 2. Standjahr nach Ernte</item>
+        <item>Rhabarber 3. Standjahr Austrieb</item>
+        <item>Rhabarber 3. Standjahr nach Ernte</item>
+        <item>Rhabarber 4. Standjahr Austrieb</item>
+        <item>Rhabarber 4. Standjahr nach Ernte</item>
+        <item>Ringelblume (blühendes Kraut)</item>
+        <item>Ringelblume (Blüte)</item>
+        <item>Rispenhirse</item>
+        <item>Rohrglanzgras (Energienutzung) 20% TS</item>
+        <item>Rosmarin</item>
+        <item>Rote Rüben</item>
+        <item>Rote Rüben, Baby Beet</item>
+        <item>Rote Rüben, Bund-</item>
+        <item>Rotklee/ Luzerne in Reinkultur (TM)</item>
+        <item>Rotkohl</item>
+        <item>Rucola (Salat), Feinware</item>
+        <item>Rucola (Salat), Grobware</item>
+        <item>Rübensamenvermehrung</item>
+        <item>Salat, Baby Leaf Lettuce</item>
+        <item>Salat, Blatt-, grün</item>
+        <item>Salat, Blatt-, rot</item>
+        <item>Salat, Eis-</item>
+        <item>Salat, Endivien, Frisée</item>
+        <item>Salat, Endivien, glattblättrig</item>
+        <item>Salat, Kopf-</item>
+        <item>Salat, Radicchio</item>
+        <item>Salat, Romana</item>
+        <item>Salat, Romana, Herz, Herb</item>
+        <item>Salat, Romana, Herzen</item>
+        <item>Salat, verschiedene Arten</item>
+        <item>Salbei (Küchen-/Heilsalbei)</item>
+        <item>Schafgarbe (Gelbe Scharfgarbe)</item>
+        <item>Schnittlauch, f. Treiberei</item>
+        <item>Schnittlauch, gesät bis 1. Schnitt</item>
+        <item>Schnittlauch, gesät, 1-Schnittnutzung</item>
+        <item>Schnittlauch, letzter Schnitt</item>
+        <item>Schnittlauch, nach einem Schnitt</item>
+        <item>Schwarzwurzel</item>
+        <item>Sellerie, Bund-</item>
+        <item>Sellerie, Knollen-</item>
+        <item>Sellerie, Stangen-</item>
+        <item>Senf</item>
+        <item>Senf Ganzpflanze-Sommer</item>
+        <item>Serradella Ganzpflanze</item>
+        <item>Serradellavermehrung</item>
+        <item>Sida-Virginiamalve</item>
+        <item>Silomais 28% TS</item>
+        <item>Silomais 32% TS</item>
+        <item>Silomais 35% TS</item>
+        <item>Silphie</item>
+        <item>Sojabohne 32% RP</item>
+        <item>Sommer-Ackerbohne</item>
+        <item>Sommer-Emmer</item>
+        <item>Sommer-Erbse</item>
+        <item>Sommerfuttergerste 12% RP</item>
+        <item>Sommerfuttergerste 13% RP</item>
+        <item>Sommergetreide Ganzpflanze</item>
+        <item>Sommerraps</item>
+        <item>Sommerroggen</item>
+        <item>Sommerrübsen</item>
+        <item>Sommerrübsen Ganzpflanze</item>
+        <item>Sommertriticale</item>
+        <item>Sommerweizen</item>
+        <item>Sonnenblume Ganzpflanze-Sommer</item>
+        <item>Sonnenblumen 20% RP</item>
+        <item>sonstige einjährige Körnerleguminosen Ganzpflanze</item>
+        <item>Spargel 1. Standjahr</item>
+        <item>Spargel 2. Standjahr</item>
+        <item>Spargel 3. Standjahr</item>
+        <item>Spargel ab 4. Standjahr</item>
+        <item>Speisekartoffeln</item>
+        <item>Spinat, Blatt-, FM, Baby</item>
+        <item>Spinat, Blatt-, Standard</item>
+        <item>Spinat, Hack-, Standard</item>
+        <item>Stangenbohne</item>
+        <item>Staudenknöterich Ganzpflanze</item>
+        <item>Stilllegung 20 Jahre</item>
+        <item>Stärkekartoffeln</item>
+        <item>Sudangras Ganzpflanze</item>
+        <item>Süßkartoffel</item>
+        <item>Szarvarsi-/Riesenweizengras Ganzpflanze-Sommer</item>
+        <item>Tabak</item>
+        <item>Teltower Rübchen (Herbstanbau)</item>
+        <item>Topinambur</item>
+        <item>Topinambur (Kraut)</item>
+        <item>Verbenen (Echtes Eisenkraut)</item>
+        <item>Weide extensiv</item>
+        <item>Weide intensiv</item>
+        <item>Weißkohl, Frischm, langs</item>
+        <item>Weißkohl, Frischm, mittel</item>
+        <item>Weißkohl, Frischm, schnell</item>
+        <item>Weißkohl, Ind., mittel</item>
+        <item>Weißkohl, Ind., schnell</item>
+        <item>Wicke</item>
+        <item>Wicke Ganzpflanze</item>
+        <item>Wickroggen Ganzpflanze-Sommer</item>
+        <item>Winter-Ackerbohne</item>
+        <item>Winter-Erbse</item>
+        <item>Winterbraugerste 11 % RP</item>
+        <item>Winteremmer/ -einkorn</item>
+        <item>Wintergerste, 12% RP</item>
+        <item>Wintergerste, 13% RP</item>
+        <item>Wintergetreide Ganzpflanze (Gerste) / Leguminosen Gemenge (>50% Getreide)</item>
+        <item>Wintergetreide Ganzpflanze (Roggen) / Leguminosen Gemenge (>50% Getreide)</item>
+        <item>Wintergetreide Ganzpflanze (Triticale) / Leguminosen Gemenge (>50% Getreide)</item>
+        <item>Wintergetreide Ganzpflanze (Weizen) / Leguminosen Gemenge (>50% Getreide)</item>
+        <item>Winterhafer</item>
+        <item>Winterrapsvermehrung</item>
+        <item>Winterroggen, 11% RP</item>
+        <item>Winterroggen, 12% RP</item>
+        <item>Winterrübsen</item>
+        <item>Winterrübsen Ganzpflanze</item>
+        <item>Winterrübsenvermehrung</item>
+        <item>Wintertriticale, 12% RP</item>
+        <item>Wintertriticale, 13% RP</item>
+        <item>Winterweizen A/B 13-14% RP</item>
+        <item>Winterweizen C, bis 12% RP</item>
+        <item>Winterweizen E > 16% RP</item>
+        <item>Winterweizen E, 14-16% RP</item>
+        <item>Winterweizen, A/B 12-13% RP</item>
+        <item>Wirsing</item>
+        <item>Zucchini</item>
+        <item>Zuckerhirse (Sorghum) Ganzpflanze</item>
+        <item>Zuckerhut (Salat)</item>
+        <item>Zuckermais</item>
+        <item>Zuckermelone</item>
+        <item>Zuckerrüben</item>
+        <item>Zwiebel, Bund-</item>
+        <item>Zwiebeln, Trocken-</item>
+        <item>Öllein</item>
+        <item>Ölrettich</item>
     </string-array>
 
     <string-array name="secondary_crop_array">
