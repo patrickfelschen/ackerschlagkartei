@@ -2,6 +2,7 @@ package de.prog3.ackerschlagkartei.models;
 
 public class GroundModel {
     private String bkr;
+    private String date;
     private String groundType;
     private String humus;
     private float magnesium;
@@ -12,7 +13,7 @@ public class GroundModel {
     public GroundModel() {
     }
 
-    public GroundModel(String bkr, String groundType, String humus, float magnesium, float phValue, float phosphorus, float potassium) {
+    public GroundModel(String bkr, String date, String groundType, String humus, float magnesium, float phValue, float phosphorus, float potassium) {
         this.bkr = bkr;
         this.groundType = groundType;
         this.humus = humus;
@@ -20,6 +21,7 @@ public class GroundModel {
         this.phValue = phValue;
         this.phosphorus = phosphorus;
         this.potassium = potassium;
+        this.date = date;
     }
 
     public String getBkr() {
@@ -49,4 +51,6 @@ public class GroundModel {
     public float getPotassium() {
         return potassium;
     }
+
+    public String getDate() { return date; }
 }
