@@ -44,8 +44,43 @@
     <string name="dd_previous_crop">Vorfrucht</string>
     <string name="dd_primary_crop">Hauptfrucht</string>
     <string name="dd_secondary_crop">Nebenfrucht</string>
+    <string name="dd_next_crop">Folgefrucht</string>
     <string name="dd_zwf_group">ZWF-Gruppe</string>
-    <string name="dd_zwf_culture">ZWF-Kultur</string>
+
+    <string-array name="previous_primary_next_crop_array">
+        <item>Ackerbohne Genzpflanze</item>
+        <item>Ackergras 3–4 Schnitte/Jahr (TM)</item>
+        <item>Ackergras 5 Schnitte (TM)</item>
+    </string-array>
+
+    <string-array name="secondary_crop_array">
+        <item>Ackergras 1–2 Nutzungen</item>
+        <item>Ackergras, Herbstsaat (TM)</item>
+        <item>Erdbeeren, nach Ernte</item>
+        <item>Faserhanf, Herbstansaat Ganzpflanze</item>
+        <item>Futterzwischenfrucht Zweitfrucht > 75% Leguminosen</item>
+        <item>Futterzwischenfrucht Zweitfrucht bis 30% Leguminosen</item>
+        <item>Futterzwischenfrucht Zweitfrucht bis 31–75% Leguminosen</item>
+        <item>Futterzwischenfrucht Zweitfrucht ohne Leguminosen</item>
+        <item>Grün-/Futterroggen (Zweitfrucht)</item>
+        <item>Mais als Zweitfrucht</item>
+        <item>Sommergerste Zweitfrucht</item>
+        <item>Sommergetreide Zweitfrucht GPS</item>
+        <item>Sonnenblume GPS 18% TS (Zweitfrucht)</item>
+        <item>Sudangras als Zweitfrucht</item>
+        <item>Zuckerhirse GP 20% TS (Zweitfrucht)</item>
+    </string-array>
+
+    <string-array name="zwf_group_array">
+        <item>andere Zwischenfrüchte mit Nutzung</item>
+        <item>Futterleguminosen mit Nutzung</item>
+        <item>Leguminose, abgefroren</item>
+        <item>Leguminosen, nicht abgefroren - im Frühjahr eingearbeitet</item>
+        <item>Leguminosen, nicht abgefroren - im Herbst eingearbeitet</item>
+        <item>Nicht Leguminosen, abgefroren</item>
+        <item>Nicht Leguminosen, nicht abgefroren - im Frühjahr eingearbeitet</item>
+        <item>Nicht Leguminosen, nicht abgefroren - im Herbst eingearbeitet</item>
+    </string-array>
 
     <!-- FieldGroundFragment -->
     <string name="dd_ground">Boden</string>

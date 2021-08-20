@@ -4,68 +4,105 @@
     <string name="app_name">Ackerschlagkartei</string>
 
     <!-- SignInActivity -->
-    <string name="et_email_hint">E-Mail Adresse</string>
-    <string name="et_password_hint">Passwort</string>
-    <string name="btn_sign_in_text">Anmelden</string>
-    <string name="btn_open_password_reset_text">Passwort vergessen?</string>
-    <string name="lb_divider_text">Oder</string>
-    <string name="btn_open_sign_up_text">Neues Konto erstellen</string>
+    <string name="et_email_hint">E-Mail</string>
+    <string name="et_password_hint">Password</string>
+    <string name="btn_sign_in_text">Sign in</string>
+    <string name="btn_open_password_reset_text">Forgot Password?</string>
+    <string name="lb_divider_text">OR</string>
+    <string name="btn_open_sign_up_text">Sign up</string>
 
     <!-- FieldsOverviewActivity -->
-    <string name="appbar_title">Felderübersicht</string>
-    <string name="menu_change_view">Ansicht wechseln</string>
-    <string name="menu_sign_out">Abmelden</string>
-    <string name="menu_search">Suchen</string>
-    <string name="menu_add_field">Hinzufügen</string>
+    <string name="appbar_title">Fieldoverview</string>
+    <string name="menu_change_view">Change view</string>
+    <string name="menu_sign_out">Sign out</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_add_field">Add</string>
 
     <!-- ForgotPasswordActivity -->
-    <string name="et_forgot_password_hint">Passwort vergessen</string>
-    <string name="btn_return_to_sign_in">Zurück zur Anmeldung</string>
+    <string name="et_forgot_password_hint">Forgot password</string>
+    <string name="btn_return_to_sign_in">Return to Login</string>
 
     <!-- SignUpActivity -->
-    <string name="et_sign_up_password_confirm">Passwort wiederholen</string>
-    <string name="btn_sign_up_text">Konto erstellen</string>
+    <string name="et_sign_up_password_confirm">Confirm</string>
+    <string name="btn_sign_up_text">Create account</string>
+
+    <!-- FieldsOverviewActivity -->
 
     <!-- FieldDetailsActivity -->
-    <string name="nav_cultivation">Anbau</string>
-    <string name="nav_ground">Boden</string>
-    <string name="nav_actions">Maßnahmen</string>
+    <string name="nav_cultivation">Cultivation</string>
+    <string name="nav_ground">Ground</string>
+    <string name="nav_actions">Actions</string>
     <string name="nav_info">Info</string>
     <string name="nav_images">Album</string>
 
     <!-- AddFieldActivity -->
-    <string name="add_field_title">Kartenpunkt wählen</string>
-    <string name="add_field_description_hint">Bezeichnung</string>
-    <string name="add_field_confirm_toolbar_title">Hinzufügen</string>
-    <string name="add_field_reset_title">Zurücksetzen</string>
+    <string name="add_field_title">Choose map points</string>
+    <string name="add_field_description_hint">Description</string>
+    <string name="add_field_confirm_toolbar_title">Create</string>
+    <string name="add_field_reset_title">Reset</string>
 
     <!-- FieldCultivationFragment -->
-    <string name="dd_previous_crop">Vorfrucht</string>
-    <string name="dd_primary_crop">Hauptfrucht</string>
-    <string name="dd_secondary_crop">Nebenfrucht</string>
-    <string name="dd_zwf_group">ZWF-Gruppe</string>
-    <string name="dd_zwf_culture">ZWF-Kultur</string>
+    <string name="dd_previous_crop">Previous Crop</string>
+    <string name="dd_primary_crop">Primary Crop</string>
+    <string name="dd_secondary_crop">Secondary Crop</string>
+    <string name="dd_next_crop">Next Crop</string>
+    <string name="dd_zwf_group">ZWF-Group</string>
+
+    <string-array name="previous_primary_next_crop_array">
+        <item>Ackerbohne Genzpflanze</item>
+        <item>Ackergras 3–4 Schnitte/Jahr (TM)</item>
+        <item>Ackergras 5 Schnitte (TM)</item>
+    </string-array>
+
+    <string-array name="secondary_crop_array">
+        <item>Ackergras 1–2 Nutzungen</item>
+        <item>Ackergras, Herbstsaat (TM)</item>
+        <item>Erdbeeren, nach Ernte</item>
+        <item>Faserhanf, Herbstansaat Ganzpflanze</item>
+        <item>Futterzwischenfrucht Zweitfrucht > 75% Leguminosen</item>
+        <item>Futterzwischenfrucht Zweitfrucht bis 30% Leguminosen</item>
+        <item>Futterzwischenfrucht Zweitfrucht bis 31–75% Leguminosen</item>
+        <item>Futterzwischenfrucht Zweitfrucht ohne Leguminosen</item>
+        <item>Grün-/Futterroggen (Zweitfrucht)</item>
+        <item>Mais als Zweitfrucht</item>
+        <item>Sommergerste Zweitfrucht</item>
+        <item>Sommergetreide Zweitfrucht GPS</item>
+        <item>Sonnenblume GPS 18% TS (Zweitfrucht)</item>
+        <item>Sudangras als Zweitfrucht</item>
+        <item>Zuckerhirse GP 20% TS (Zweitfrucht)</item>
+    </string-array>
+
+    <string-array name="zwf_group_array">
+        <item>andere Zwischenfrüchte mit Nutzung</item>
+        <item>Futterleguminosen mit Nutzung</item>
+        <item>Leguminose, abgefroren</item>
+        <item>Leguminosen, nicht abgefroren - im Frühjahr eingearbeitet</item>
+        <item>Leguminosen, nicht abgefroren - im Herbst eingearbeitet</item>
+        <item>Nicht Leguminosen, abgefroren</item>
+        <item>Nicht Leguminosen, nicht abgefroren - im Frühjahr eingearbeitet</item>
+        <item>Nicht Leguminosen, nicht abgefroren - im Herbst eingearbeitet</item>
+    </string-array>
 
     <!-- FieldGroundFragment -->
-    <string name="dd_ground">Boden</string>
+    <string name="dd_ground">Ground</string>
     <string name="dd_bkr">BKR</string>
     <string name="et_humus">Humus</string>
-    <string name="et_ph_value">PH-Wert</string>
-    <string name="et_phosphorus">Phosphor</string>
-    <string name="et_potassium">Kalium</string>
+    <string name="et_ph_value">PH-Value</string>
+    <string name="et_phosphorus">Phosphorus</string>
+    <string name="et_potassium">Potassium</string>
     <string name="et_magnesium">Magnesium</string>
-    <string name="et_analysis_date">Analysedatum</string>
+    <string name="et_analysis_date">Analysis Date</string>
 
     <!-- FieldActionsFragment -->
-    <string name="soil_cultivation">Bodenbearbeitung</string>
-    <string name="sowing">Aussaat</string>
-    <string name="fertilization">Düngung</string>
-    <string name="plant_protection">Pflanzenschutz</string>
-    <string name="harvest">Ernte</string>
-    <string name="action_category">Kategorie</string>
-    <string name="action">Maßnahme</string>
-    <string name="add_action_button">Maßnahme hinzufügen</string>
-    <string name="cancel_action_button">Abbrechen</string>
+    <string name="soil_cultivation">Soil Cultivation</string>
+    <string name="sowing">Sowing</string>
+    <string name="fertilization">Fertilization</string>
+    <string name="plant_protection">Plant Protection</string>
+    <string name="harvest">Harvest</string>
+    <string name="action_category">Category</string>
+    <string name="action">Action</string>
+    <string name="add_action_button">Add Action</string>
+    <string name="cancel_action_button">Cancel</string>
 
     <string-array name="soil_cultivation">
         <item>Scheibenegge</item>
@@ -90,12 +127,12 @@
     </string-array>
 
     <!-- FieldInfoFragment -->
-    <string name="et_description">Bezeichnung</string>
-    <string name="et_area">Fläche</string>
+    <string name="et_description">Description</string>
+    <string name="et_area">Area</string>
     <string name="et_area_suffix">ha</string>
-    <string name="cb_water_protection_area">Wasserschutzgebiet</string>
-    <string name="cb_red_area">Rotes Gebiet</string>
-    <string name="cb_phosphate_sensitive_area">Posphatsensibles Gebiet</string>
-    <string name="btn_delete_field">Feld entfernen</string>
+    <string name="cb_water_protection_area">Water Protection Area</string>
+    <string name="cb_red_area">Red Area</string>
+    <string name="cb_phosphate_sensitive_area">Phosphate Sensitive Area</string>
 
+    <string name="btn_delete_field">Delete field</string>
 </resources>

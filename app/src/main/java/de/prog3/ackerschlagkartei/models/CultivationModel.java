@@ -38,4 +38,5 @@ public class CultivationModel {
     public String getZwfCulture() {
         return zwfCulture;
     }
+
 }

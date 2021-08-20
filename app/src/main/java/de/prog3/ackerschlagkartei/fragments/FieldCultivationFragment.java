@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,11 @@ public class FieldCultivationFragment extends Fragment {
     private AutoCompleteTextView ddPrimaryCrop;
     private AutoCompleteTextView ddSecondaryCrop;
     private AutoCompleteTextView ddZwfGroup;
-    private AutoCompleteTextView ddZwfCulture;
+    private AutoCompleteTextView ddNextCrop;
+
+    private ArrayAdapter<CharSequence> cropAdapter;
+    private ArrayAdapter<CharSequence> secondaryCropAdapter;
+    private ArrayAdapter<CharSequence> zwfGroupAdapter;
 
     public FieldCultivationFragment() {
         // Required empty public constructor
@@ -34,11 +39,29 @@ public class FieldCultivationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_field_cultivation, container, false);
 
+        this.cropAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.previous_primary_next_crop_array,
+                R.layout.support_simple_spinner_dropdown_item);
+
+        this.secondaryCropAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.secondary_crop_array,
+                R.layout.support_simple_spinner_dropdown_item);
+
+        this.zwfGroupAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.zwf_group_array,
+                R.layout.support_simple_spinner_dropdown_item);
+
         this.ddPreviousCrop = view.findViewById(R.id.dd_previous_crop);
         this.ddPrimaryCrop = view.findViewById(R.id.dd_primary_crop);
         this.ddSecondaryCrop = view.findViewById(R.id.dd_secondary_crop);
+        this.ddNextCrop = view.findViewById(R.id.dd_next_crop);
         this.ddZwfGroup = view.findViewById(R.id.dd_zwf_group);
-        this.ddZwfCulture = view.findViewById(R.id.dd_zwf_culture);
+
+        this.ddPreviousCrop.setAdapter(this.cropAdapter);
+        this.ddPrimaryCrop.setAdapter(this.cropAdapter);
+        this.ddSecondaryCrop.setAdapter(this.secondaryCropAdapter);
+        this.ddNextCrop.setAdapter(this.cropAdapter);
+        this.ddZwfGroup.setAdapter(this.zwfGroupAdapter);
 
         return view;
     }
@@ -53,7 +76,7 @@ public class FieldCultivationFragment extends Fragment {
             ddPrimaryCrop.setText(fieldData.getCultivation().getPrimaryCrop());
             ddSecondaryCrop.setText(fieldData.getCultivation().getSecondaryCrop());
             ddZwfGroup.setText(fieldData.getCultivation().getZwfGroup());
-            ddZwfCulture.setText(fieldData.getCultivation().getZwfCulture());
+            ddNextCrop.setText(fieldData.getCultivation().getZwfCulture());
         });
     }
 }
