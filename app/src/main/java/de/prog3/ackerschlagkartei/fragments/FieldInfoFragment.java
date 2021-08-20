@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -24,9 +25,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.models.FieldModel;
@@ -41,11 +40,9 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
     private EditText etFieldInfoDescription;
     private EditText etFieldInfoArea;
-    private CheckBox cbWpa;
+    private CheckBox cbWaterProtectionArea;
     private CheckBox cbRedArea;
-    private CheckBox cbPsa;
-
-    private Map<String, Object> infoChanges;
+    private CheckBox cbPhosphateSensitiveArea;
 
     private FieldModel currentFieldModel;
 
@@ -59,8 +56,6 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_field_info, container, false);
 
-        this.infoChanges = new HashMap<>();
-
         this.mapView = v.findViewById(R.id.mv_field_info);
         this.mapView.onCreate(savedInstanceState);
         this.deleteFieldButton = v.findViewById(R.id.btn_delete_field);
@@ -68,9 +63,9 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
         this.etFieldInfoDescription = v.findViewById(R.id.et_description);
         this.etFieldInfoArea = v.findViewById(R.id.et_area);
-        this.cbWpa = v.findViewById(R.id.cb_water_protection_area);
+        this.cbWaterProtectionArea = v.findViewById(R.id.cb_water_protection_area);
         this.cbRedArea = v.findViewById(R.id.cb_red_area);
-        this.cbPsa = v.findViewById(R.id.cb_phosphate_sensitive_area);
+        this.cbPhosphateSensitiveArea = v.findViewById(R.id.cb_phosphate_sensitive_area);
 
         this.mapView.getMapAsync(this);
 
@@ -95,17 +90,59 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             etFieldInfoDescription.setText(fieldData.getInfo().getDescription());
             etFieldInfoArea.setText(String.valueOf(fieldData.getInfo().getArea()));
 
-            cbWpa.setChecked(fieldData.getInfo().isWaterProtectionArea());
+            cbWaterProtectionArea.setChecked(fieldData.getInfo().isWaterProtectionArea());
             cbRedArea.setChecked(fieldData.getInfo().isRedArea());
-            cbPsa.setChecked(fieldData.getInfo().isPhosphateSensitiveArea());
-
-            infoChanges.put("area", fieldData.getInfo().getArea());
-            infoChanges.put("description", fieldData.getInfo().getDescription());
-            infoChanges.put("waterProtectionArea", fieldData.getInfo().isWaterProtectionArea());
-            infoChanges.put("redArea", fieldData.getInfo().isRedArea());
-            infoChanges.put("phosphateSensitiveArea", fieldData.getInfo().isPhosphateSensitiveArea());
+            cbPhosphateSensitiveArea.setChecked(fieldData.getInfo().isPhosphateSensitiveArea());
 
             this.createFieldPolygon();
+
+            this.etFieldInfoDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        String changes = etFieldInfoDescription.getText().toString();
+                        fieldDetailsViewModel.updateField("info.description", changes);
+                        v.clearFocus();
+                        etFieldInfoDescription.clearFocus();
+                    }
+                }
+            });
+
+            this.etFieldInfoArea.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
+                        fieldDetailsViewModel.updateField("info.area", changes);
+                        v.clearFocus();
+                        etFieldInfoArea.clearFocus();
+                    }
+                }
+            });
+
+            this.cbWaterProtectionArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    fieldDetailsViewModel.updateField("info.waterProtectionArea", isChecked);
+                    cbWaterProtectionArea.clearFocus();
+                }
+            });
+
+            this.cbRedArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    fieldDetailsViewModel.updateField("info.redArea", isChecked);
+                    cbRedArea.clearFocus();
+                }
+            });
+
+            this.cbPhosphateSensitiveArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    fieldDetailsViewModel.updateField("info.phosphateSensitiveArea", isChecked);
+                    cbPhosphateSensitiveArea.clearFocus();
+                }
+            });
         });
     }
 

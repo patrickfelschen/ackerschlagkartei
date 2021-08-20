@@ -21,7 +21,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
@@ -127,8 +126,8 @@ public class FirestoreRepository {
         });
     }
 
-    public void updateFieldModel(String uid, Map<String, Object> changes, String updateField) {
-        this.fieldCollection.document(uid).update(updateField, changes).addOnSuccessListener(new OnSuccessListener<Void>() {
+    public void updateFieldModel(String uid, String field, Object changes) {
+        this.fieldCollection.document(uid).update(field, changes).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
 

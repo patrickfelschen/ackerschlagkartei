@@ -44,7 +44,6 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -78,7 +77,6 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.createFieldPolygons();
 
     }
-
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -114,9 +112,11 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
             List<LatLng> latLngs = new ArrayList<>();
 
             for (GeoPoint point : field.getInfo().getPositions()) {
-                LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
-                latLngs.add(latLng);
-                latLngBounds.include(latLng);
+                if (!field.getInfo().getPositions().isEmpty()) {
+                    LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
+                    latLngs.add(latLng);
+                    latLngBounds.include(latLng);
+                }
             }
 
             Polygon polygon = googleMap.addPolygon(new PolygonOptions()

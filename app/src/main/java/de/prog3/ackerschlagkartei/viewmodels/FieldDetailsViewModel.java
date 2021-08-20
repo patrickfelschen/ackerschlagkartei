@@ -7,8 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.Map;
-
 import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.repositories.FirestoreRepository;
 
@@ -40,19 +38,8 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         return this.firestoreRepository.getFieldMutableLiveData(this.fieldModelUid.getValue());
     }
 
-
-    public void updateField(@NonNull FieldModel fieldModel) {
-        //this.firestoreRepository.updateField(fieldModel);
-    }
-
-    public void updateCultivation(Map<String, Object> changes) {
-        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), changes, "cultivation");
-
-    }
-
-    public void updateGround(Map<String, Object> changes) {
-        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), changes, "ground");
-
+    public void updateField(String field, Object changes) {
+        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), field, changes);
     }
 
     public void deleteField(@NonNull FieldModel fieldModel) {

@@ -16,9 +16,6 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
@@ -36,12 +33,8 @@ public class FieldGroundFragment extends Fragment {
     private ArrayAdapter<CharSequence> groundTypeAdapter;
     private ArrayAdapter<CharSequence> bkrAdapter;
 
-    private Map<String, Object> groundChanges;
-
-
     public FieldGroundFragment() {
         // Required empty public constructor
-
     }
 
     @Override
@@ -55,8 +48,6 @@ public class FieldGroundFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_field_ground, container, false);
-
-        this.groundChanges = new HashMap<>();
 
         this.groundTypeAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.ground_type_array,
@@ -95,26 +86,14 @@ public class FieldGroundFragment extends Fragment {
             etPotassium.setText(String.valueOf(fieldData.getGround().getPotassium()));
             etMagnesium.setText(String.valueOf(fieldData.getGround().getMagnesium()));
             date.setText(fieldData.getGround().getDate());
-            setDatePicker();
 
-            groundChanges.put("groundType", fieldData.getGround().getGroundType());
-            groundChanges.put("bkr", fieldData.getGround().getBkr());
-            groundChanges.put("humus", fieldData.getGround().getHumus());
-            groundChanges.put("phValue", fieldData.getGround().getPhValue());
-            groundChanges.put("phosphorus", fieldData.getGround().getPhosphorus());
-            groundChanges.put("potassium", fieldData.getGround().getPotassium());
-            groundChanges.put("magnesium", fieldData.getGround().getMagnesium());
-            groundChanges.put("date", fieldData.getGround().getDate());
+            setDatePicker();
 
             this.ddGround.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String changes = groundTypeAdapter.getItem(position).toString();
-
-                    groundChanges.put("groundType", changes);
-
-                    fieldDetailsViewModel.updateGround(groundChanges);
-
+                    fieldDetailsViewModel.updateField("ground.groundType", changes);
                     view.clearFocus();
                     ddGround.clearFocus();
                 }
@@ -124,11 +103,7 @@ public class FieldGroundFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String changes = bkrAdapter.getItem(position).toString() ;
-
-                    groundChanges.put("bkr", changes);
-
-                    fieldDetailsViewModel.updateGround(groundChanges);
-
+                    fieldDetailsViewModel.updateField("ground.bkr", changes);
                     view.clearFocus();
                     ddBkr.clearFocus();
                 }
@@ -138,8 +113,8 @@ public class FieldGroundFragment extends Fragment {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus) {
-                        groundChanges.put("humus", Double.valueOf(etHumus.getText().toString()));
-                        fieldDetailsViewModel.updateGround(groundChanges);
+                        double changes = Double.parseDouble(etHumus.getText().toString());
+                        fieldDetailsViewModel.updateField("ground.humus", changes);
                         v.clearFocus();
                         ddBkr.clearFocus();
                     }
@@ -150,8 +125,8 @@ public class FieldGroundFragment extends Fragment {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus) {
-                        groundChanges.put("phValue", Double.valueOf(etPhValue.getText().toString()));
-                        fieldDetailsViewModel.updateGround(groundChanges);
+                        double changes = Double.parseDouble(etPhValue.getText().toString());
+                        fieldDetailsViewModel.updateField("ground.phValue", changes);
                         v.clearFocus();
                         etPhValue.clearFocus();
                     }
@@ -162,8 +137,8 @@ public class FieldGroundFragment extends Fragment {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus) {
-                        groundChanges.put("phosphorus", Double.valueOf(etPhosphorus.getText().toString()));
-                        fieldDetailsViewModel.updateGround(groundChanges);
+                        double changes = Double.parseDouble(etPhosphorus.getText().toString());
+                        fieldDetailsViewModel.updateField("ground.phosphorus", changes);
                         v.clearFocus();
                         etPhosphorus.clearFocus();
                     }
@@ -174,8 +149,8 @@ public class FieldGroundFragment extends Fragment {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus) {
-                        groundChanges.put("potassium", Double.valueOf(etPotassium.getText().toString()));
-                        fieldDetailsViewModel.updateGround(groundChanges);
+                        double changes = Double.parseDouble(etPotassium.getText().toString());
+                        fieldDetailsViewModel.updateField("ground.potassium", changes);
                         v.clearFocus();
                         etPotassium.clearFocus();
                     }
@@ -186,8 +161,8 @@ public class FieldGroundFragment extends Fragment {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus) {
-                        groundChanges.put("magnesium", Double.valueOf(etMagnesium.getText().toString()));
-                        fieldDetailsViewModel.updateGround(groundChanges);
+                        double changes = Double.parseDouble(etMagnesium.getText().toString());
+                        fieldDetailsViewModel.updateField("ground.magnesium", changes);
                         v.clearFocus();
                         etMagnesium.clearFocus();
                     }
@@ -202,10 +177,11 @@ public class FieldGroundFragment extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month+=1;
+                month += 1;
                 date.setText(year + "-" + month + "-" + dayOfMonth);
-                groundChanges.put("date", date.getText().toString());
-                fieldDetailsViewModel.updateGround(groundChanges);
+
+                String changes = date.getText().toString();
+                fieldDetailsViewModel.updateField("ground.date", changes);
                 view.clearFocus();
                 date.clearFocus();
             }
