@@ -434,6 +434,14 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="actions_array">
+        <item>Soil cultivation</item>
+        <item>Sowing</item>
+        <item>Fertilization</item>
+        <item>Plant protection</item>
+        <item>Harvest</item>
+    </string-array>
+
     <!-- FieldInfoFragment -->
     <string name="et_description">Description</string>
     <string name="et_area">Area</string>
