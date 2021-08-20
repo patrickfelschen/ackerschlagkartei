@@ -56,7 +56,6 @@
         <item>Aubergine</item>
         <item>Baldrian (Erntegut Wurzeln)</item>
         <item>Basilikum</item>
-        <item>Blumenkohl</item>
         <item>Blühstreifen Ansaatjahr mehrjährig mit Leguminosen</item>
         <item>Blühstreifen Ansaatjahr mehrjährig ohne Leguminosen</item>
         <item>Blühstreifen einjährig mit Leguminosen</item>
@@ -65,6 +64,7 @@
         <item>Blühstreifen einjährig ohne Leguminosen</item>
         <item>Blühstreifen mehrjährig ab. 2. Standjahr mit Leguminosen</item>
         <item>Blühstreifen mehrjährig ab. 2. Standjahr ohne Leguminosen</item>
+        <item>Blumenkohl</item>
         <item>Bohnenkraut</item>
         <item>Borretsch</item>
         <item>Brache Begrün. mit Leguminosen ab Fühj.</item>
@@ -155,24 +155,28 @@
         <item>Kohlrabi</item>
         <item>Kohlrübe (Gemüseanbau)</item>
         <item>Koriander</item>
-        <item>Krambe (Ölkrambe)</item>
-        <item>Kurzumtriebsplantage</item>
-        <item>Küchenkräuter</item>
-        <item>Kürbis</item>
         <item>Körnermais 10% RP</item>
         <item>Körnermais 11% RP</item>
+        <item>Krambe (Ölkrambe)</item>
+        <item>Küchenkräuter</item>
+        <item>Kürbis</item>
+        <item>Kurzumtriebsplantage</item>
         <item>Landsberger Gemenge-Sommer</item>
         <item>Lavendel (Echter Lavendel, Speik-Lavendel, Hybrid-Lavendel)</item>
         <item>Leindotter</item>
         <item>Liebstöckel/Maggikraut</item>
         <item>Linsen</item>
+        <item>Löwenzahn</item>
         <item>Lupine blau 33% RP</item>
         <item>Lupine Ganzpflanze</item>
         <item>Luzerne</item>
         <item>Luzernegras</item>
         <item>Luzernegras (Grasanteil >50%, 3-4 Schnittre/Jahr) TM</item>
         <item>Luzernegras (Grasanteil kleiner = 50%, 3-4 Schnittre/Jahr) TM</item>
-        <item>Löwenzahn</item>
+        <item>Mähweiden, 20% Weideanteil</item>
+        <item>Mähweiden, 40% Weideanteil</item>
+        <item>Mähweiden, 60% Weideanteil</item>
+        <item>Mähweiden, 80% Weideanteil</item>
         <item>Mairüben (mit Laub)</item>
         <item>Malve (wilde Malve)</item>
         <item>Mangold</item>
@@ -183,13 +187,12 @@
         <item>Melisse (Zitronenmelisse)</item>
         <item>Miscanthus Ganzpflanze</item>
         <item>Mohn (Schlafmohn, Backmohn)</item>
-        <item>Mähweiden, 20% Weideanteil</item>
-        <item>Mähweiden, 40% Weideanteil</item>
-        <item>Mähweiden, 60% Weideanteil</item>
-        <item>Mähweiden, 80% Weideanteil</item>
         <item>Möhre, Bund-</item>
         <item>Möhren, Industrie</item>
         <item>Möhren, Wasch-</item>
+        <item>Öllein</item>
+        <item>Ölrettich</item>
+        <item>Ölrettich Ganzpflanze-Somer</item>
         <item>Paprika</item>
         <item>Pastinake</item>
         <item>Petersilie, 1-Schnittnutzung</item>
@@ -225,9 +228,9 @@
         <item>Rote Rüben, Bund-</item>
         <item>Rotklee/ Luzerne in Reinkultur (TM)</item>
         <item>Rotkohl</item>
+        <item>Rübensamenvermehrung</item>
         <item>Rucola (Salat), Feinware</item>
         <item>Rucola (Salat), Grobware</item>
-        <item>Rübensamenvermehrung</item>
         <item>Salat, Baby Leaf Lettuce</item>
         <item>Salat, Blatt-, grün</item>
         <item>Salat, Blatt-, rot</item>
@@ -285,9 +288,9 @@
         <item>Spinat, Blatt-, Standard</item>
         <item>Spinat, Hack-, Standard</item>
         <item>Stangenbohne</item>
+        <item>Stärkekartoffeln</item>
         <item>Staudenknöterich Ganzpflanze</item>
         <item>Stilllegung 20 Jahre</item>
-        <item>Stärkekartoffeln</item>
         <item>Sudangras Ganzpflanze</item>
         <item>Süßkartoffel</item>
         <item>Szarvarsi-/Riesenweizengras Ganzpflanze-Sommer</item>
@@ -307,9 +310,9 @@
         <item>Wicke Ganzpflanze</item>
         <item>Wickroggen Ganzpflanze-Sommer</item>
         <item>Winter-Ackerbohne</item>
-        <item>Winter-Erbse</item>
         <item>Winterbraugerste 11 % RP</item>
         <item>Winteremmer/ -einkorn</item>
+        <item>Winter-Erbse</item>
         <item>Wintergerste, 12% RP</item>
         <item>Wintergerste, 13% RP</item>
         <item>Wintergetreide Ganzpflanze (Gerste) / Leguminosen Gemenge (>50% Getreide)</item>
@@ -339,8 +342,6 @@
         <item>Zuckerrüben</item>
         <item>Zwiebel, Bund-</item>
         <item>Zwiebeln, Trocken-</item>
-        <item>Öllein</item>
-        <item>Ölrettich</item>
     </string-array>
 
     <string-array name="secondary_crop_array">
