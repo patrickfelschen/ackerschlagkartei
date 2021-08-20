@@ -97,10 +97,10 @@
         <item>Strawberries, propagation</item>
         <item>Sainfoin whole plant</item>
         <item>Fiber hemp whole plant</item>
-        <item>Lamb's lettuce</item>
-        <item>Lamb's lettuce, large-leaved</item>
+        <item>Lamb\'s lettuce</item>
+        <item>Lamb\'s lettuce, large-leaved</item>
         <item>Flax (fiber flax) whole plant</item>
-        <item>Lady's mantle</item>
+        <item>Lady\'s mantle</item>
         <item>Early potatoes</item>
         <item>Forage pea whole plant</item>
         <item>Fodder cabbage whole plant-summer</item>
@@ -149,8 +149,8 @@
         <item>Chickpeas</item>
         <item>Clover, alfalfa propagation (seed cutting)</item>
         <item>Clover grass</item>
-        <item>Clover grass (grass percentage >50%, 3-4 cuttings/year) TM</item>
-        <item>Clover-grass (grass percentage less = 50%, 3-4 cuttings/year) TM</item>
+        <item>Clover grass (grass percentage >50%, 3–4 cuttings/year) TM]></item>
+        <item>Clover–grass (grass percentage less = 50%, 3–4 cuttings/year) TM</item>
         <item>Garlic clove, dry</item>
         <item>Tuber fennel</item>
         <item>Swede</item>
@@ -173,8 +173,8 @@
         <item>Lupine whole plant</item>
         <item>Alfalfa</item>
         <item>Alfalfa grass</item>
-        <item>Lucerne grass (grass percentage >50%, 3-4 cuttings/year) TM</item>
-        <item>Lucerne grass (grass percentage less = 50%, 3-4 cuttings/year) TM</item>
+        <item>Lucerne grass (grass percentage >50%, 3–4 cuttings/year) TM]></item>
+        <item>Lucerne grass (grass percentage less = 50%, 3–4 cuttings/year) TM</item>
         <item>Mowing pastures, 20% pasture</item>
         <item>Mowing pastures, 40% pasture</item>
         <item>Mowing pastures, 60% pasture</item>
@@ -330,11 +330,11 @@
         <item>Winter turnip propagation</item>
         <item>Winter triticale, 12% RP</item>
         <item>Winter triticale, 13% RP</item>
-        <item>Winter wheat A/B 13-14% RP</item>
+        <item>Winter wheat A/B 13–14% RP</item>
         <item>Winter wheat C, up to 12% RP</item>
         <item>Winter wheat E > 16% RP</item>
-        <item>Winter wheat E, 14-16% RP</item>
-        <item>Winter wheat, A/B 12-13% RP</item>
+        <item>Winter wheat E, 14–16% RP</item>
+        <item>Winter wheat, A/B 12–13% RP</item>
         <item>Savoy cabbage</item>
         <item>Zucchini</item>
         <item>Sugar millet (sorghum) Whole plant</item>
@@ -347,32 +347,32 @@
     </string-array>
 
     <string-array name="secondary_crop_array">
-        <item>Ackergras 1–2 Nutzungen</item>
-        <item>Ackergras, Herbstsaat (TM)</item>
-        <item>Erdbeeren, nach Ernte</item>
-        <item>Faserhanf, Herbstansaat Ganzpflanze</item>
-        <item>Futterzwischenfrucht Zweitfrucht > 75% Leguminosen</item>
-        <item>Futterzwischenfrucht Zweitfrucht bis 30% Leguminosen</item>
-        <item>Futterzwischenfrucht Zweitfrucht bis 31–75% Leguminosen</item>
-        <item>Futterzwischenfrucht Zweitfrucht ohne Leguminosen</item>
-        <item>Grün-/Futterroggen (Zweitfrucht)</item>
-        <item>Mais als Zweitfrucht</item>
-        <item>Sommergerste Zweitfrucht</item>
-        <item>Sommergetreide Zweitfrucht GPS</item>
-        <item>Sonnenblume GPS 18% TS (Zweitfrucht)</item>
-        <item>Sudangras als Zweitfrucht</item>
-        <item>Zuckerhirse GP 20% TS (Zweitfrucht)</item>
+        <item>Cultivated grass 1–2 uses</item>
+        <item>Tillage grass, autumn sowing (DM)</item>
+        <item>Strawberries, after harvest</item>
+        <item>Fiber hemp, fall seeded whole plant</item>
+        <item>Forage intercrop second crop > 75% legumes</item>
+        <item>Fodder intercrop second crop up to 30% legumes</item>
+        <item>Forage intercrop second crop up to 31–75% legumes</item>
+        <item>Forage intercrop second crop without legumes</item>
+        <item>Green/forage rye (second crop)</item>
+        <item>Corn as a second crop</item>
+        <item>Summer barley second crop</item>
+        <item>Summer cereal second crop GPS</item>
+        <item>Sunflower GPS 18% DM (second crop)</item>
+        <item>Sudangrass second crop</item>
+        <item>Sugar millet GP 20% DM (second crop)</item>
     </string-array>
 
     <string-array name="zwf_group_array">
-        <item>andere Zwischenfrüchte mit Nutzung</item>
-        <item>Futterleguminosen mit Nutzung</item>
-        <item>Leguminose, abgefroren</item>
-        <item>Leguminosen, nicht abgefroren - im Frühjahr eingearbeitet</item>
-        <item>Leguminosen, nicht abgefroren - im Herbst eingearbeitet</item>
-        <item>Nicht Leguminosen, abgefroren</item>
-        <item>Nicht Leguminosen, nicht abgefroren - im Frühjahr eingearbeitet</item>
-        <item>Nicht Leguminosen, nicht abgefroren - im Herbst eingearbeitet</item>
+        <item>other catch crops with use</item>
+        <item>forage legumes with use</item>
+        <item>legume, frozen off</item>
+        <item>Legumes, unfrozen - incorporated in spring</item>
+        <item>Legumes, not frozen off - incorporated in fall</item>
+        <item>Non-legumes, frozen off</item>
+        <item>Non-legumes, unfrozen - incorporated in spring</item>
+        <item>Non-legume, unfrozen - incorporated in fall</item>
     </string-array>
 
     <!-- FieldGroundFragment -->

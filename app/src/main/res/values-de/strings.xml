@@ -49,7 +49,7 @@
 
     <string-array name="previous_primary_next_crop_array">
         <item>Ackerbohne Ganzpflanze</item>
-        <item>Ackergras 3-4 Schnitte/Jahr (TM)</item>
+        <item>Ackergras 3–4 Schnitte/Jahr (TM)</item>
         <item>Ackergras 5 Schnitte (TM)</item>
         <item>Amaranth</item>
         <item>Arzneifenchel (Frucht, Droge)</item>
@@ -147,8 +147,8 @@
         <item>Kichererbsen</item>
         <item>Klee-, Luzernevermehrung (Samenschnitt)</item>
         <item>Kleegras</item>
-        <item>Kleegras (Grasanteil >50%, 3-4 Schnittre/Jahr) TM</item>
-        <item>Kleegras (Grasanteil kleiner = 50%, 3-4 Schnittre/Jahr) TM</item>
+        <item>Kleegras (Grasanteil >50%, 3–4 Schnittre/Jahr) TM]></item>
+        <item>Kleegras (Grasanteil kleiner = 50%, 3–4 Schnittre/Jahr) TM</item>
         <item>Knoblauchzehe, trocken</item>
         <item>Knollenfenchel</item>
         <item>Kohl-/Steckrübe</item>
@@ -171,8 +171,8 @@
         <item>Lupine Ganzpflanze</item>
         <item>Luzerne</item>
         <item>Luzernegras</item>
-        <item>Luzernegras (Grasanteil >50%, 3-4 Schnittre/Jahr) TM</item>
-        <item>Luzernegras (Grasanteil kleiner = 50%, 3-4 Schnittre/Jahr) TM</item>
+        <item>Luzernegras (Grasanteil >50%, 3–4 Schnittre/Jahr) TM]></item>
+        <item>Luzernegras (Grasanteil kleiner = 50%, 3–4 Schnittre/Jahr) TM</item>
         <item>Mähweiden, 20% Weideanteil</item>
         <item>Mähweiden, 40% Weideanteil</item>
         <item>Mähweiden, 60% Weideanteil</item>
@@ -328,11 +328,11 @@
         <item>Winterrübsenvermehrung</item>
         <item>Wintertriticale, 12% RP</item>
         <item>Wintertriticale, 13% RP</item>
-        <item>Winterweizen A/B 13-14% RP</item>
+        <item>Winterweizen A/B 13–14% RP</item>
         <item>Winterweizen C, bis 12% RP</item>
         <item>Winterweizen E > 16% RP</item>
-        <item>Winterweizen E, 14-16% RP</item>
-        <item>Winterweizen, A/B 12-13% RP</item>
+        <item>Winterweizen E, 14–16% RP</item>
+        <item>Winterweizen, A/B 12–13% RP</item>
         <item>Wirsing</item>
         <item>Zucchini</item>
         <item>Zuckerhirse (Sorghum) Ganzpflanze</item>
