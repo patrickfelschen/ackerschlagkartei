@@ -22,8 +22,7 @@
             android:id="@+id/dd_previous_crop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_previous_crop"
-            android:inputType="none">
+            android:hint="@string/dd_previous_crop">
 
         </AutoCompleteTextView>
 
@@ -45,8 +44,7 @@
             android:id="@+id/dd_primary_crop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_primary_crop"
-            android:inputType="none">
+            android:hint="@string/dd_primary_crop">
 
         </AutoCompleteTextView>
 
@@ -68,8 +66,7 @@
             android:id="@+id/dd_secondary_crop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_secondary_crop"
-            android:inputType="none">
+            android:hint="@string/dd_secondary_crop">
 
         </AutoCompleteTextView>
 
@@ -91,8 +88,7 @@
             android:id="@+id/dd_zwf_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_zwf_group"
-            android:inputType="none">
+            android:hint="@string/dd_zwf_group">
 
         </AutoCompleteTextView>
 
@@ -114,8 +110,7 @@
             android:id="@+id/dd_next_crop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_next_crop"
-            android:inputType="none">
+            android:hint="@string/dd_next_crop">
 
         </AutoCompleteTextView>
 

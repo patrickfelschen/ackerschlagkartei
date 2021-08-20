@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import de.prog3.ackerschlagkartei.models.FieldModel;
 
@@ -34,7 +35,7 @@ public class FirestoreRepository {
 
     private final CollectionReference fieldCollection;
 
-    public FirestoreRepository(Application application) {
+    public FirestoreRepository(@NonNull Application application) {
         this.application = application;
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.firebaseAuth = FirebaseAuth.getInstance();
@@ -114,6 +115,20 @@ public class FirestoreRepository {
 
     public void updateFieldModel(@NonNull FieldModel fieldModel) {
         this.fieldCollection.document(fieldModel.getUid()).set(fieldModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateFieldModel(String uid, Map<String, Object> changes) {
+        this.fieldCollection.document(uid).update("cultivation", changes).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
 

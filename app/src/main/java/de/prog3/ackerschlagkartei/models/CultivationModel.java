@@ -5,7 +5,7 @@ public class CultivationModel {
     private String primaryCrop;
     private String secondaryCrop;
     private String zwfGroup;
-    private String zwfCulture;
+    private String nextCrop;
 
     public CultivationModel() {
 
@@ -16,7 +16,7 @@ public class CultivationModel {
         this.primaryCrop = primaryCrop;
         this.secondaryCrop = secondaryCrop;
         this.zwfGroup = zwfGroup;
-        this.zwfCulture = zwfCulture;
+        this.nextCrop = zwfCulture;
     }
 
     public String getPreviousCrop() {
@@ -35,8 +35,8 @@ public class CultivationModel {
         return zwfGroup;
     }
 
-    public String getZwfCulture() {
-        return zwfCulture;
+    public String getNextCrop() {
+        return nextCrop;
     }
 
 }
