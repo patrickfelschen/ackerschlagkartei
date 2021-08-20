@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -25,9 +26,9 @@ public class FieldActionsFragment extends Fragment {
     private FieldDetailsViewModel fieldDetailsViewModel;
     private ExpandableListView actionsListView;
     private List<String> actionList;
-    HashMap<String, List<String>> action;
-    FieldActionsAdapter adapter;
     private Button addActionButton;
+    private HashMap<String, List<String>> action;
+    private FieldActionsAdapter adapter;
 
     public FieldActionsFragment() {
         // Required empty public constructor
@@ -96,8 +97,7 @@ public class FieldActionsFragment extends Fragment {
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
         this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
-            Toast.makeText(getContext(), fieldData + " " , Toast.LENGTH_SHORT).show();
-            Log.d("FieldUid", fieldData.getUid());
+
         });
 
         this.actionsListView = view.findViewById(R.id.field_actions_listView);
