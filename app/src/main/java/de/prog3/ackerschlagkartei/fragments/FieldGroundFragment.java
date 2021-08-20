@@ -224,4 +224,9 @@ public class FieldGroundFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        getView().clearFocus();
+    }
 }
