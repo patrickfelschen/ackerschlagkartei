@@ -58,9 +58,8 @@ public class FieldActionsOverview extends Fragment {
                     fieldActions.clear();
                     for(ActionModel actionModel : actionModels) {
                         fieldActions.add(actionModel.getDescription());
-                        arrayAdapter.notifyDataSetChanged();
                     }
-
+                    arrayAdapter.notifyDataSetChanged();
                 }
             }
         });
