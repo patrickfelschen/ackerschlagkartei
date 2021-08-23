@@ -51,35 +51,6 @@ public class FieldActionsCategoriesFragment extends Fragment {
         this.actionList.add(getString(R.string.fertilization));
         this.actionList.add(getString(R.string.plant_protection));
         this.actionList.add(getString(R.string.harvest));
-
-
-        String[] array;
-
-        List<String> soilCultivationActions = new ArrayList<>();
-        array = getResources().getStringArray(R.array.soil_cultivation);
-        soilCultivationActions.addAll(Arrays.asList(array));
-
-        List<String> sowingActions = new ArrayList<>();
-        array = getResources().getStringArray(R.array.sowing);
-        sowingActions.addAll(Arrays.asList(array));
-
-        List<String> fertilizationActions = new ArrayList<>();
-        array = getResources().getStringArray(R.array.fertilization);
-        fertilizationActions.addAll(Arrays.asList(array));
-
-        List<String> plantProtectionActions = new ArrayList<>();
-        array = getResources().getStringArray(R.array.plant_protection);
-        plantProtectionActions.addAll(Arrays.asList(array));
-
-        List<String> harvestActions = new ArrayList<>();
-        array = getResources().getStringArray(R.array.harvest);
-        harvestActions.addAll(Arrays.asList(array));
-
-        action.put(actionList.get(0), soilCultivationActions);
-        action.put(actionList.get(1), sowingActions);
-        action.put(actionList.get(2), fertilizationActions);
-        action.put(actionList.get(3), plantProtectionActions);
-        action.put(actionList.get(4), harvestActions);
     }
 
     @Override
@@ -89,9 +60,6 @@ public class FieldActionsCategoriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_field_actions, container, false);
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
-        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
-
-        });
 
         this.actionsListView = view.findViewById(R.id.field_actions_listView);
         this.actionList = new ArrayList<>();

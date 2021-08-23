@@ -3,7 +3,6 @@ package de.prog3.ackerschlagkartei.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
@@ -61,7 +59,8 @@ public class FieldActionsOverview extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.field_action_menu_add) {
-
+            AddActionDialog popup = new AddActionDialog();
+            popup.show(getActivity().getSupportFragmentManager(), "AddAction");
         }
         return super.onOptionsItemSelected(item);
     }
