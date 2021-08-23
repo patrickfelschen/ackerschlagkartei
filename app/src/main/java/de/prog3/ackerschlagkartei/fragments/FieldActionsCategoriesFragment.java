@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +23,7 @@ import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.adapters.FieldActionsAdapter;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
-public class FieldActionsFragment extends Fragment {
+public class FieldActionsCategoriesFragment extends Fragment {
 
     private FieldDetailsViewModel fieldDetailsViewModel;
     private ListView actionsListView;
@@ -26,8 +31,9 @@ public class FieldActionsFragment extends Fragment {
     private HashMap<String, List<String>> action;
     private FieldActionsAdapter adapter;
     private Integer[] listIcons;
+    private ArrayAdapter arrayAdapter;
 
-    public FieldActionsFragment() {
+    public FieldActionsCategoriesFragment() {
         // Required empty public constructor
     }
 
@@ -98,20 +104,21 @@ public class FieldActionsFragment extends Fragment {
             R.drawable.ic_baseline_filter_vintage_24
         };
 
+        arrayAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, this.actionList);
+        //adapter = new FieldActionsAdapter(getActivity(), this.actionList, this.listIcons);
+        actionsListView.setAdapter(arrayAdapter);
 
-        adapter = new FieldActionsAdapter(getActivity(), this.actionList, this.listIcons);
-        adapter.get
-        actionsListView.setAdapter(adapter);
+        actionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                fieldDetailsViewModel.setActionCategory(actionsListView.getItemAtPosition(position).toString());
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.fieldActionsOverview);
+            }
+        });
+
         initListData();
         return view;
     }
-
-    private final View.OnClickListener addActionButtonClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            CustomPopupWindow popup = new CustomPopupWindow();
-            popup.show(getActivity().getSupportFragmentManager(), "test");
-        }
-    };
 
 }

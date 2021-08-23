@@ -27,7 +27,16 @@
         tools:layout="@layout/fragment_field_images" />
     <fragment
         android:id="@+id/fieldActionsFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldActionsFragment"
+        android:name="de.prog3.ackerschlagkartei.fragments.FieldActionsCategoriesFragment"
         android:label="fragment_field_actions"
-        tools:layout="@layout/fragment_field_actions" />
+        tools:layout="@layout/fragment_field_actions" >
+        <action
+            android:id="@+id/action_fieldActionsFragment_to_fieldActionsOverview"
+            app:destination="@id/fieldActionsOverview" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldActionsOverview"
+        android:name="de.prog3.ackerschlagkartei.fragments.FieldActionsOverview"
+        android:label="fragment_field_actions_overview"
+        tools:layout="@layout/fragment_field_actions_overview" />
 </navigation>

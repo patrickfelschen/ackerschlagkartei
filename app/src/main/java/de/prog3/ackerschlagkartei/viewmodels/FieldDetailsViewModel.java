@@ -13,11 +13,13 @@ public class FieldDetailsViewModel extends AndroidViewModel {
 
     private final FirestoreRepository firestoreRepository;
     private MutableLiveData<FieldModel> fieldModelMutableLiveData;
+    private MutableLiveData<String> actionCategory;
 
     public FieldDetailsViewModel(@NonNull Application application) {
         super(application);
 
         this.firestoreRepository = new FirestoreRepository(application);
+        this.actionCategory = new MutableLiveData<>();
     }
 
     public void setFieldModelMutableLiveData(@NonNull String fieldUid) {
@@ -37,5 +39,13 @@ public class FieldDetailsViewModel extends AndroidViewModel {
 
     public void deleteFieldModel(@NonNull FieldModel fieldModel) {
         this.firestoreRepository.deleteFieldModel(fieldModel);
+    }
+
+    public void setActionCategory(String actionCategory) {
+        this.actionCategory.setValue(actionCategory);
+    }
+
+    public MutableLiveData<String> getActionCategory() {
+        return this.actionCategory;
     }
 }
