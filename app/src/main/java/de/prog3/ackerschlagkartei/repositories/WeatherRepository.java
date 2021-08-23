@@ -9,16 +9,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.firestore.GeoPoint;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.models.WeatherModel;
 
 public class WeatherRepository {
     private final Application application;
-    private final String apiUrl = "api.openweathermap.org/data/2.5/weather?appid=ed185425a6c757c3f10bc6904baa1341";
+    private final String apiUrl = "https://api.openweathermap.org/data/2.5/weather?appid=ed185425a6c757c3f10bc6904baa1341";
 
     private final MutableLiveData<WeatherModel> weatherModelMutableLiveData;
 
@@ -30,19 +32,21 @@ public class WeatherRepository {
     public void loadWeather(GeoPoint geoPoint) {
 
         String url = apiUrl;
-        url += "?lat=" + geoPoint.getLatitude();
-        url += "?lon=" + geoPoint.getLongitude();
-        url += "?units=metric";
+        url += "&lat=" + geoPoint.getLatitude();
+        url += "&lon=" + geoPoint.getLongitude();
+        url += "&units=metric";
+        url += "&lang=" + application.getResources().getString(R.string.temp_language);
 
-        new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     String name = response.getString("name");
                     double temp = response.getJSONObject("main").getDouble("temp");
+                    String desc = response.getJSONArray("weather").getJSONObject(0).getString("description");
 
-                    weatherModelMutableLiveData.postValue(new WeatherModel(name, temp));
+                    weatherModelMutableLiveData.postValue(new WeatherModel(name, temp, desc));
 
                 } catch (JSONException e) {
                     Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -57,6 +61,8 @@ public class WeatherRepository {
                 Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        Volley.newRequestQueue(application).add(req);
     }
 
     public MutableLiveData<WeatherModel> getWeatherModelMutableLiveData() {

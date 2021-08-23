@@ -13,14 +13,16 @@ import de.prog3.ackerschlagkartei.repositories.WeatherRepository;
 
 public class FieldDetailsViewModel extends AndroidViewModel {
 
+    private final Application application;
     private final FirestoreRepository firestoreRepository;
     private final WeatherRepository weatherRepository;
     private MutableLiveData<FieldModel> fieldModelMutableLiveData;
-    private MutableLiveData<String> actionCategory;
+    private final MutableLiveData<String> actionCategory;
 
     public FieldDetailsViewModel(@NonNull Application application) {
         super(application);
 
+        this.application = application;
         this.firestoreRepository = new FirestoreRepository(application);
         this.weatherRepository = new WeatherRepository(application);
         this.actionCategory = new MutableLiveData<>();
@@ -45,8 +47,8 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         this.firestoreRepository.deleteFieldModel(fieldModel);
     }
 
-    public void loadWeather() {
-        this.weatherRepository.loadWeather(fieldModelMutableLiveData.getValue().getInfo().getPositions().get(0));
+    public void loadWeather(@NonNull FieldModel fieldModel) {
+        this.weatherRepository.loadWeather(fieldModel.getInfo().getPositions().get(0));
     }
 
     public MutableLiveData<WeatherModel> getWeatherMutableLiveData() {

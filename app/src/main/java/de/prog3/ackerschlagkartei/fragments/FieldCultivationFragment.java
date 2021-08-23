@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.models.FieldModel;
+import de.prog3.ackerschlagkartei.models.WeatherModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldCultivationFragment extends Fragment {
@@ -24,6 +26,8 @@ public class FieldCultivationFragment extends Fragment {
     private AutoCompleteTextView ddSecondaryCrop;
     private AutoCompleteTextView ddZwfGroup;
     private AutoCompleteTextView ddNextCrop;
+
+    private TextView tvTemp;
 
     private ArrayAdapter<CharSequence> cropAdapter;
     private ArrayAdapter<CharSequence> secondaryCropAdapter;
@@ -59,6 +63,7 @@ public class FieldCultivationFragment extends Fragment {
         this.ddSecondaryCrop = view.findViewById(R.id.dd_secondary_crop);
         this.ddNextCrop = view.findViewById(R.id.dd_next_crop);
         this.ddZwfGroup = view.findViewById(R.id.dd_zwf_group);
+        this.tvTemp = view.findViewById(R.id.tv_temp);
 
         this.ddPreviousCrop.setAdapter(this.cropAdapter);
         this.ddPrimaryCrop.setAdapter(this.cropAdapter);
@@ -82,6 +87,15 @@ public class FieldCultivationFragment extends Fragment {
                 ddSecondaryCrop.setText(fieldModel.getCultivation().getSecondaryCrop(), false);
                 ddZwfGroup.setText(fieldModel.getCultivation().getZwfGroup(), false);
                 ddNextCrop.setText(fieldModel.getCultivation().getNextCrop(), false);
+
+                fieldDetailsViewModel.loadWeather(fieldModel);
+            }
+        });
+
+        this.fieldDetailsViewModel.getWeatherMutableLiveData().observe(getViewLifecycleOwner(), new Observer<WeatherModel>() {
+            @Override
+            public void onChanged(WeatherModel weatherModel) {
+                tvTemp.setText(weatherModel.toString());
             }
         });
 

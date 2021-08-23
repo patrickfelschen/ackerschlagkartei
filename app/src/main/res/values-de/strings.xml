@@ -46,6 +46,7 @@
     <string name="dd_secondary_crop">Nebenfrucht</string>
     <string name="dd_next_crop">Folgefrucht</string>
     <string name="dd_zwf_group">ZWF-Gruppe</string>
+    <string name="temp_language">de</string>
 
     <string-array name="previous_primary_next_crop_array">
         <item>Ackerbohne Ganzpflanze</item>
