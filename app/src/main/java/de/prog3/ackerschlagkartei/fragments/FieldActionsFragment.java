@@ -100,7 +100,6 @@ public class FieldActionsFragment extends Fragment {
 
 
         adapter = new FieldActionsAdapter(getActivity(), this.actionList, this.listIcons);
-        adapter.get
         actionsListView.setAdapter(adapter);
         initListData();
         return view;
