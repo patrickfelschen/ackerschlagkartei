@@ -42,6 +42,8 @@ public class FieldDetailsActivity extends AppCompatActivity {
         this.bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
+        setSupportActionBar(fieldDetailsToolbar);
+
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
