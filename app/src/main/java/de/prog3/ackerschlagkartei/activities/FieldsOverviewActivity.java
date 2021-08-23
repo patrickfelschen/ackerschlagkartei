@@ -9,22 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
-
-import java.util.ArrayList;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.fragments.FieldsOverviewListFragment;
-import de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment;
-import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
-enum ViewMode {LIST, MAP}
+
 
 public class FieldsOverviewActivity extends AppCompatActivity {
+    private enum ViewMode {LIST, MAP}
 
     private FieldsOverviewViewModel fieldsOverviewViewModel;
 
-    private ArrayList<FieldModel> fieldList;
+    private NavController navController;
 
     private Toolbar mToolbar;
     private ViewMode viewMode;
@@ -36,15 +34,10 @@ public class FieldsOverviewActivity extends AppCompatActivity {
 
         this.fieldsOverviewViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
 
-        this.fieldList = new ArrayList<>();
+        this.navController = Navigation.findNavController(this, R.id.nav_host_field_overview);
 
         this.mToolbar = findViewById(R.id.fields_overview_toolbar);
-        setSupportActionBar(mToolbar);
-
-        if (savedInstanceState == null) {
-            this.setMapView();
-        }
-
+        this.setSupportActionBar(mToolbar);
     }
 
     @Override
@@ -97,19 +90,12 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     }
 
     private void setMapView() {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragmentContainerView, FieldsOverviewMapFragment.class, null)
-                .commit();
+        this.navController.navigate(R.id.fieldsOverviewMapFragment);
         this.viewMode = ViewMode.MAP;
     }
 
     private void setListView() {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragmentContainerView, FieldsOverviewListFragment.class, null)
-                .commit();
-
+        this.navController.navigate(R.id.fieldsOverviewListFragment);
         this.viewMode = ViewMode.LIST;
     }
 

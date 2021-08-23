@@ -25,9 +25,9 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldsOverviewMapFragment"
+    <fragment
+        android:id="@+id/nav_host_field_overview"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_below="@+id/field_details_toolbar_layout"
@@ -35,6 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/field_details_toolbar_layout"
-        tools:context="com.port.android.ui.ActivityMain" />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/field_overview_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
