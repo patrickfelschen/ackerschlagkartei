@@ -411,28 +411,6 @@
     <string name="add_action_button">Maßnahme hinzufügen</string>
     <string name="cancel_action_button">Abbrechen</string>
 
-    <string-array name="soil_cultivation">
-        <item>Scheibenegge</item>
-        <item>Stoppelumbruch</item>
-        <item>Grubber</item>
-    </string-array>
-
-    <string-array name="sowing">
-        <item>Test</item>
-    </string-array>
-
-    <string-array name="fertilization">
-        <item>1</item>
-    </string-array>
-
-    <string-array name="plant_protection">
-        <item>2</item>
-    </string-array>
-
-    <string-array name="harvest">
-        <item>3</item>
-    </string-array>
-
     <string-array name="actions_array">
         <item>Bodenbearbeitung</item>
         <item>Aussaat</item>
@@ -456,7 +434,6 @@
         <item>Bender</item>
         <item>Quadriga</item>
     </string-array>
-
 
     <string-array name="fertilization_array">
         <item>40er Kali</item>
@@ -490,4 +467,7 @@
     <string name="cb_red_area">Rotes Gebiet</string>
     <string name="cb_phosphate_sensitive_area">Posphatsensibles Gebiet</string>
     <string name="btn_delete_field">Feld entfernen</string>
+
+    <!-- FieldImages -->
+    <string name="btn_add_image">Foto erstellen</string>
 </resources>

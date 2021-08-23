@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/field_details_menu_confirm"
-        android:icon="@drawable/ic_baseline_check_24"
-        android:title="Done"
+        android:id="@+id/btn_add_image"
+        android:icon="@drawable/ic_baseline_add_a_photo_24"
+        android:title="@string/btn_add_image"
         app:showAsAction="ifRoom" />
 </menu>

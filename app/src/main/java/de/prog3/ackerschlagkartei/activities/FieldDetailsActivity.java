@@ -1,10 +1,7 @@
 package de.prog3.ackerschlagkartei.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,23 +42,5 @@ public class FieldDetailsActivity extends AppCompatActivity {
         setSupportActionBar(fieldDetailsToolbar);
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.field_details_menu_confirm) {
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.field_details_main_menu, menu);
-        return true;
     }
 }
