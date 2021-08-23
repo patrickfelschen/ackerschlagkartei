@@ -15,9 +15,10 @@ import androidx.navigation.Navigation;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
-enum ViewMode {LIST, MAP}
+
 
 public class FieldsOverviewActivity extends AppCompatActivity {
+    private enum ViewMode {LIST, MAP}
 
     private FieldsOverviewViewModel fieldsOverviewViewModel;
 
