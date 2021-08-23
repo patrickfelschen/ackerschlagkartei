@@ -451,8 +451,8 @@
     </string-array>
 
     <string-array name="sowing_array">
-        <item>Adreo Nachsaat</item>
-        <item>Nachsaatmischung</item>
+        <item>Adreo Reseeding</item>
+        <item>Reseeding mixture</item>
         <item>RGT Reform</item>
         <item>Bender</item>
         <item>Quadriga</item>
@@ -461,25 +461,25 @@
     <string-array name="fertilization_array">
         <item>40er Kali</item>
         <item>AHL</item>
-        <item>Ammoniumnitrat</item>
-        <item>Bittersalz</item>
-        <item>Carbokalk 45</item>
+        <item>Ammonium nitrate</item>
+        <item>Epsom salt</item>
+        <item>Carbolime 45</item>
     </string-array>
 
     <string-array name="plant_protection_array">
         <item>Accurate</item>
         <item>Aclon 600</item>
-        <item>ATR Schneckenkorn</item>
-        <item>Bayer Garten Unkrautfrei</item>
-        <item>Agro Halmstärker</item>
+        <item>ATR Slug pellets</item>
+        <item>Bayer Garden weed free</item>
+        <item>Agro Stalk Strengthener</item>
     </string-array>
 
     <string-array name="harvest_array">
-        <item>Silomais</item>
-        <item>Sommerfuttergerste</item>
-        <item>Winterweizen</item>
-        <item>Raps</item>
-        <item>Ackergras</item>
+        <item>Silage corn</item>
+        <item>Summer feed barley</item>
+        <item>Winter wheat</item>
+        <item>Rapeseed</item>
+        <item>Field grass</item>
     </string-array>
 
     <!-- FieldInfoFragment -->
