@@ -449,19 +449,20 @@
     </string-array>
 
     <string-array name="sowing_array">
-        <item>Stoppelumbruch</item>
-        <item>Scheibenegge</item>
-        <item>Grubber</item>
-        <item>Wiesenwalze</item>
-        <item>Sobbelbearbeitung</item>
+        <item>Adreo Nachsaat</item>
+        <item>Nachsaatmischung</item>
+        <item>RGT Reform</item>
+        <item>Bender</item>
+        <item>Quadriga</item>
     </string-array>
 
+
     <string-array name="fertilization_array">
-        <item>Stoppelumbruch</item>
-        <item>Scheibenegge</item>
-        <item>Grubber</item>
-        <item>Wiesenwalze</item>
-        <item>Sobbelbearbeitung</item>
+        <item>40er Kali</item>
+        <item>AHL</item>
+        <item>Ammoniumnitrat</item>
+        <item>Bittersalz</item>
+        <item>Carbokalk 45</item>
     </string-array>
 
     <string-array name="plant_protection_array">
