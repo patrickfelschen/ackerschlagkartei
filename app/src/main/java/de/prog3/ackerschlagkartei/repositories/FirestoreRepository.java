@@ -167,10 +167,11 @@ public class FirestoreRepository {
 
     // ACTIONMODEL
 
-    public MutableLiveData<List<ActionModel>> getActionListMutableLiveData(@NonNull String fieldUid) {
+    public MutableLiveData<List<ActionModel>> getActionListMutableLiveData(@NonNull String fieldUid, String category) {
         this.fieldCollection
                 .document(fieldUid)
                 .collection("Actions")
+                .whereEqualTo("type", category)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -216,10 +217,8 @@ public class FirestoreRepository {
                             ActionModel actionModel = value.toObject(ActionModel.class);
                             actionMutableLiveData.postValue(actionModel);
                         }
-
                     }
                 });
-
         return actionMutableLiveData;
     }
 

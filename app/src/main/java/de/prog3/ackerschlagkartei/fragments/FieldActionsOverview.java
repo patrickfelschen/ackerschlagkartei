@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -13,15 +14,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.models.ActionModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldActionsOverview extends Fragment {
     private FieldDetailsViewModel fieldDetailsViewModel;
-    private TextView fieldAction;
-    private Toolbar toolbar;
+    private ListView fieldActionList;
+    private List<String> fieldActions;
+    private  ArrayAdapter arrayAdapter;
 
     public FieldActionsOverview() {
         // Required empty public constructor
@@ -38,10 +46,26 @@ public class FieldActionsOverview extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_field_actions_overview, container, false);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldActions = new ArrayList<>();
+        this.fieldActionList = view.findViewById(R.id.actions_list);
+        this.arrayAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, fieldActions);
 
-        this.fieldAction = view.findViewById(R.id.field_action);
-        this.fieldAction.setText(fieldDetailsViewModel.getActionCategory().getValue());
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldDetailsViewModel.getActions().observe(requireActivity(), new Observer<List<ActionModel>>() {
+            @Override
+            public void onChanged(List<ActionModel> actionModels) {
+                if(actionModels != null) {
+                    fieldActions.clear();
+                    for(ActionModel actionModel : actionModels) {
+                        fieldActions.add(actionModel.getDescription());
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
+
+        fieldActionList.setAdapter(arrayAdapter);
 
         setHasOptionsMenu(true);
 
