@@ -384,7 +384,7 @@
     <string name="et_potassium">Potassium</string>
     <string name="et_magnesium">Magnesium</string>
     <string name="et_analysis_date">Analysis Date</string>
-    
+
     <string-array name="ground_type_array">
         <item>Sand</item>
         <item>lehmiger Sand</item>
@@ -392,7 +392,7 @@
         <item>Hochmoor</item>
         <item>Ton</item>
     </string-array>
-    
+
     <string-array name="bkr_array">
         <item>9</item>
         <item>11</item>
@@ -491,4 +491,6 @@
     <string name="cb_phosphate_sensitive_area">Phosphate Sensitive Area</string>
 
     <string name="btn_delete_field">Delete field</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
