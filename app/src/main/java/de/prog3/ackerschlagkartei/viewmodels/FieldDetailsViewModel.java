@@ -22,6 +22,8 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         super(application);
 
         this.firestoreRepository = new FirestoreRepository(application);
+        this.weatherRepository = new WeatherRepository(application);
+        this.actionCategory = new MutableLiveData<>();
     }
 
     public void setFieldModelMutableLiveData(@NonNull String fieldUid) {
