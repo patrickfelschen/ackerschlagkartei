@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +40,8 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     private MapView mapView;
     private GoogleMap googleMap;
 
+    private ProgressBar progressBar;
+
     private List<FieldModel> currentFieldModels;
 
     @Override
@@ -51,9 +54,13 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_fields_overview_map, container, false);
 
-        this.mapView = v.findViewById(R.id.mv_fields_overview);
-        this.mapView.onCreate(savedInstanceState);
+        this.progressBar = v.findViewById(R.id.progressBar2);
+        this.progressBar.setVisibility(View.VISIBLE);
 
+        this.mapView = v.findViewById(R.id.mv_fields_overview);
+        this.mapView.setVisibility(View.INVISIBLE);
+
+        this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
 
         return v;
@@ -97,6 +104,9 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.googleMap.setOnPolygonClickListener(onPolygonClick);
 
         this.createFieldPolygons();
+
+        this.mapView.setVisibility(View.VISIBLE);
+        this.progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void createFieldPolygons() {
