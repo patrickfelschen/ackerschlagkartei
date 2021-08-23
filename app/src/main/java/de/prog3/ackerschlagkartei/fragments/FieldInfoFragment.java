@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -84,65 +85,66 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         super.onStart();
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
-        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
-            currentFieldModel = fieldData;
+        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+            @Override
+            public void onChanged(FieldModel fieldModel) {
+                currentFieldModel = fieldModel;
+                etFieldInfoDescription.setText(fieldModel.getInfo().getDescription());
+                etFieldInfoArea.setText(String.valueOf(fieldModel.getInfo().getArea()));
+                cbWaterProtectionArea.setChecked(fieldModel.getInfo().isWaterProtectionArea());
+                cbRedArea.setChecked(fieldModel.getInfo().isRedArea());
+                cbPhosphateSensitiveArea.setChecked(fieldModel.getInfo().isPhosphateSensitiveArea());
 
-            etFieldInfoDescription.setText(fieldData.getInfo().getDescription());
-            etFieldInfoArea.setText(String.valueOf(fieldData.getInfo().getArea()));
+                createFieldPolygon();
+            }
+        });
 
-            cbWaterProtectionArea.setChecked(fieldData.getInfo().isWaterProtectionArea());
-            cbRedArea.setChecked(fieldData.getInfo().isRedArea());
-            cbPhosphateSensitiveArea.setChecked(fieldData.getInfo().isPhosphateSensitiveArea());
-
-            this.createFieldPolygon();
-
-            this.etFieldInfoDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String changes = etFieldInfoDescription.getText().toString();
-                        fieldDetailsViewModel.updateField("info.description", changes);
-                        v.clearFocus();
-                        etFieldInfoDescription.clearFocus();
-                    }
+        this.etFieldInfoDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String changes = etFieldInfoDescription.getText().toString();
+                    fieldDetailsViewModel.updateField("info.description", changes);
+                    v.clearFocus();
+                    etFieldInfoDescription.clearFocus();
                 }
-            });
+            }
+        });
 
-            this.etFieldInfoArea.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
-                        fieldDetailsViewModel.updateField("info.area", changes);
-                        v.clearFocus();
-                        etFieldInfoArea.clearFocus();
-                    }
+        this.etFieldInfoArea.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
+                    fieldDetailsViewModel.updateField("info.area", changes);
+                    v.clearFocus();
+                    etFieldInfoArea.clearFocus();
                 }
-            });
+            }
+        });
 
-            this.cbWaterProtectionArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    fieldDetailsViewModel.updateField("info.waterProtectionArea", isChecked);
-                    cbWaterProtectionArea.clearFocus();
-                }
-            });
+        this.cbWaterProtectionArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldDetailsViewModel.updateField("info.waterProtectionArea", isChecked);
+                cbWaterProtectionArea.clearFocus();
+            }
+        });
 
-            this.cbRedArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    fieldDetailsViewModel.updateField("info.redArea", isChecked);
-                    cbRedArea.clearFocus();
-                }
-            });
+        this.cbRedArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldDetailsViewModel.updateField("info.redArea", isChecked);
+                cbRedArea.clearFocus();
+            }
+        });
 
-            this.cbPhosphateSensitiveArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    fieldDetailsViewModel.updateField("info.phosphateSensitiveArea", isChecked);
-                    cbPhosphateSensitiveArea.clearFocus();
-                }
-            });
+        this.cbPhosphateSensitiveArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldDetailsViewModel.updateField("info.phosphateSensitiveArea", isChecked);
+                cbPhosphateSensitiveArea.clearFocus();
+            }
         });
     }
 

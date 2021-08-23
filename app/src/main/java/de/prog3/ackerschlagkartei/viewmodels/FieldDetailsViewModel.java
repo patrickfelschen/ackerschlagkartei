@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import de.prog3.ackerschlagkartei.models.FieldModel;
@@ -13,36 +12,30 @@ import de.prog3.ackerschlagkartei.repositories.FirestoreRepository;
 public class FieldDetailsViewModel extends AndroidViewModel {
 
     private final FirestoreRepository firestoreRepository;
-    private final MutableLiveData<FieldModel> fieldModelMutableLiveData;
-    private final MutableLiveData<String> fieldModelUid;
-
+    private MutableLiveData<FieldModel> fieldModelMutableLiveData;
 
     public FieldDetailsViewModel(@NonNull Application application) {
         super(application);
 
         this.firestoreRepository = new FirestoreRepository(application);
-        this.fieldModelMutableLiveData = new MutableLiveData<>();
-        this.fieldModelUid = new MutableLiveData<String>();
     }
 
-    public LiveData<String> getFieldModelUid() {
-        return fieldModelUid;
+    public void setFieldModelMutableLiveData(@NonNull String fieldUid) {
+        this.fieldModelMutableLiveData = this.firestoreRepository.getFieldMutableLiveData(fieldUid);
     }
-
-    public void setFieldModelUid(String fieldModelUid) {
-        this.fieldModelUid.setValue(fieldModelUid);
-    }
-
 
     public MutableLiveData<FieldModel> getFieldModelMutableLiveData() {
-        return this.firestoreRepository.getFieldMutableLiveData(this.fieldModelUid.getValue());
+        return this.fieldModelMutableLiveData;
     }
 
     public void updateField(String field, Object changes) {
-        this.firestoreRepository.updateFieldModel(this.fieldModelUid.getValue(), field, changes);
+        if (fieldModelMutableLiveData == null) {
+            return;
+        }
+        this.firestoreRepository.updateFieldModel(fieldModelMutableLiveData.getValue(), field, changes);
     }
 
-    public void deleteField(@NonNull FieldModel fieldModel) {
-        deleteField(fieldModel);
+    public void deleteFieldModel(@NonNull FieldModel fieldModel) {
+        this.firestoreRepository.deleteFieldModel(fieldModel);
     }
 }

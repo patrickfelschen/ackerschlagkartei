@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldCultivationFragment extends Fragment {
@@ -72,12 +74,15 @@ public class FieldCultivationFragment extends Fragment {
         super.onStart();
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
-        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
-            ddPreviousCrop.setText(fieldData.getCultivation().getPreviousCrop(), false);
-            ddPrimaryCrop.setText(fieldData.getCultivation().getPrimaryCrop(), false);
-            ddSecondaryCrop.setText(fieldData.getCultivation().getSecondaryCrop(), false);
-            ddZwfGroup.setText(fieldData.getCultivation().getZwfGroup(), false);
-            ddNextCrop.setText(fieldData.getCultivation().getNextCrop(), false);
+        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+            @Override
+            public void onChanged(FieldModel fieldModel) {
+                ddPreviousCrop.setText(fieldModel.getCultivation().getPreviousCrop(), false);
+                ddPrimaryCrop.setText(fieldModel.getCultivation().getPrimaryCrop(), false);
+                ddSecondaryCrop.setText(fieldModel.getCultivation().getSecondaryCrop(), false);
+                ddZwfGroup.setText(fieldModel.getCultivation().getZwfGroup(), false);
+                ddNextCrop.setText(fieldModel.getCultivation().getNextCrop(), false);
+            }
         });
 
         this.ddPreviousCrop.setOnItemClickListener(new AdapterView.OnItemClickListener() {

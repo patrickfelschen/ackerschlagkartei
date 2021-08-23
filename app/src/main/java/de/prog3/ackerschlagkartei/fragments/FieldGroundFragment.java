@@ -14,9 +14,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldGroundFragment extends Fragment {
@@ -40,8 +42,6 @@ public class FieldGroundFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -77,98 +77,100 @@ public class FieldGroundFragment extends Fragment {
         super.onStart();
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
-        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
-            ddGround.setText(fieldData.getGround().getGroundType(), false);
-            ddBkr.setText(fieldData.getGround().getBkr(), false);
-            etHumus.setText(String.valueOf(fieldData.getGround().getHumus()));
-            etPhValue.setText(String.valueOf(fieldData.getGround().getPhValue()));
-            etPhosphorus.setText(String.valueOf(fieldData.getGround().getPhosphorus()));
-            etPotassium.setText(String.valueOf(fieldData.getGround().getPotassium()));
-            etMagnesium.setText(String.valueOf(fieldData.getGround().getMagnesium()));
-            date.setText(fieldData.getGround().getDate());
+        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+            @Override
+            public void onChanged(FieldModel fieldModel) {
+                ddGround.setText(fieldModel.getGround().getGroundType(), false);
+                ddBkr.setText(fieldModel.getGround().getBkr(), false);
+                etHumus.setText(String.valueOf(fieldModel.getGround().getHumus()));
+                etPhValue.setText(String.valueOf(fieldModel.getGround().getPhValue()));
+                etPhosphorus.setText(String.valueOf(fieldModel.getGround().getPhosphorus()));
+                etPotassium.setText(String.valueOf(fieldModel.getGround().getPotassium()));
+                etMagnesium.setText(String.valueOf(fieldModel.getGround().getMagnesium()));
+                date.setText(fieldModel.getGround().getDate());
+            }
+        });
 
-            setDatePicker();
+        this.setDatePicker();
 
-            this.ddGround.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String changes = groundTypeAdapter.getItem(position).toString();
-                    fieldDetailsViewModel.updateField("ground.groundType", changes);
-                    view.clearFocus();
-                    ddGround.clearFocus();
-                }
-            });
+        this.ddGround.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String changes = groundTypeAdapter.getItem(position).toString();
+                fieldDetailsViewModel.updateField("ground.groundType", changes);
+                view.clearFocus();
+                ddGround.clearFocus();
+            }
+        });
 
-            this.ddBkr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String changes = bkrAdapter.getItem(position).toString() ;
-                    fieldDetailsViewModel.updateField("ground.bkr", changes);
-                    view.clearFocus();
+        this.ddBkr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String changes = bkrAdapter.getItem(position).toString();
+                fieldDetailsViewModel.updateField("ground.bkr", changes);
+                view.clearFocus();
+                ddBkr.clearFocus();
+            }
+        });
+
+        this.etHumus.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etHumus.getText().toString());
+                    fieldDetailsViewModel.updateField("ground.humus", changes);
+                    v.clearFocus();
                     ddBkr.clearFocus();
                 }
-            });
+            }
+        });
 
-            this.etHumus.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus) {
-                        double changes = Double.parseDouble(etHumus.getText().toString());
-                        fieldDetailsViewModel.updateField("ground.humus", changes);
-                        v.clearFocus();
-                        ddBkr.clearFocus();
-                    }
+        etPhValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etPhValue.getText().toString());
+                    fieldDetailsViewModel.updateField("ground.phValue", changes);
+                    v.clearFocus();
+                    etPhValue.clearFocus();
                 }
-            });
+            }
+        });
 
-            etPhValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus) {
-                        double changes = Double.parseDouble(etPhValue.getText().toString());
-                        fieldDetailsViewModel.updateField("ground.phValue", changes);
-                        v.clearFocus();
-                        etPhValue.clearFocus();
-                    }
+        etPhosphorus.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etPhosphorus.getText().toString());
+                    fieldDetailsViewModel.updateField("ground.phosphorus", changes);
+                    v.clearFocus();
+                    etPhosphorus.clearFocus();
                 }
-            });
+            }
+        });
 
-            etPhosphorus.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus) {
-                        double changes = Double.parseDouble(etPhosphorus.getText().toString());
-                        fieldDetailsViewModel.updateField("ground.phosphorus", changes);
-                        v.clearFocus();
-                        etPhosphorus.clearFocus();
-                    }
+        etPotassium.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etPotassium.getText().toString());
+                    fieldDetailsViewModel.updateField("ground.potassium", changes);
+                    v.clearFocus();
+                    etPotassium.clearFocus();
                 }
-            });
+            }
+        });
 
-            etPotassium.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus) {
-                        double changes = Double.parseDouble(etPotassium.getText().toString());
-                        fieldDetailsViewModel.updateField("ground.potassium", changes);
-                        v.clearFocus();
-                        etPotassium.clearFocus();
-                    }
+        etMagnesium.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etMagnesium.getText().toString());
+                    fieldDetailsViewModel.updateField("ground.magnesium", changes);
+                    v.clearFocus();
+                    etMagnesium.clearFocus();
                 }
-            });
-
-            etMagnesium.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus) {
-                        double changes = Double.parseDouble(etMagnesium.getText().toString());
-                        fieldDetailsViewModel.updateField("ground.magnesium", changes);
-                        v.clearFocus();
-                        etMagnesium.clearFocus();
-                    }
-                }
-            });
-
+            }
         });
     }
 
@@ -190,8 +192,8 @@ public class FieldGroundFragment extends Fragment {
         date.setOnTouchListener((v, event) -> {
             final int DRAWABLE_END = 2;
 
-            if(event.getAction() == MotionEvent.ACTION_UP) {
-                if(event.getRawX() >= (date.getRight() - date.getCompoundDrawables()[DRAWABLE_END].getBounds().width())) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (date.getRight() - date.getCompoundDrawables()[DRAWABLE_END].getBounds().width())) {
                     datePickerDialog.show();
                     return true;
                 }

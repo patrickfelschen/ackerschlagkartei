@@ -36,7 +36,7 @@ public class FieldDetailsActivity extends AppCompatActivity {
         this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
 
         this.fieldUid = getIntent().getStringExtra("fieldModelUid");
-        this.fieldDetailsViewModel.setFieldModelUid(fieldUid);
+        this.fieldDetailsViewModel.setFieldModelMutableLiveData(fieldUid);
 
         this.fieldDetailsToolbar = findViewById(R.id.field_details_toolbar);
         this.bottomNavigationView = findViewById(R.id.bottom_navigation_view);
