@@ -15,8 +15,6 @@ import androidx.navigation.Navigation;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.viewmodels.FieldsOverviewViewModel;
 
-
-
 public class FieldsOverviewActivity extends AppCompatActivity {
     private enum ViewMode {LIST, MAP}
 
@@ -78,7 +76,8 @@ public class FieldsOverviewActivity extends AppCompatActivity {
 
     private void logout() {
         this.fieldsOverviewViewModel.logout();
-        startActivity(new Intent(this, SignInActivity.class));
+        startActivity(new Intent(this, AuthActivity.class));
+        //navController.navigate(R.id.fieldsOverviewActivity);
     }
 
     private void switchViewMode() {
