@@ -49,7 +49,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private final List<LatLng> fieldLatLngs = new ArrayList<>();
 
     private Polygon polygon;
-    private double area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
