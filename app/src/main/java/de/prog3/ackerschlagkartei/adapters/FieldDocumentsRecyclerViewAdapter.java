@@ -17,18 +17,18 @@ public class FieldDocumentsRecyclerViewAdapter extends RecyclerView.Adapter<Fiel
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            //myTextView = itemView.findViewById(R.id.info_text);
+            myTextView = itemView.findViewById(R.id.info_text);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            //if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
@@ -55,7 +55,11 @@ public class FieldDocumentsRecyclerViewAdapter extends RecyclerView.Adapter<Fiel
         return mData.length;
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
+    public String getItem(int id) {
+        return mData[id];
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

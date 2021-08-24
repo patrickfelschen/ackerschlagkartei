@@ -12,23 +12,31 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.adapters.FieldDocumentsRecyclerViewAdapter;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 
-public class FieldImagesFragment extends Fragment {
+public class FieldImagesFragment extends Fragment implements FieldDocumentsRecyclerViewAdapter.ItemClickListener {
     private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
+
+    private RecyclerView rvFieldDocuments;
+    private FieldDocumentsRecyclerViewAdapter fieldDocumentsRecyclerViewAdapter;
 
 
     public FieldImagesFragment() {
@@ -45,9 +53,16 @@ public class FieldImagesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_field_images, container, false);
         setHasOptionsMenu(true);
 
-        this.navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        this.rvFieldDocuments = view.findViewById(R.id.rv_field_documents);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
     }
 
     @Override
@@ -58,6 +73,20 @@ public class FieldImagesFragment extends Fragment {
         this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
 
         });
+
+        String[] data = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"};
+
+        int numberOfColumns = 6;
+        rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), numberOfColumns));
+        fieldDocumentsRecyclerViewAdapter = new FieldDocumentsRecyclerViewAdapter(requireContext(), data);
+        fieldDocumentsRecyclerViewAdapter.setClickListener(this);
+        rvFieldDocuments.setAdapter(fieldDocumentsRecyclerViewAdapter);
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(requireContext(), fieldDocumentsRecyclerViewAdapter.getItem(position), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -120,5 +149,6 @@ public class FieldImagesFragment extends Fragment {
             }
         }
     }
+
 
 }
