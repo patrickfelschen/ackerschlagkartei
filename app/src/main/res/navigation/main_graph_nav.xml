@@ -64,4 +64,16 @@
         android:name="de.prog3.ackerschlagkartei.activities.FieldsOverviewActivity"
         android:label="activity_fields_overview"
         tools:layout="@layout/activity_fields_overview"></activity>
+    <activity
+        android:id="@+id/fieldDetailsActivity"
+        android:name="de.prog3.ackerschlagkartei.activities.FieldDetailsActivity"
+        android:label="activity_field_details"
+        tools:layout="@layout/activity_field_details" />
+    <activity
+        android:id="@+id/fieldAddActivity"
+        android:name="de.prog3.ackerschlagkartei.activities.FieldAddActivity"
+        android:label="activity_field_add"
+        tools:layout="@layout/activity_field_add" />
+    <include app:graph="@navigation/details_graph_nav" />
+    <include app:graph="@navigation/overview_graph_nav" />
 </navigation>
