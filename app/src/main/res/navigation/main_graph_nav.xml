@@ -63,7 +63,7 @@
         android:id="@+id/fieldsOverviewActivity"
         android:name="de.prog3.ackerschlagkartei.ui.views.activities.FieldsOverviewActivity"
         android:label="activity_fields_overview"
-        tools:layout="@layout/activity_fields_overview"></activity>
+        tools:layout="@layout/activity_fields_overview" />
     <activity
         android:id="@+id/fieldDetailsActivity"
         android:name="de.prog3.ackerschlagkartei.ui.views.activities.FieldDetailsActivity"

@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,8 +35,9 @@ import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 
 public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
-
     private FieldDetailsViewModel fieldDetailsViewModel;
+    private NavController navController;
+
     private MapView mapView;
     private GoogleMap googleMap;
     private Button deleteFieldButton;
@@ -60,25 +63,25 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.mapView = v.findViewById(R.id.mv_field_info);
         this.mapView.onCreate(savedInstanceState);
         this.deleteFieldButton = v.findViewById(R.id.btn_delete_field);
-        this.deleteFieldButton.setOnClickListener(deleteFieldButtonClick);
-
         this.etFieldInfoDescription = v.findViewById(R.id.et_description);
         this.etFieldInfoArea = v.findViewById(R.id.et_area);
         this.cbWaterProtectionArea = v.findViewById(R.id.cb_water_protection_area);
         this.cbRedArea = v.findViewById(R.id.cb_red_area);
         this.cbPhosphateSensitiveArea = v.findViewById(R.id.cb_phosphate_sensitive_area);
 
+        this.deleteFieldButton.setOnClickListener(deleteFieldButtonClick);
+
         this.mapView.getMapAsync(this);
 
         return v;
     }
 
-    private final View.OnClickListener deleteFieldButtonClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        }
-    };
+        this.navController = Navigation.findNavController(view);
+    }
 
     @Override
     public void onStart() {
@@ -170,9 +173,16 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
                 .clickable(true)
                 .strokeWidth(2));
 
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
 
     }
+
+    private final View.OnClickListener deleteFieldButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            fieldDetailsViewModel.deleteFieldModel(currentFieldModel);
+        }
+    };
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
