@@ -12,8 +12,8 @@
         android:label="fragment_field_actions_overview" />
     <fragment
         android:id="@+id/fieldImagesCameraFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldImagesCameraFragment"
-        tools:layout="@layout/fragment_field_images_camera"
+        android:name="de.prog3.ackerschlagkartei.fragments.FieldDocumentsCameraFragment"
+        tools:layout="@layout/fragment_field_documents_camera"
         android:label="fragment_field_images_camera" />
     <fragment
         android:id="@+id/fieldCultivationFragment"
@@ -44,8 +44,8 @@
         android:label="fragment_field_info" />
     <fragment
         android:id="@+id/fieldImagesFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldImagesFragment"
-        tools:layout="@layout/fragment_field_images"
+        android:name="de.prog3.ackerschlagkartei.fragments.FieldDocumentsFragment"
+        tools:layout="@layout/fragment_field_documents"
         android:label="fragment_field_images">
         <action
             android:id="@+id/action_fieldImagesFragment_to_fieldImagesCameraFragment"

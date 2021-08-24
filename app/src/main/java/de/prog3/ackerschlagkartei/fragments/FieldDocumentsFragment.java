@@ -28,10 +28,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.adapters.FieldDocumentsRecyclerViewAdapter;
+import de.prog3.ackerschlagkartei.interfaces.ItemClickListener;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 
-public class FieldImagesFragment extends Fragment implements FieldDocumentsRecyclerViewAdapter.ItemClickListener {
+public class FieldDocumentsFragment extends Fragment implements ItemClickListener {
     private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
 
@@ -39,7 +40,7 @@ public class FieldImagesFragment extends Fragment implements FieldDocumentsRecyc
     private FieldDocumentsRecyclerViewAdapter fieldDocumentsRecyclerViewAdapter;
 
 
-    public FieldImagesFragment() {
+    public FieldDocumentsFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +51,7 @@ public class FieldImagesFragment extends Fragment implements FieldDocumentsRecyc
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_field_images, container, false);
+        View view = inflater.inflate(R.layout.fragment_field_documents, container, false);
         setHasOptionsMenu(true);
 
         this.rvFieldDocuments = view.findViewById(R.id.rv_field_documents);

@@ -33,7 +33,7 @@
     <string name="nav_ground">Ground</string>
     <string name="nav_actions">Actions</string>
     <string name="nav_info">Info</string>
-    <string name="nav_images">Album</string>
+    <string name="nav_documents">Documents</string>
     <string name="temp_language">en</string>
 
     <!-- AddFieldActivity -->

@@ -20,6 +20,6 @@
     <item
         android:id="@+id/fieldImagesFragment"
         android:icon="@drawable/ic_baseline_photo_library_24"
-        android:title="@string/nav_images" />
+        android:title="@string/nav_documents" />
 
 </menu>

@@ -33,7 +33,7 @@
     <string name="nav_ground">Boden</string>
     <string name="nav_actions">Maßnahmen</string>
     <string name="nav_info">Info</string>
-    <string name="nav_images">Album</string>
+    <string name="nav_documents">Dokumente</string>
 
     <string name="add_field_title">Kartenpunkt wählen</string>
     <string name="add_field_description_hint">Bezeichnung</string>

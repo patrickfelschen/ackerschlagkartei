@@ -14,7 +14,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -22,14 +21,14 @@ import java.util.concurrent.ExecutionException;
 
 import de.prog3.ackerschlagkartei.R;
 
-public class FieldImagesCameraFragment extends Fragment {
+public class FieldDocumentsCameraFragment extends Fragment {
 
     private ImageCapture imageCapture;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private PreviewView previewView;
 
 
-    public FieldImagesCameraFragment() {
+    public FieldDocumentsCameraFragment() {
         // Required empty public constructor
     }
 
@@ -41,7 +40,7 @@ public class FieldImagesCameraFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_field_images_camera, container, false);
+        View view = inflater.inflate(R.layout.fragment_field_documents_camera, container, false);
 
         this.previewView = view.findViewById(R.id.previewView);
         this.cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
@@ -61,7 +60,7 @@ public class FieldImagesCameraFragment extends Fragment {
                         .build();
 
                 Camera camera = cameraProvider.bindToLifecycle(
-                        ((LifecycleOwner) this),
+                        this,
                         cameraSelector,
                         preview,
                         imageCapture);

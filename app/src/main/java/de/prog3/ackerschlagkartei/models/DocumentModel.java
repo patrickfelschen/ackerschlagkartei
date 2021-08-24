@@ -2,16 +2,16 @@ package de.prog3.ackerschlagkartei.models;
 
 import java.util.Date;
 
-public class ImageModel {
+public class DocumentModel {
     private String description;
     private String url;
     private Date date;
 
-    public ImageModel() {
+    public DocumentModel() {
 
     }
 
-    public ImageModel(String description, String url, Date date) {
+    public DocumentModel(String description, String url, Date date) {
         this.description = description;
         this.url = url;
         this.date = date;

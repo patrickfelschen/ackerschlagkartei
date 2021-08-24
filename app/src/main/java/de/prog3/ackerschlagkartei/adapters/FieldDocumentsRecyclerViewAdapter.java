@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.interfaces.ItemClickListener;
 
 public class FieldDocumentsRecyclerViewAdapter extends RecyclerView.Adapter<FieldDocumentsRecyclerViewAdapter.ViewHolder> {
 
@@ -61,9 +62,5 @@ public class FieldDocumentsRecyclerViewAdapter extends RecyclerView.Adapter<Fiel
 
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

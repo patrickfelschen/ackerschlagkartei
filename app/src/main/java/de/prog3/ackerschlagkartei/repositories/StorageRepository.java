@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,7 +16,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-// Users/{userId}/Fields/{fieldId}/Images/{imageId}
+// Users/{userId}/Fields/{fieldId}/Documents/{documentId}
 
 public class StorageRepository {
     private final Application application;
@@ -23,10 +24,14 @@ public class StorageRepository {
     private final FirebaseStorage firebaseStorage;
     private final FirebaseAuth firebaseAuth;
 
+    private final MutableLiveData<String> documentMutableLiveData;
+
     public StorageRepository(Application application) {
         this.application = application;
         this.firebaseStorage = FirebaseStorage.getInstance();
         this.firebaseAuth = FirebaseAuth.getInstance();
+
+        this.documentMutableLiveData = new MutableLiveData<>();
     }
 
     public void uploadFieldDocument(String fieldId, Uri contentUri) {
