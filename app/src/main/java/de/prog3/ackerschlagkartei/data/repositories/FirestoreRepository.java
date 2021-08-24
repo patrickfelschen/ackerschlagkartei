@@ -1,7 +1,6 @@
 package de.prog3.ackerschlagkartei.data.repositories;
 
 import android.app.Application;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,49 +26,74 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.data.models.ActionModel;
 import de.prog3.ackerschlagkartei.data.models.DocumentModel;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
+import de.prog3.ackerschlagkartei.utils.Status;
 
 public class FirestoreRepository {
     private final Application application;
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseAuth firebaseAuth;
 
-    private final MutableLiveData<List<FieldModel>> fieldListMutableLiveData;
-    private final MutableLiveData<FieldModel> fieldMutableLiveData;
+    private final MutableLiveData<List<FieldModel>> fieldListGetData;
+    private final MutableLiveData<FieldModel> fieldGetData;
+    private final MutableLiveData<Status> fieldListGetStatus;
+    private final MutableLiveData<Status> fieldGetStatus;
+    private final MutableLiveData<Status> fieldCreateStatus;
+    private final MutableLiveData<Status> fieldUpdateStatus;
+    private final MutableLiveData<Status> fieldDeleteStatus;
 
-    private final MutableLiveData<List<ActionModel>> actionListMutableLiveData;
-    private final MutableLiveData<ActionModel> actionMutableLiveData;
+    private final MutableLiveData<List<ActionModel>> actionListGetData;
+    private final MutableLiveData<Status> actionListGetStatus;
+    private final MutableLiveData<Status> actionCreateStatus;
 
-    private final MutableLiveData<List<DocumentModel>> documentListMutableLiveData;
-
-    private final CollectionReference fieldCollection;
+    private final MutableLiveData<List<DocumentModel>> documentListGetData;
+    private final MutableLiveData<Status> documentListGetStatus;
+    private final MutableLiveData<Status> documentCreateStatus;
 
     public FirestoreRepository(@NonNull Application application) {
         this.application = application;
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.firebaseAuth = FirebaseAuth.getInstance();
 
-        this.fieldListMutableLiveData = new MutableLiveData<>();
-        this.fieldMutableLiveData = new MutableLiveData<>();
+        this.fieldListGetData = new MutableLiveData<>();
+        this.fieldGetData = new MutableLiveData<>();
+        this.fieldListGetStatus = new MutableLiveData<>(Status.INITIAL);
+        this.fieldGetStatus = new MutableLiveData<>(Status.INITIAL);
+        this.fieldCreateStatus = new MutableLiveData<>(Status.INITIAL);
+        this.fieldUpdateStatus = new MutableLiveData<>(Status.INITIAL);
+        this.fieldDeleteStatus = new MutableLiveData<>(Status.INITIAL);
 
-        this.actionListMutableLiveData = new MutableLiveData<>();
-        this.actionMutableLiveData = new MutableLiveData<>();
+        this.actionListGetData = new MutableLiveData<>();
+        this.actionListGetStatus = new MutableLiveData<>(Status.INITIAL);
+        this.actionCreateStatus = new MutableLiveData<>(Status.INITIAL);
 
-        this.documentListMutableLiveData = new MutableLiveData<>();
+        this.documentListGetData = new MutableLiveData<>();
+        this.documentListGetStatus = new MutableLiveData<>(Status.INITIAL);
+        this.documentCreateStatus = new MutableLiveData<>(Status.INITIAL);
+    }
 
-        this.fieldCollection = this.firebaseFirestore
+    private CollectionReference getFieldCollection() {
+        if (this.firebaseAuth.getCurrentUser() == null) {
+            throw new NullPointerException("User is not logged in.");
+        }
+
+        String uid = this.firebaseAuth.getUid();
+
+        return this.firebaseFirestore
                 .collection("Users")
-                .document(firebaseAuth.getUid())
+                .document(uid)
                 .collection("Fields");
     }
 
     // FIELDMODEL
 
-    public MutableLiveData<List<FieldModel>> getFieldListMutableLiveData() {
-        this.fieldCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+    public MutableLiveData<List<FieldModel>> getFieldListGetData() {
+        this.fieldListGetStatus.postValue(Status.LOADING);
+        this.getFieldCollection().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                 if (error != null) {
+                    fieldListGetStatus.postValue(Status.ERROR);
                     Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -83,99 +107,96 @@ public class FirestoreRepository {
                         }
                     }
 
-                    fieldListMutableLiveData.postValue(fieldList);
+                    fieldListGetData.postValue(fieldList);
+                    fieldListGetStatus.postValue(Status.SUCCESS);
 
                 }
             }
         });
 
-        return fieldListMutableLiveData;
+        return fieldListGetData;
     }
 
     public MutableLiveData<FieldModel> getFieldMutableLiveData(@NonNull String uid) {
-        this.fieldCollection.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        this.fieldGetStatus.postValue(Status.LOADING);
+        this.getFieldCollection().document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                 if (error != null) {
+                    fieldGetStatus.postValue(Status.ERROR);
                     Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (value != null && value.exists()) {
                     FieldModel fieldModel = value.toObject(FieldModel.class);
-                    fieldMutableLiveData.postValue(fieldModel);
+                    fieldGetData.postValue(fieldModel);
+                    fieldGetStatus.postValue(Status.SUCCESS);
                 }
 
             }
         });
 
-        return fieldMutableLiveData;
+        return fieldGetData;
     }
 
     public void createFieldModel(@NonNull FieldModel fieldModel) {
-        this.fieldCollection.add(fieldModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        this.fieldCreateStatus.postValue(Status.LOADING);
+        this.getFieldCollection().add(fieldModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-
+                fieldCreateStatus.postValue(Status.SUCCESS);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void updateFieldModel(@NonNull FieldModel fieldModel) {
-        this.fieldCollection.document(fieldModel.getUid()).set(fieldModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                fieldCreateStatus.postValue(Status.ERROR);
+                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void updateFieldModel(@NonNull FieldModel fieldModel, String field, Object changes) {
-        this.fieldCollection
+        this.fieldUpdateStatus.postValue(Status.LOADING);
+        this.getFieldCollection()
                 .document(fieldModel.getUid())
                 .update(field, changes)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-
+                        fieldUpdateStatus.postValue(Status.SUCCESS);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                fieldUpdateStatus.postValue(Status.ERROR);
+                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void deleteFieldModel(@NonNull FieldModel fieldModel) {
-        this.fieldCollection.document(fieldModel.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        this.fieldDeleteStatus.postValue(Status.LOADING);
+        this.getFieldCollection().document(fieldModel.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-
+                fieldDeleteStatus.postValue(Status.SUCCESS);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                fieldDeleteStatus.postValue(Status.ERROR);
+                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     // ACTIONMODEL
 
-    public MutableLiveData<List<ActionModel>> getActionListMutableLiveData(@NonNull String fieldUid, String category) {
-        this.fieldCollection
+    public MutableLiveData<List<ActionModel>> getActionListGetData(@NonNull String fieldUid, String category) {
+        this.actionListGetStatus.postValue(Status.LOADING);
+        this.getFieldCollection()
                 .document(fieldUid)
                 .collection("Actions")
                 .whereEqualTo("type", category)
@@ -185,8 +206,9 @@ public class FirestoreRepository {
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                         if (error != null) {
-                            Log.w("GetAction", error.getLocalizedMessage());
-                            Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            actionListGetStatus.postValue(Status.ERROR);
+                            //Log.w("GetAction", error.getLocalizedMessage());
+                            //Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -199,52 +221,32 @@ public class FirestoreRepository {
                                 }
                             }
 
-                            actionListMutableLiveData.postValue(actionList);
+                            actionListGetData.postValue(actionList);
+                            actionListGetStatus.postValue(Status.SUCCESS);
 
                         }
                     }
                 });
 
-        return actionListMutableLiveData;
-    }
-
-    public MutableLiveData<ActionModel> getActionMutableLiveData(@NonNull String fieldUid, @NonNull String actionUid) {
-        this.fieldCollection
-                .document(fieldUid)
-                .collection("Actions")
-                .document(actionUid)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                        if (error != null) {
-                            Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        if (value != null && value.exists()) {
-                            ActionModel actionModel = value.toObject(ActionModel.class);
-                            actionMutableLiveData.postValue(actionModel);
-                        }
-                    }
-                });
-        return actionMutableLiveData;
+        return actionListGetData;
     }
 
     public void createActionModel(@NonNull String fieldUid, ActionModel actionModel) {
-        this.fieldCollection
+        this.actionCreateStatus.postValue(Status.LOADING);
+        this.getFieldCollection()
                 .document(fieldUid)
                 .collection("Actions")
                 .add(actionModel)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-
+                        actionCreateStatus.postValue(Status.SUCCESS);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                actionCreateStatus.postValue(Status.ERROR);
+                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -252,25 +254,28 @@ public class FirestoreRepository {
     // DOCUMENTMODEL
 
     public void createDocumentModel(@NonNull String fieldUid, DocumentModel documentModel) {
-        this.fieldCollection
+        this.documentCreateStatus.postValue(Status.LOADING);
+        this.getFieldCollection()
                 .document(fieldUid)
                 .collection("Documents")
                 .add(documentModel)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-
+                        documentCreateStatus.postValue(Status.SUCCESS);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                documentCreateStatus.postValue(Status.ERROR);
+                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public MutableLiveData<List<DocumentModel>> getDocumentListMutableLiveData(@NonNull String fieldUid) {
-        this.fieldCollection
+    public MutableLiveData<List<DocumentModel>> getDocumentListGetData(@NonNull String fieldUid) {
+        this.documentListGetStatus.postValue(Status.LOADING);
+        this.getFieldCollection()
                 .document(fieldUid)
                 .collection("Documents")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -278,7 +283,8 @@ public class FirestoreRepository {
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                         if (error != null) {
-                            Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            documentListGetStatus.postValue(Status.ERROR);
+                            //Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -291,12 +297,50 @@ public class FirestoreRepository {
                                 }
                             }
 
-                            documentListMutableLiveData.postValue(documentModelList);
-
+                            documentListGetData.postValue(documentModelList);
+                            documentListGetStatus.postValue(Status.SUCCESS);
                         }
                     }
                 });
 
-        return documentListMutableLiveData;
+        return documentListGetData;
+    }
+
+    // STATUS GETTER
+
+    public MutableLiveData<Status> getFieldListGetStatus() {
+        return fieldListGetStatus;
+    }
+
+    public MutableLiveData<Status> getFieldGetStatus() {
+        return fieldGetStatus;
+    }
+
+    public MutableLiveData<Status> getFieldCreateStatus() {
+        return fieldCreateStatus;
+    }
+
+    public MutableLiveData<Status> getFieldUpdateStatus() {
+        return fieldUpdateStatus;
+    }
+
+    public MutableLiveData<Status> getFieldDeleteStatus() {
+        return fieldDeleteStatus;
+    }
+
+    public MutableLiveData<Status> getActionListGetStatus() {
+        return actionListGetStatus;
+    }
+
+    public MutableLiveData<Status> getActionCreateStatus() {
+        return actionCreateStatus;
+    }
+
+    public MutableLiveData<Status> getDocumentListGetStatus() {
+        return documentListGetStatus;
+    }
+
+    public MutableLiveData<Status> getDocumentCreateStatus() {
+        return documentCreateStatus;
     }
 }

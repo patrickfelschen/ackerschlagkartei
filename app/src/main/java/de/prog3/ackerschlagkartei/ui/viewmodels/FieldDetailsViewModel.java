@@ -69,7 +69,7 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<WeatherModel> getWeatherMutableLiveData() {
-        return this.weatherRepository.getWeatherModelMutableLiveData();
+        return this.weatherRepository.getWeatherModelGetData();
     }
 
     // ACTIONMODEL
@@ -87,7 +87,7 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<ActionModel>> getActions() {
-        return this.firestoreRepository.getActionListMutableLiveData(fieldModelMutableLiveData.getValue().getUid(), actionCategory.getValue());
+        return this.firestoreRepository.getActionListGetData(fieldModelMutableLiveData.getValue().getUid(), actionCategory.getValue());
     }
 
     // DOCUMENTMODEL

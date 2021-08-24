@@ -1,7 +1,6 @@
 package de.prog3.ackerschlagkartei.data.repositories;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -17,19 +16,23 @@ import org.json.JSONObject;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.WeatherModel;
+import de.prog3.ackerschlagkartei.utils.Status;
 
 public class WeatherRepository {
     private final Application application;
     private final String apiUrl = "https://api.openweathermap.org/data/2.5/weather?appid=ed185425a6c757c3f10bc6904baa1341";
 
-    private final MutableLiveData<WeatherModel> weatherModelMutableLiveData;
+    private final MutableLiveData<WeatherModel> weatherModelGetData;
+    private final MutableLiveData<Status> weatherModelGetStatus;
 
     public WeatherRepository(Application application) {
         this.application = application;
-        this.weatherModelMutableLiveData = new MutableLiveData<>();
+        this.weatherModelGetData = new MutableLiveData<>();
+        this.weatherModelGetStatus = new MutableLiveData<>(Status.INITIAL);
     }
 
     public void loadWeather(GeoPoint geoPoint) {
+        this.weatherModelGetStatus.postValue(Status.LOADING);
 
         String url = apiUrl;
         url += "&lat=" + geoPoint.getLatitude();
@@ -46,10 +49,12 @@ public class WeatherRepository {
                     double temp = response.getJSONObject("main").getDouble("temp");
                     String desc = response.getJSONArray("weather").getJSONObject(0).getString("description");
 
-                    weatherModelMutableLiveData.postValue(new WeatherModel(name, temp, desc));
+                    weatherModelGetData.postValue(new WeatherModel(name, temp, desc));
+                    weatherModelGetStatus.postValue(Status.SUCCESS);
 
                 } catch (JSONException e) {
-                    Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    weatherModelGetStatus.postValue(Status.ERROR);
                 }
 
             }
@@ -58,14 +63,19 @@ public class WeatherRepository {
 
             @Override
             public void onErrorResponse(VolleyError e) {
-                Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                weatherModelGetStatus.postValue(Status.ERROR);
             }
         });
 
         Volley.newRequestQueue(application).add(req);
     }
 
-    public MutableLiveData<WeatherModel> getWeatherModelMutableLiveData() {
-        return weatherModelMutableLiveData;
+    public MutableLiveData<WeatherModel> getWeatherModelGetData() {
+        return weatherModelGetData;
+    }
+
+    public MutableLiveData<Status> getWeatherModelGetStatus() {
+        return weatherModelGetStatus;
     }
 }
