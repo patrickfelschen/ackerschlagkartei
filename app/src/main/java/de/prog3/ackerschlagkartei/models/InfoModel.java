@@ -15,7 +15,7 @@ public class InfoModel {
     public InfoModel() {
     }
 
-    public InfoModel(float area, String description, boolean phosphateSensitiveArea, boolean redArea, boolean waterProtectionArea, List<GeoPoint> positions) {
+    public InfoModel(double area, String description, boolean phosphateSensitiveArea, boolean redArea, boolean waterProtectionArea, List<GeoPoint> positions) {
         this.area = area;
         this.description = description;
         this.phosphateSensitiveArea = phosphateSensitiveArea;

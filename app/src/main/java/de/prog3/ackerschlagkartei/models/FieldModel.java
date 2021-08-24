@@ -16,10 +16,10 @@ public class FieldModel {
         // Firestore
     }
 
-    public FieldModel(String description, List<GeoPoint> positions) {
+    public FieldModel(String description, List<GeoPoint> positions, double area) {
         this.cultivation = new CultivationModel("", "", "", "", "");
         this.ground = new GroundModel("", "", "", 0, 0, 0, 0, 0);
-        this.info = new InfoModel(0, description, false, false, false, positions);
+        this.info = new InfoModel(area, description, false, false, false, positions);
     }
 
     public String getUid() {

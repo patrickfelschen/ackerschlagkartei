@@ -13,7 +13,7 @@ public class GroundModel {
     public GroundModel() {
     }
 
-    public GroundModel(String bkr, String date, String groundType, double humus, float magnesium, float phValue, float phosphorus, float potassium) {
+    public GroundModel(String bkr, String date, String groundType, double humus, double magnesium, double phValue, double phosphorus, double potassium) {
         this.bkr = bkr;
         this.groundType = groundType;
         this.humus = humus;

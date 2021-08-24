@@ -49,6 +49,7 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
     private final List<LatLng> fieldLatLngs = new ArrayList<>();
 
     private Polygon polygon;
+    private double area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
         this.mapView = findViewById(R.id.mv_field_add);
         this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
-
     }
 
     private final GoogleMap.OnMapClickListener onMapClick = new GoogleMap.OnMapClickListener() {
@@ -88,8 +88,6 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
                         .addAll(fieldLatLngs)
                         .fillColor(R.color.field_polygon)
                         .strokeWidth(2));
-
-                etDescription.setText(Double.toString(SphericalUtil.computeArea(fieldLatLngs) / 10000));
             }
         }
     };
@@ -150,7 +148,9 @@ public class FieldAddActivity extends AppCompatActivity implements OnMapReadyCal
             return;
         }
 
-        FieldModel newField = new FieldModel(fieldDescription, this.fieldPositions);
+        double area = SphericalUtil.computeArea(fieldLatLngs) / 10000;
+
+        FieldModel newField = new FieldModel(fieldDescription, this.fieldPositions, area);
 
         this.fieldAddViewModel.createFieldModel(newField);
         finish();
