@@ -22,7 +22,7 @@ public class FieldsOverviewActivity extends AppCompatActivity {
 
     private NavController navController;
 
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
     private ViewMode viewMode;
 
     @Override
@@ -34,8 +34,8 @@ public class FieldsOverviewActivity extends AppCompatActivity {
 
         this.navController = Navigation.findNavController(this, R.id.nav_host_field_overview);
 
-        this.mToolbar = findViewById(R.id.fields_overview_toolbar);
-        this.setSupportActionBar(mToolbar);
+        this.toolbar = findViewById(R.id.fields_overview_toolbar);
+        this.setSupportActionBar(toolbar);
     }
 
     @Override

@@ -15,6 +15,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,6 +38,7 @@ import de.prog3.ackerschlagkartei.ui.views.activities.FieldDetailsActivity;
 
 public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCallback {
     private FieldsOverviewViewModel fieldViewModel;
+    private NavController navController;
 
     private MapView mapView;
     private GoogleMap googleMap;
@@ -67,13 +70,13 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        this.mapView.onStart();
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        this.fieldViewModel = new ViewModelProvider(this).get(FieldsOverviewViewModel.class);
+        this.fieldViewModel = new ViewModelProvider(requireActivity()).get(FieldsOverviewViewModel.class);
+        this.navController = Navigation.findNavController(view);
 
-        this.fieldViewModel.getLiveFieldData().observe(this, new Observer<List<FieldModel>>() {
+        this.fieldViewModel.getLiveFieldData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
             @Override
             public void onChanged(List<FieldModel> fieldModels) {
                 currentFieldModels = fieldModels;
@@ -82,7 +85,12 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         });
 
         this.createFieldPolygons();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.mapView.onStart();
     }
 
     @Override
@@ -91,8 +99,8 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         this.googleMap.getUiSettings().setZoomControlsEnabled(true);
 
-        if (ActivityCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -104,9 +112,6 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
         this.googleMap.setOnPolygonClickListener(onPolygonClick);
 
         this.createFieldPolygons();
-
-        this.mapView.setVisibility(View.VISIBLE);
-        this.progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void createFieldPolygons() {
@@ -140,6 +145,8 @@ public class FieldsOverviewMapFragment extends Fragment implements OnMapReadyCal
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
 
+        this.mapView.setVisibility(View.VISIBLE);
+        this.progressBar.setVisibility(View.INVISIBLE);
     }
 
     private final GoogleMap.OnPolygonClickListener onPolygonClick = new GoogleMap.OnPolygonClickListener() {
