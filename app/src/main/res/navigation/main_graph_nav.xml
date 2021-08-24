@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.SignInFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.SignUpFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.ForgotPasswordFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password">
         <action
@@ -61,17 +61,17 @@
     </fragment>
     <activity
         android:id="@+id/fieldsOverviewActivity"
-        android:name="de.prog3.ackerschlagkartei.activities.FieldsOverviewActivity"
+        android:name="de.prog3.ackerschlagkartei.ui.views.activities.FieldsOverviewActivity"
         android:label="activity_fields_overview"
         tools:layout="@layout/activity_fields_overview"></activity>
     <activity
         android:id="@+id/fieldDetailsActivity"
-        android:name="de.prog3.ackerschlagkartei.activities.FieldDetailsActivity"
+        android:name="de.prog3.ackerschlagkartei.ui.views.activities.FieldDetailsActivity"
         android:label="activity_field_details"
         tools:layout="@layout/activity_field_details" />
     <activity
         android:id="@+id/fieldAddActivity"
-        android:name="de.prog3.ackerschlagkartei.activities.FieldAddActivity"
+        android:name="de.prog3.ackerschlagkartei.ui.views.activities.FieldAddActivity"
         android:label="activity_field_add"
         tools:layout="@layout/activity_field_add" />
     <include app:graph="@navigation/details_graph_nav" />

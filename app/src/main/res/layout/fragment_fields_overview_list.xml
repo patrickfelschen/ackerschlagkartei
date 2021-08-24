@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FieldsOverviewListFragment">
+    tools:context=".ui.views.fragments.FieldsOverviewListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_field_overview_list"

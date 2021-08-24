@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/fieldActionsOverview"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldActionsOverview"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldActionsOverview"
         tools:layout="@layout/fragment_field_actions_overview"
         android:label="fragment_field_actions_overview" />
     <fragment
         android:id="@+id/fieldImagesCameraFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldDocumentsCameraFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDocumentsCameraFragment"
         tools:layout="@layout/fragment_field_documents_camera"
         android:label="fragment_field_images_camera" />
     <fragment
         android:id="@+id/fieldCultivationFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldCultivationFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldCultivationFragment"
         android:label="fragment_field_cultivation"
         tools:layout="@layout/fragment_field_cultivation" />
     <fragment
         android:id="@+id/fieldGroundFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldGroundFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldGroundFragment"
         tools:layout="@layout/fragment_field_ground"
         android:label="fragment_field_ground" />
     <fragment
         android:id="@+id/fieldActionsFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldActionsCategoriesFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldActionsCategoriesFragment"
         tools:layout="@layout/fragment_field_actions"
         android:label="fragment_field_actions">
         <action
@@ -39,12 +39,12 @@
         app:destination="@id/fieldActionsOverview" />
     <fragment
         android:id="@+id/fieldInfoFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldInfoFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldInfoFragment"
         tools:layout="@layout/fragment_field_info"
         android:label="fragment_field_info" />
     <fragment
         android:id="@+id/fieldImagesFragment"
-        android:name="de.prog3.ackerschlagkartei.fragments.FieldDocumentsFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDocumentsFragment"
         tools:layout="@layout/fragment_field_documents"
         android:label="fragment_field_images">
         <action
