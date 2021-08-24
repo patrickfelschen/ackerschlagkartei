@@ -1,6 +1,7 @@
 package de.prog3.ackerschlagkartei.repositories;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -172,11 +174,13 @@ public class FirestoreRepository {
                 .document(fieldUid)
                 .collection("Actions")
                 .whereEqualTo("type", category)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                         if (error != null) {
+                            Log.w("GetAction", error.getLocalizedMessage());
                             Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
