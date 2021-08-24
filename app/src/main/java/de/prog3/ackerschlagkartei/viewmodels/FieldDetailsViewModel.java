@@ -1,6 +1,7 @@
 package de.prog3.ackerschlagkartei.viewmodels;
 
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,6 +14,7 @@ import de.prog3.ackerschlagkartei.models.ActionModel;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.models.WeatherModel;
 import de.prog3.ackerschlagkartei.repositories.FirestoreRepository;
+import de.prog3.ackerschlagkartei.repositories.StorageRepository;
 import de.prog3.ackerschlagkartei.repositories.WeatherRepository;
 
 public class FieldDetailsViewModel extends AndroidViewModel {
@@ -20,6 +22,8 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     private final Application application;
     private final FirestoreRepository firestoreRepository;
     private final WeatherRepository weatherRepository;
+    private final StorageRepository storageRepository;
+
     private MutableLiveData<FieldModel> fieldModelMutableLiveData;
     private final MutableLiveData<String> actionCategory;
 
@@ -29,6 +33,8 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         this.application = application;
         this.firestoreRepository = new FirestoreRepository(application);
         this.weatherRepository = new WeatherRepository(application);
+        this.storageRepository = new StorageRepository(application);
+
         this.actionCategory = new MutableLiveData<>();
     }
 
@@ -72,6 +78,10 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<ActionModel>> getActions() {
-       return this.firestoreRepository.getActionListMutableLiveData(fieldModelMutableLiveData.getValue().getUid(), actionCategory.getValue());
+        return this.firestoreRepository.getActionListMutableLiveData(fieldModelMutableLiveData.getValue().getUid(), actionCategory.getValue());
+    }
+
+    public void uploadFieldDocument(Uri contentUri) {
+        this.storageRepository.uploadFieldDocument(fieldModelMutableLiveData.getValue().getUid(), contentUri);
     }
 }

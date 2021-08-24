@@ -16,12 +16,12 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.R;
 
 public class FieldActionsCategoryAdapter extends ArrayAdapter {
-    private List objects;
-    private Integer[] images;
-    private Activity context;
+    private final List objects;
+    private final Integer[] images;
+    private final Activity context;
 
     public FieldActionsCategoryAdapter(@NonNull Activity context, List objects, Integer[] images) {
-        super(context, R.layout.fieldlist_item, objects);
+        super(context, R.layout.item_field_list, objects);
         this.context = context;
         this.objects = objects;
         this.images = images;
@@ -34,7 +34,7 @@ public class FieldActionsCategoryAdapter extends ArrayAdapter {
 
         LayoutInflater inflater = context.getLayoutInflater();
         if(convertView == null) {
-            row = inflater.inflate(R.layout.fieldlist_item, null, true);
+            row = inflater.inflate(R.layout.item_field_list, null, true);
         }
 
         TextView labelListItem = row.findViewById(R.id.tv_list_name);

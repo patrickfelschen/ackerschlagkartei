@@ -1,27 +1,20 @@
 package de.prog3.ackerschlagkartei.fragments;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Date;
-
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.models.ActionModel;
 import de.prog3.ackerschlagkartei.models.FieldModel;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
@@ -40,7 +33,7 @@ public class AddActionDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.popup_window, null);
+        View view = inflater.inflate(R.layout.popup_action_add, null);
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
         this.selectedCategory = this.fieldDetailsViewModel.getActionCategory().getValue();

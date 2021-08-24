@@ -18,12 +18,12 @@ import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.models.ActionModel;
 
 public class FieldActionsAdapter extends ArrayAdapter {
-    private List<ActionModel> objects;
+    private final List<ActionModel> objects;
     private Integer icon;
-    private Activity context;
+    private final Activity context;
 
     public FieldActionsAdapter(@NonNull Activity context, List<ActionModel> objects) {
-        super(context, R.layout.fieldlist_item, objects);
+        super(context, R.layout.item_field_list, objects);
         this.context = context;
         this.objects = objects;
         this.icon = 0;
@@ -40,7 +40,7 @@ public class FieldActionsAdapter extends ArrayAdapter {
 
         LayoutInflater inflater = context.getLayoutInflater();
         if(convertView == null) {
-            row = inflater.inflate(R.layout.fieldlist_item, null, true);
+            row = inflater.inflate(R.layout.item_field_list, null, true);
         }
 
         TextView labelListItem = row.findViewById(R.id.tv_list_name);

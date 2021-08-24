@@ -470,4 +470,5 @@
 
     <!-- FieldImages -->
     <string name="btn_add_image">Foto erstellen</string>
+    <string name="btn_attach_doc">Dokument anhängen</string>
 </resources>

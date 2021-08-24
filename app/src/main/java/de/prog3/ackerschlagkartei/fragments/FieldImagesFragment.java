@@ -1,7 +1,10 @@
 package de.prog3.ackerschlagkartei.fragments;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -69,6 +72,10 @@ public class FieldImagesFragment extends Fragment {
         if (item.getItemId() == R.id.btn_add_image) {
             openCamera();
         }
+
+        if (item.getItemId() == R.id.btn_add_doc) {
+            openFile();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -88,6 +95,29 @@ public class FieldImagesFragment extends Fragment {
             performCamera();
         } else {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+        }
+    }
+
+    private static final int PICK_PDF_FILE = 2;
+
+    private void openFile() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/pdf");
+
+        startActivityForResult(intent, PICK_PDF_FILE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        if (requestCode == PICK_PDF_FILE && resultCode == Activity.RESULT_OK) {
+            // The result data contains a URI for the document or directory that
+            // the user selected.
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                this.fieldDetailsViewModel.uploadFieldDocument(uri);
+            }
         }
     }
 

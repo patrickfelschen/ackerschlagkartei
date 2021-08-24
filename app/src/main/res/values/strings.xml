@@ -472,7 +472,6 @@
 
     <!-- FieldImages -->
     <string name="btn_add_image">Take photo</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_attach_doc">Attach Document</string>
 
 </resources>
