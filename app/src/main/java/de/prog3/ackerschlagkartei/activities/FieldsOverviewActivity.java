@@ -89,12 +89,12 @@ public class FieldsOverviewActivity extends AppCompatActivity {
     }
 
     private void setMapView() {
-        this.navController.navigate(R.id.fieldsOverviewMapFragment);
+        this.navController.navigate(R.id.action_fieldsOverviewListFragment_to_fieldsOverviewMapFragment);
         this.viewMode = ViewMode.MAP;
     }
 
     private void setListView() {
-        this.navController.navigate(R.id.fieldsOverviewListFragment);
+        this.navController.navigate(R.id.action_fieldsOverviewMapFragment_to_fieldsOverviewListFragment);
         this.viewMode = ViewMode.LIST;
     }
 

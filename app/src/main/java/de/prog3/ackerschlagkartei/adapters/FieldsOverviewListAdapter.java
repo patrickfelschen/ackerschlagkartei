@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,7 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
     private List<FieldModel> fieldModelList;
 
     public FieldsOverviewListAdapter() {
-       fieldModelList = new ArrayList<>();
+        fieldModelList = new ArrayList<>();
     }
 
     public void setFieldModelList(List<FieldModel> fieldModelList) {
@@ -37,9 +36,10 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.itemView.setTag(fieldModelList.get(position));
-        holder.mFieldName.setText(fieldModelList.get(position).getInfo().getDescription());
-
+        FieldModel fieldModel = fieldModelList.get(position);
+        holder.itemView.setTag(fieldModel);
+        holder.fieldName.setText(fieldModel.getInfo().getDescription());
+        holder.fieldArea.setText(String.format("%.2f ha", fieldModel.getInfo().getArea()));
     }
 
     @Override
@@ -48,12 +48,15 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mFieldName;
+        public TextView fieldName;
+        public TextView fieldArea;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mFieldName = itemView.findViewById(R.id.tv_list_item);
+            fieldName = itemView.findViewById(R.id.tv_list_name);
+            fieldArea = itemView.findViewById(R.id.tv_list_area);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
