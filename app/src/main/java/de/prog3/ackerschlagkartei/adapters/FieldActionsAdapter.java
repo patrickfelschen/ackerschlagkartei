@@ -37,8 +37,8 @@ public class FieldActionsAdapter extends ArrayAdapter {
             row = inflater.inflate(R.layout.fieldlist_item, null, true);
         }
 
-        TextView labelListItem = row.findViewById(R.id.tv_list_item);
-        TextView dateListItem = row.findViewById(R.id.textView2);
+        TextView labelListItem = row.findViewById(R.id.tv_list_name);
+        TextView dateListItem = row.findViewById(R.id.tv_list_area);
         ImageView iconListItem = row.findViewById(R.id.imageView);
 
         labelListItem.setText(objects.get(position).toString());
