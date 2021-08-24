@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.adapters.FieldActionsAdapter;
+import de.prog3.ackerschlagkartei.adapters.FieldActionsCategoryAdapter;
 import de.prog3.ackerschlagkartei.viewmodels.FieldDetailsViewModel;
 
 public class FieldActionsCategoriesFragment extends Fragment {
@@ -25,8 +25,7 @@ public class FieldActionsCategoriesFragment extends Fragment {
     private FieldDetailsViewModel fieldDetailsViewModel;
     private ListView fieldActionsListView;
     private List<String> actionList;
-    private HashMap<String, List<String>> action;
-    private FieldActionsAdapter adapter;
+    private FieldActionsCategoryAdapter adapter;
     private Integer[] listIcons;
 
     public FieldActionsCategoriesFragment() {
@@ -60,7 +59,6 @@ public class FieldActionsCategoriesFragment extends Fragment {
         this.fieldActionsListView = view.findViewById(R.id.field_actions_list_view);
 
         this.actionList = new ArrayList<>();
-        this.action = new HashMap<>();
         this.listIcons = new Integer[] {
             R.drawable.ic_baseline_fence_24,
             R.drawable.ic_baseline_local_florist_24,
@@ -69,7 +67,7 @@ public class FieldActionsCategoriesFragment extends Fragment {
             R.drawable.ic_baseline_filter_vintage_24
         };
 
-        adapter = new FieldActionsAdapter(requireActivity(), this.actionList, this.listIcons);
+        adapter = new FieldActionsCategoryAdapter(requireActivity(), this.actionList, this.listIcons);
         this.fieldActionsListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

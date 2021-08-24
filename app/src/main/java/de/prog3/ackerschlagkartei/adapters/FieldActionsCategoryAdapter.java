@@ -11,26 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.models.ActionModel;
 
-public class FieldActionsAdapter extends ArrayAdapter {
-    private List<ActionModel> objects;
-    private Integer icon;
+public class FieldActionsCategoryAdapter extends ArrayAdapter {
+    private List objects;
+    private Integer[] images;
     private Activity context;
 
-    public FieldActionsAdapter(@NonNull Activity context, List<ActionModel> objects) {
+    public FieldActionsCategoryAdapter(@NonNull Activity context, List objects, Integer[] images) {
         super(context, R.layout.fieldlist_item, objects);
         this.context = context;
         this.objects = objects;
-        this.icon = 0;
-    }
-
-    public void setIcon(Integer icon) {
-        this.icon = icon;
+        this.images = images;
     }
 
     @NonNull
@@ -47,12 +41,11 @@ public class FieldActionsAdapter extends ArrayAdapter {
         TextView dateListItem = row.findViewById(R.id.tv_list_area);
         ImageView iconListItem = row.findViewById(R.id.imageView);
 
-        labelListItem.setText(objects.get(position).getDescription());
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-        dateListItem.setText(simpleDateFormat.format(objects.get(position).getDate()));
-        iconListItem.setImageResource(icon);
+        labelListItem.setText(objects.get(position).toString());
+        dateListItem.setText("");
+        if(images != null) {
+            iconListItem.setImageResource(images[position]);
+        }
 
         return row;
     }
