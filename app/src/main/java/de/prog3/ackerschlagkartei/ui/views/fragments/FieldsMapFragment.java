@@ -57,6 +57,9 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fields_map, container, false);
+
+        this.mapView = view.findViewById(R.id.mv_fields_overview);
+
         return view;
     }
 
@@ -67,12 +70,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         this.fieldsViewModel = new ViewModelProvider(this).get(FieldsViewModel.class);
         this.navController = Navigation.findNavController(view);
 
-        //this.progressBar = view.findViewById(R.id.progressBar2);
-        //this.progressBar.setVisibility(View.VISIBLE);
-
-        this.mapView = view.findViewById(R.id.mv_fields_overview);
         this.mapView.setVisibility(View.INVISIBLE);
-
         this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
 
@@ -169,19 +167,13 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
 
         this.mapView.setVisibility(View.VISIBLE);
-        //this.progressBar.setVisibility(View.INVISIBLE);
 
     }
 
     private final GoogleMap.OnPolygonClickListener onPolygonClick = new GoogleMap.OnPolygonClickListener() {
         @Override
         public void onPolygonClick(@NonNull Polygon polygon) {
-            /*
-            FieldModel fieldModel = (FieldModel) polygon.getTag();
-            Intent i = new Intent(getContext(), FieldDetailsActivity.class);
-            i.putExtra("fieldModelUid", fieldModel.getUid());
-            startActivity(i);
-             */
+            navController.navigate(R.id.action_fieldsMapFragment_to_fieldDetailsFragment);
         }
     };
 
