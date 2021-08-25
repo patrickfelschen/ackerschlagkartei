@@ -40,7 +40,7 @@ public class FieldInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
         this.navController = Navigation.findNavController(view);
     }
 

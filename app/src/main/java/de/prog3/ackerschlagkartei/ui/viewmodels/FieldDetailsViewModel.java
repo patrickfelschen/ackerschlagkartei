@@ -43,9 +43,24 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         this.selectedFieldModel = new MutableLiveData<>();
     }
 
-    public void setSelectedFieldModel(FieldModel selectedFieldModel){
+    public void setSelectedFieldModel(FieldModel selectedFieldModel) {
         this.selectedFieldModel.postValue(selectedFieldModel);
     }
+
+    public MutableLiveData<FieldModel> getSelectedFieldModel() {
+        return this.selectedFieldModel;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     // FIELDMODEL
 
@@ -103,11 +118,11 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         //this.firestoreRepository.createDocumentModel(fieldModelMutableLiveData.getValue().getUid(), new DocumentModel("", "", Timestamp.now().toDate()));
     }
 
-    public void getFieldListData(String fieldId){
+    public void getFieldListData(String fieldId) {
         this.firestoreRepository.getDocumentListGetData(fieldId);
     }
 
-    public void createFieldDocument(String fieldId, Uri contentUri, DocumentModel documentModel){
+    public void createFieldDocument(String fieldId, Uri contentUri, DocumentModel documentModel) {
         this.firestoreRepository.createDocumentModel(fieldId, documentModel);
     }
 }

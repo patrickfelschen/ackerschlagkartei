@@ -26,7 +26,6 @@ import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldsListAdapter;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsListViewModel;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldsListFragment extends Fragment implements ItemClickListener {
     private FieldsListViewModel fieldsListViewModel;
@@ -57,12 +56,11 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.fieldsListViewModel = new ViewModelProvider(requireActivity()).get(FieldsListViewModel.class);
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+
         this.navController = Navigation.findNavController(view);
-
         this.rvFieldModels.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        this.fieldsListViewModel = new ViewModelProvider(this).get(FieldsListViewModel.class);
-        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
 
         this.fieldsListViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
             @Override

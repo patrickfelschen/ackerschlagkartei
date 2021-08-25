@@ -46,7 +46,7 @@ public class SplashFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        this.authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         this.navController = Navigation.findNavController(view);
 
         this.authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {

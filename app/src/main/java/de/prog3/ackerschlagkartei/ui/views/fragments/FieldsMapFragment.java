@@ -9,11 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +26,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.firebase.firestore.GeoPoint;
@@ -42,8 +43,10 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     private FieldsMapViewModel fieldsMapViewModel;
     private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
+
     private MapView mapView;
     private GoogleMap googleMap;
+
     private List<FieldModel> currentFieldModels;
 
     public FieldsMapFragment() { }
@@ -66,8 +69,9 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldsMapViewModel = new ViewModelProvider(this).get(FieldsMapViewModel.class);
-        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
+        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+
         this.navController = Navigation.findNavController(view);
 
         this.mapView.onCreate(savedInstanceState);
@@ -80,7 +84,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
                 createFieldPolygons();
             }
         });
-        this.createFieldPolygons();
     }
 
     @Override
@@ -99,15 +102,15 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.menu_add_field){
+        if (id == R.id.menu_add_field) {
             navController.navigate(R.id.action_fieldMapFragment_to_fieldAddFragment);
         }
 
-        if(id == R.id.menu_change_view){
+        if (id == R.id.menu_change_view) {
             navController.navigate(R.id.action_fieldMapFragment_to_fieldListFragment);
         }
 
-        if(id == R.id.menu_sign_out){
+        if (id == R.id.menu_sign_out) {
             navController.navigate(R.id.signInFragment);
             this.fieldsMapViewModel.logout();
             return true;
@@ -121,17 +124,23 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         this.googleMap.getUiSettings().setZoomControlsEnabled(true);
 
-        if(ActivityCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        this.googleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+            @Override
+            public void onPolygonClick(@NonNull Polygon polygon) {
+                fieldDetailsViewModel.setSelectedFieldModel((FieldModel) polygon.getTag());
+                navController.navigate(R.id.action_fieldsMapFragment_to_fieldDetailsFragment);
+            }
+        });
+
+        this.createFieldPolygons();
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //TODO: ask for permissions
             return;
         }
 
         this.googleMap.setMyLocationEnabled(true);
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        this.googleMap.setOnPolygonClickListener(onPolygonClick);
-
-        this.createFieldPolygons();
     }
 
     private void createFieldPolygons() {
@@ -166,14 +175,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
 
     }
-
-    private final GoogleMap.OnPolygonClickListener onPolygonClick = new GoogleMap.OnPolygonClickListener() {
-        @Override
-        public void onPolygonClick(@NonNull Polygon polygon) {
-            fieldDetailsViewModel.setSelectedFieldModel((FieldModel)polygon.getTag());
-            navController.navigate(R.id.action_fieldsMapFragment_to_fieldDetailsFragment);
-        }
-    };
 
     @Override
     public void onResume() {

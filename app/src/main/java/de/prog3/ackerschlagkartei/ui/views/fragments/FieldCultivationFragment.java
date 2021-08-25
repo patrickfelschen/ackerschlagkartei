@@ -7,10 +7,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,11 +22,11 @@ import androidx.navigation.Navigation;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
-import de.prog3.ackerschlagkartei.data.models.WeatherModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 
 public class FieldCultivationFragment extends Fragment {
     private FieldDetailsViewModel fieldDetailsViewModel;
+
     private NavController navController;
 
     private AutoCompleteTextView ddPreviousCrop;
@@ -46,6 +46,8 @@ public class FieldCultivationFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
     }
 
     @Nullable
@@ -67,7 +69,6 @@ public class FieldCultivationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
         this.navController = Navigation.findNavController(view);
 
         this.cropAdapter = ArrayAdapter.createFromResource(getContext(),
@@ -89,6 +90,15 @@ public class FieldCultivationFragment extends Fragment {
         this.ddZwfGroup.setAdapter(this.zwfGroupAdapter);
 
         this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+
+        this.fieldDetailsViewModel.getSelectedFieldModel().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+            @Override
+            public void onChanged(FieldModel fieldModel) {
+                Toast.makeText(requireContext(), fieldModel.getInfo().getDescription(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         /*
         this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
             @Override

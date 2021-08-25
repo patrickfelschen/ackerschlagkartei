@@ -14,9 +14,6 @@ import de.prog3.ackerschlagkartei.R;
 
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
-    private NavController detailsNavController;
-
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
