@@ -15,13 +15,13 @@ import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAdapter.ViewHolder> {
 
     private final String[] mData;
-    private final LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private final LayoutInflater layoutInflater;
+    private ItemClickListener itemClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        private TextView myTextView;
 
-        ViewHolder(View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.info_text);
             itemView.setOnClickListener(this);
@@ -29,19 +29,21 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(view, getAdapterPosition());
+            }
         }
     }
 
     public FieldDocumentsAdapter(Context context, String[] data) {
-        this.mInflater = LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from(context);
         this.mData = data;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_field_document, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_document, parent, false);
 
         return new ViewHolder(view);
     }
@@ -61,6 +63,6 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
     }
 
     public void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
+        this.itemClickListener = itemClickListener;
     }
 }

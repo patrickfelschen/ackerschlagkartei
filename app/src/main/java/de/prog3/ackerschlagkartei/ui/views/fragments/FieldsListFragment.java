@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,15 +22,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldsListAdapter;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsViewModel;
 
-public class FieldsListFragment extends Fragment {
+public class FieldsListFragment extends Fragment implements ItemClickListener {
     private FieldsViewModel fieldsViewModel;
     private NavController navController;
-    private RecyclerView fieldList;
-    FieldsListAdapter fieldsListAdapter;
+    private RecyclerView rvFieldModels;
+    private FieldsListAdapter fieldsListAdapter;
 
     public FieldsListFragment() { }
 
@@ -43,6 +45,7 @@ public class FieldsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fields_list, container, false);
+        this.rvFieldModels = view.findViewById(R.id.rv_field_list);
         return view;
     }
 
@@ -50,21 +53,17 @@ public class FieldsListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldList = view.findViewById(R.id.rv_field_list);
-        this.fieldList.setLayoutManager(new LinearLayoutManager(getContext()));
-        this.fieldList.setHasFixedSize(true);
-
         this.navController = Navigation.findNavController(view);
 
-        this.fieldsListAdapter = new FieldsListAdapter();
-        this.fieldList.setAdapter(fieldsListAdapter);
+        this.rvFieldModels.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         this.fieldsViewModel = new ViewModelProvider(this).get(FieldsViewModel.class);
-        this.fieldsViewModel.getFieldListData().observe(requireActivity(), new Observer<List<FieldModel>>() {
+        this.fieldsViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
             @Override
             public void onChanged(List<FieldModel> fieldModels) {
-                fieldsListAdapter.setFieldModelList(fieldModels);
-                fieldsListAdapter.notifyDataSetChanged();
+                fieldsListAdapter = new FieldsListAdapter(requireActivity(), fieldModels);
+                fieldsListAdapter.setClickListener(FieldsListFragment.this);
+                rvFieldModels.setAdapter(fieldsListAdapter);
             }
         });
     }
@@ -103,7 +102,13 @@ public class FieldsListFragment extends Fragment {
     }
 
     @Override
+    public void onItemClick(View view, int position) {
+        FieldModel selectedField = this.fieldsListAdapter.getItem(position);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

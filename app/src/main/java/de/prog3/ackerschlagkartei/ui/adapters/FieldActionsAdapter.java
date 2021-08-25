@@ -23,7 +23,7 @@ public class FieldActionsAdapter extends ArrayAdapter {
     private final Activity context;
 
     public FieldActionsAdapter(@NonNull Activity context, List<ActionModel> objects) {
-        super(context, R.layout.item_field_list, objects);
+        super(context, R.layout.item_field, objects);
         this.context = context;
         this.objects = objects;
         this.icon = 0;
@@ -40,11 +40,11 @@ public class FieldActionsAdapter extends ArrayAdapter {
 
         LayoutInflater inflater = context.getLayoutInflater();
         if(convertView == null) {
-            row = inflater.inflate(R.layout.item_field_list, null, true);
+            row = inflater.inflate(R.layout.item_field, null, true);
         }
 
-        TextView labelListItem = row.findViewById(R.id.tv_list_name);
-        TextView dateListItem = row.findViewById(R.id.tv_list_area);
+        TextView labelListItem = row.findViewById(R.id.tv_item_field_description);
+        TextView dateListItem = row.findViewById(R.id.tv_item_field_area);
         ImageView iconListItem = row.findViewById(R.id.imageView);
 
         labelListItem.setText(objects.get(position).getDescription());

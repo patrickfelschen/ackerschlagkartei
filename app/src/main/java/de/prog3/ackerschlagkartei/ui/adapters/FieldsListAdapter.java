@@ -1,5 +1,7 @@
 package de.prog3.ackerschlagkartei.ui.adapters;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,62 +10,68 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 
 public class FieldsListAdapter extends RecyclerView.Adapter<FieldsListAdapter.ViewHolder> {
-    private List<FieldModel> fieldModelList;
 
-    public FieldsListAdapter() {
-        fieldModelList = new ArrayList<>();
+    private List<FieldModel> fieldModelList;
+    private final LayoutInflater layoutInflater;
+    private ItemClickListener itemClickListener;
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView fieldDescription;
+        private TextView fieldArea;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            fieldDescription = itemView.findViewById(R.id.tv_item_field_description);
+            fieldArea = itemView.findViewById(R.id.tv_item_field_area);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (itemClickListener != null){
+                itemClickListener.onItemClick(view, getAdapterPosition());
+            }
+        }
     }
 
-    public void setFieldModelList(List<FieldModel> fieldModelList) {
+    public FieldsListAdapter(Context context, List<FieldModel> fieldModelList) {
+        this.layoutInflater = LayoutInflater.from(context);
         this.fieldModelList = fieldModelList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_field_list, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_field, parent, false);
         return new ViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FieldModel fieldModel = fieldModelList.get(position);
-        holder.itemView.setTag(fieldModel);
-        holder.fieldName.setText(fieldModel.getInfo().getDescription());
+        holder.fieldDescription.setText(fieldModel.getInfo().getDescription());
         holder.fieldArea.setText(String.format("%.2f ha", fieldModel.getInfo().getArea()));
     }
 
     @Override
     public int getItemCount() {
-        return this.fieldModelList.size();
+        return fieldModelList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView fieldName;
-        public TextView fieldArea;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            fieldName = itemView.findViewById(R.id.tv_list_name);
-            fieldArea = itemView.findViewById(R.id.tv_list_area);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FieldModel fieldModel = (FieldModel) itemView.getTag();
-                    //Intent i = new Intent(v.getContext(), FieldDetailsActivity.class);
-                    //i.putExtra("fieldModelUid", fieldModel.getUid());
-                    //v.getContext().startActivity(i);
-                }
-            });
-        }
+    public FieldModel getItem(int id) {
+        return fieldModelList.get(id);
     }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
 }
