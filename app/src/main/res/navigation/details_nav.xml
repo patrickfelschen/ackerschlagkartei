@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/fieldCultivationFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldCultivationFragment"
-        tools:layout="@layout/fragment_field_cultivation"
-        android:label="fragment_field_cultivation" />
+        android:label="@string/fragment_cultivation"
+        tools:layout="@layout/fragment_field_cultivation" />
     <fragment
         android:id="@+id/fieldActionsFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldActionsFragment"
@@ -18,18 +18,18 @@
     <fragment
         android:id="@+id/fieldInfoFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldInfoFragment"
-        tools:layout="@layout/fragment_field_info"
-        android:label="fragment_field_info" />
+        android:label="@string/fragment_info"
+        tools:layout="@layout/fragment_field_info" />
     <fragment
         android:id="@+id/fieldGroundFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldGroundFragment"
-        tools:layout="@layout/fragment_field_ground"
-        android:label="fragment_field_ground" />
+        android:label="@string/fragment_ground"
+        tools:layout="@layout/fragment_field_ground" />
     <fragment
         android:id="@+id/fieldDocumentsFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDocumentsFragment"
-        tools:layout="@layout/fragment_field_documents"
-        android:label="fragment_field_documents" >
+        android:label="@string/fragment_documents"
+        tools:layout="@layout/fragment_field_documents">
         <action
             android:id="@+id/action_fieldDocumentsFragment_to_fieldDocumentsCameraFragment"
             app:destination="@id/fieldDocumentsCameraFragment"
@@ -41,8 +41,8 @@
     <fragment
         android:id="@+id/fieldActionsCategoryFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldActionsCategoryFragment"
-        android:label="fragment_field_actions_category"
-        tools:layout="@layout/fragment_field_actions_category" >
+        android:label="@string/fragment_actions"
+        tools:layout="@layout/fragment_field_actions_category">
         <action
             android:id="@+id/action_fieldActionsCategoryFragment_to_fieldActionsFragment"
             app:destination="@id/fieldActionsFragment"

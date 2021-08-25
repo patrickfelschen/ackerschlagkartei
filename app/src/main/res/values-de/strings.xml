@@ -10,6 +10,11 @@
     <string name="fragment_fields_list">Felder Liste</string>
     <string name="fragment_field_add">Feld Hinzufügen</string>
     <string name="fragment_splash">Laden...</string>
+    <string name="fragment_cultivation">Anbau</string>
+    <string name="fragment_ground">Boden</string>
+    <string name="fragment_actions">Maßnahmen</string>
+    <string name="fragment_info">Info</string>
+    <string name="fragment_documents">Dokumente</string>
 
     <!-- SignInActivity -->
     <string name="et_email_hint">E-Mail Adresse</string>
