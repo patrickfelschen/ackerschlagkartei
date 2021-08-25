@@ -2,6 +2,7 @@ package de.prog3.ackerschlagkartei.ui.viewmodels;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,33 +14,26 @@ import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.data.repositories.AuthRepository;
 import de.prog3.ackerschlagkartei.data.repositories.FirestoreRepository;
 
-public class FieldsViewModel extends AndroidViewModel {
-    private final AuthRepository authRepository;
-    private final MutableLiveData<FirebaseUser> userMutableLiveData;
+public class FieldsMapViewModel extends AndroidViewModel {
+    private final Application application;
 
-    private final MutableLiveData<List<FieldModel>> fieldMutableLiveData;
+    private final AuthRepository authRepository;
     private final FirestoreRepository firestoreRepository;
 
-    public FieldsViewModel(Application application) {
+    public FieldsMapViewModel(@NonNull Application application) {
         super(application);
+        this.application = application;
 
         this.authRepository = new AuthRepository(application);
-        this.userMutableLiveData = authRepository.getUserMutableLiveData();
-
         this.firestoreRepository = new FirestoreRepository(application);
-        this.fieldMutableLiveData = firestoreRepository.getFieldListGetData();
     }
 
     public void logout() {
         this.authRepository.logout();
     }
 
-    public MutableLiveData<FirebaseUser> getUserData() {
-        return this.userMutableLiveData;
-    }
-
     public MutableLiveData<List<FieldModel>> getFieldListData() {
-        return this.fieldMutableLiveData;
+        return this.firestoreRepository.getFieldListGetData();
     }
 
 }

@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,11 +24,16 @@ import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldsListAdapter;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsListViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldsListFragment extends Fragment implements ItemClickListener {
-    private FieldsViewModel fieldsViewModel;
+    private FieldsListViewModel fieldsListViewModel;
+    private FieldDetailsViewModel fieldDetailsViewModel;
+
     private NavController navController;
+
     private RecyclerView rvFieldModels;
     private FieldsListAdapter fieldsListAdapter;
 
@@ -57,8 +61,10 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
 
         this.rvFieldModels.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        this.fieldsViewModel = new ViewModelProvider(this).get(FieldsViewModel.class);
-        this.fieldsViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
+        this.fieldsListViewModel = new ViewModelProvider(this).get(FieldsListViewModel.class);
+        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
+
+        this.fieldsListViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
             @Override
             public void onChanged(List<FieldModel> fieldModels) {
                 fieldsListAdapter = new FieldsListAdapter(requireActivity(), fieldModels);
@@ -94,7 +100,7 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
         }
 
         if(id == R.id.menu_sign_out){
-            this.fieldsViewModel.logout();
+            this.fieldsListViewModel.logout();
             this.navController.navigate(R.id.signInFragment);
             return true;
         }
@@ -104,6 +110,8 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
     @Override
     public void onItemClick(View view, int position) {
         FieldModel selectedField = this.fieldsListAdapter.getItem(position);
+        this.fieldDetailsViewModel.setSelectedFieldModel(selectedField);
+        this.navController.navigate(R.id.action_fieldsListFragment_to_fieldDetailsFragment);
     }
 
     @Override

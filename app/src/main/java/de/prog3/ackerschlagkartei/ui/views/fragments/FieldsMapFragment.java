@@ -35,10 +35,10 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
-    private FieldsViewModel fieldsViewModel;
+    private FieldsMapViewModel fieldsMapViewModel;
     private NavController navController;
     private MapView mapView;
     private GoogleMap googleMap;
@@ -67,14 +67,14 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldsViewModel = new ViewModelProvider(this).get(FieldsViewModel.class);
+        this.fieldsMapViewModel = new ViewModelProvider(this).get(FieldsMapViewModel.class);
         this.navController = Navigation.findNavController(view);
 
         this.mapView.setVisibility(View.INVISIBLE);
         this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
 
-        this.fieldsViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
+        this.fieldsMapViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
             @Override
             public void onChanged(List<FieldModel> fieldModels) {
                 currentFieldModels = fieldModels;
@@ -110,7 +110,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
         if(id == R.id.menu_sign_out){
             navController.navigate(R.id.signInFragment);
-            this.fieldsViewModel.logout();
+            this.fieldsMapViewModel.logout();
             return true;
         }
         return super.onOptionsItemSelected(item);

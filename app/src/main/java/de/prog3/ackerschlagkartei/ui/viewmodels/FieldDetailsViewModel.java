@@ -28,6 +28,8 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     private MutableLiveData<FieldModel> fieldModelMutableLiveData;
     private final MutableLiveData<String> actionCategory;
 
+    private final MutableLiveData<FieldModel> selectedFieldModel;
+
     public FieldDetailsViewModel(@NonNull Application application) {
         super(application);
 
@@ -37,6 +39,12 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         this.storageRepository = new StorageRepository(application);
 
         this.actionCategory = new MutableLiveData<>();
+
+        this.selectedFieldModel = new MutableLiveData<>();
+    }
+
+    public void setSelectedFieldModel(FieldModel selectedFieldModel){
+        this.selectedFieldModel.postValue(selectedFieldModel);
     }
 
     // FIELDMODEL
