@@ -23,10 +23,8 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldActionsCategoryAdapter;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldActionsViewModel;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 
 public class FieldActionsCategoryFragment extends Fragment {
-    private FieldDetailsViewModel fieldDetailsViewModel;
     private FieldActionsViewModel fieldActionsViewModel;
     private NavController navController;
     private ListView fieldActionsListView;
@@ -55,7 +53,6 @@ public class FieldActionsCategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
         this.fieldActionsViewModel = new ViewModelProvider(requireActivity()).get(FieldActionsViewModel.class);
         this.navController = Navigation.findNavController(view);
 

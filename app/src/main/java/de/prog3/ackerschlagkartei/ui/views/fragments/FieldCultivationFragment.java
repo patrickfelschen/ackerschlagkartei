@@ -25,7 +25,6 @@ import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.data.models.WeatherModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldCultivationViewModel;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldCultivationFragment extends Fragment {

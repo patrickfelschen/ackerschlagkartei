@@ -9,12 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
+import de.prog3.ackerschlagkartei.data.models.DocumentModel;
 
 public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAdapter.ViewHolder> {
 
-    private final String[] mData;
+    private final List<DocumentModel> documentModelList;
     private final LayoutInflater layoutInflater;
     private ItemClickListener itemClickListener;
 
@@ -35,9 +38,9 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
         }
     }
 
-    public FieldDocumentsAdapter(Context context, String[] data) {
+    public FieldDocumentsAdapter(Context context, List<DocumentModel> documentModelList) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.documentModelList = documentModelList;
     }
 
     @NonNull
@@ -50,16 +53,16 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.myTextView.setText(mData[position]);
+        holder.myTextView.setText(documentModelList.get(position).getContentType());
     }
 
     @Override
     public int getItemCount() {
-        return mData.length;
+        return documentModelList.size();
     }
 
-    public String getItem(int id) {
-        return mData[id];
+    public DocumentModel getItem(int id) {
+        return documentModelList.get(id);
     }
 
     public void setClickListener(ItemClickListener itemClickListener) {

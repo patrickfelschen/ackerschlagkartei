@@ -16,10 +16,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 
 public class FieldDocumentsCameraFragment extends Fragment {
-    private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
 
     public FieldDocumentsCameraFragment() { }
@@ -40,7 +38,6 @@ public class FieldDocumentsCameraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
         this.navController = Navigation.findNavController(view);
     }
 

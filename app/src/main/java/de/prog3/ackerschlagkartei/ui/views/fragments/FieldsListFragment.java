@@ -24,7 +24,6 @@ import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldsListAdapter;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsListViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 

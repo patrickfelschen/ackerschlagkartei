@@ -19,10 +19,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import de.prog3.ackerschlagkartei.R;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 
 public class FieldDetailsFragment extends Fragment {
-    private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
 
     private NavController detailsNavController;
@@ -48,7 +46,6 @@ public class FieldDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
         this.navController = Navigation.findNavController(view);
 
         this.detailsNavController = Navigation.findNavController(requireActivity(), R.id.details_nav_host_fragment);

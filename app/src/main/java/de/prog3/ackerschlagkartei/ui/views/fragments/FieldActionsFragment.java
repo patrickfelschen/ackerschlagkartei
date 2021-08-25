@@ -25,7 +25,6 @@ import de.prog3.ackerschlagkartei.data.models.ActionModel;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldActionsAdapter;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldActionsViewModel;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldActionsFragment extends Fragment {
