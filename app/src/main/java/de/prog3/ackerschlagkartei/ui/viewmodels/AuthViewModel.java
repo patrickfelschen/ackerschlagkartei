@@ -34,6 +34,10 @@ public class AuthViewModel extends AndroidViewModel {
         authRepository.resetPassword(email);
     }
 
+    public void logout(){
+        authRepository.logout();
+    }
+
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
         return userMutableLiveData;
     }

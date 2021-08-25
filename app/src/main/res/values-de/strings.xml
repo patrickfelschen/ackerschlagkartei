@@ -9,6 +9,7 @@
     <string name="fragment_fields_map">Felder Karte</string>
     <string name="fragment_fields_list">Felder Liste</string>
     <string name="fragment_field_add">Feld Hinzufügen</string>
+    <string name="fragment_splash">Laden...</string>
 
     <!-- SignInActivity -->
     <string name="et_email_hint">E-Mail Adresse</string>

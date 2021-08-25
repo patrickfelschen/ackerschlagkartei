@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/signInFragment"
@@ -96,4 +96,24 @@
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDetailsFragment"
         android:label="fragment_field_details"
         tools:layout="@layout/fragment_field_details" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.SplashFragment"
+        android:label="@string/fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_splashFragment_to_fieldsMapFragment"
+            app:destination="@id/fieldsMapFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 </navigation>

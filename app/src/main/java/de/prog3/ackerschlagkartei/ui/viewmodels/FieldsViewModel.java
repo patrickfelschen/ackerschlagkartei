@@ -31,14 +31,14 @@ public class FieldsViewModel extends AndroidViewModel {
     }
 
     public void logout() {
-        authRepository.logout();
+        this.authRepository.logout();
     }
 
-    public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
-        return userMutableLiveData;
+    public MutableLiveData<FirebaseUser> getUserData() {
+        return this.userMutableLiveData;
     }
 
-    public MutableLiveData<List<FieldModel>> getLiveFieldData() {
+    public MutableLiveData<List<FieldModel>> getFieldListData() {
         return this.fieldMutableLiveData;
     }
 

@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.ui.viewmodels.AuthViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsViewModel;
 
 public class FieldsListFragment extends Fragment {
@@ -42,6 +43,7 @@ public class FieldsListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.fieldsViewModel = new ViewModelProvider(this).get(FieldsViewModel.class);
+
         this.navController = Navigation.findNavController(view);
     }
 
@@ -62,14 +64,17 @@ public class FieldsListFragment extends Fragment {
 
         if(id == R.id.menu_add_field){
             navController.navigate(R.id.action_fieldListFragment_to_fieldAddFragment);
+            return true;
         }
 
         if(id == R.id.menu_change_view){
             navController.navigateUp();
+            return true;
         }
 
         if(id == R.id.menu_sign_out){
-            navController.navigate(R.id.action_fieldListFragment_to_fieldAddFragment);
+            this.fieldsViewModel.logout();
+            //navController.navigate(R.id.action_fieldListFragment_to_fieldAddFragment);
             return true;
         }
         return super.onOptionsItemSelected(item);

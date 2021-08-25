@@ -34,9 +34,8 @@ public class AuthRepository {
         this.logoutStatus = new MutableLiveData<>(Status.INITIAL);
         this.resetPasswordStatus = new MutableLiveData<>(Status.INITIAL);
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
-        }
+        this.userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+
     }
 
     public void register(String email, String password) {
