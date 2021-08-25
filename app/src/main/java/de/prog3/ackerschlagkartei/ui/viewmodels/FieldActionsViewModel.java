@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.Date;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.data.models.ActionModel;
@@ -36,5 +37,13 @@ public class FieldActionsViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<ActionModel>> getActions(FieldModel fieldModel) {
         return this.firestoreRepository.getActionListGetData(fieldModel.getUid(), actionCategory);
+    }
+
+    public MutableLiveData<FieldModel> getFieldModelMutableLiveData(@NonNull FieldModel selectedField) {
+        return this.firestoreRepository.getFieldMutableLiveData(selectedField.getUid());
+    }
+
+    public void setAction(FieldModel fieldModel, String action, String category) {
+        this.firestoreRepository.createActionModel(fieldModel.getUid(), new ActionModel(fieldModel.getUid(), action, new Date(), category));
     }
 }
