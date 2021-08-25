@@ -42,7 +42,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     private NavController navController;
     private MapView mapView;
     private GoogleMap googleMap;
-    private ProgressBar progressBar;
     private List<FieldModel> currentFieldModels;
 
     public FieldsMapFragment() { }
@@ -57,9 +56,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fields_map, container, false);
-
         this.mapView = view.findViewById(R.id.mv_fields_overview);
-
         return view;
     }
 
@@ -70,7 +67,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         this.fieldsMapViewModel = new ViewModelProvider(this).get(FieldsMapViewModel.class);
         this.navController = Navigation.findNavController(view);
 
-        this.mapView.setVisibility(View.INVISIBLE);
         this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
 
@@ -165,8 +161,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
-
-        this.mapView.setVisibility(View.VISIBLE);
 
     }
 
