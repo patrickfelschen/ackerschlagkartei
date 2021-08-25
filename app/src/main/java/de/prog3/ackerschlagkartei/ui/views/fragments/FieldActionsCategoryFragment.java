@@ -58,11 +58,11 @@ public class FieldActionsCategoryFragment extends Fragment {
 
         this.actionList = new ArrayList<>();
         this.listIcons = new Integer[] {
-                R.drawable.ic_baseline_fence_24,
-                R.drawable.ic_baseline_local_florist_24,
-                R.drawable.ic_baseline_scatter_plot_24,
+                R.drawable.ic_baseline_fence_42,
+                R.drawable.ic_baseline_local_florist_42,
+                R.drawable.ic_baseline_scatter_plot_42,
                 R.drawable.ic_baseline_bug_report_42,
-                R.drawable.ic_baseline_filter_vintage_24
+                R.drawable.ic_baseline_filter_vintage_42
         };
 
         adapter = new FieldActionsCategoryAdapter(requireActivity(), this.actionList, this.listIcons);

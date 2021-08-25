@@ -21,7 +21,7 @@ public class FieldActionsCategoryAdapter extends ArrayAdapter {
     private final Activity context;
 
     public FieldActionsCategoryAdapter(@NonNull Activity context, List objects, Integer[] images) {
-        super(context, R.layout.item_field, objects);
+        super(context, R.layout.item_action, objects);
         this.context = context;
         this.objects = objects;
         this.images = images;
@@ -34,12 +34,12 @@ public class FieldActionsCategoryAdapter extends ArrayAdapter {
 
         LayoutInflater inflater = context.getLayoutInflater();
         if(convertView == null) {
-            row = inflater.inflate(R.layout.item_field, null, true);
+            row = inflater.inflate(R.layout.item_action, null, true);
         }
 
-        TextView labelListItem = row.findViewById(R.id.tv_item_field_description);
-        TextView dateListItem = row.findViewById(R.id.tv_item_field_area);
-        ImageView iconListItem = row.findViewById(R.id.imageView);
+        TextView labelListItem = row.findViewById(R.id.tv_item_action_name);
+        TextView dateListItem = row.findViewById(R.id.tv_item_action_date);
+        ImageView iconListItem = row.findViewById(R.id.iv_item_action);
 
         labelListItem.setText(objects.get(position).toString());
         dateListItem.setText("");

@@ -7,28 +7,28 @@
     android:descendantFocusability="blocksDescendants">
 
     <TextView
-        android:id="@+id/tv_item_field_description"
+        android:id="@+id/tv_item_action_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Description"
+        android:text="Action"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_item_field"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_action"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_item_field_area"
+        android:id="@+id/tv_item_action_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:text="Area"
+        android:text="Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_item_field"
+        android:id="@+id/iv_item_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

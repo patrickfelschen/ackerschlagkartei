@@ -79,15 +79,15 @@ public class FieldActionsFragment extends Fragment {
         });
 
         if(selectedCategory.equals(getString(R.string.soil_cultivation))) {
-            arrayAdapter.setIcon(R.drawable.ic_baseline_fence_24);
+            arrayAdapter.setIcon(R.drawable.ic_baseline_fence_42);
         }else if(selectedCategory.equals(getString(R.string.sowing))) {
-            arrayAdapter.setIcon(R.drawable.ic_baseline_local_florist_24);
+            arrayAdapter.setIcon(R.drawable.ic_baseline_local_florist_42);
         }else if(selectedCategory.equals(getString(R.string.fertilization))) {
-            arrayAdapter.setIcon(R.drawable.ic_baseline_scatter_plot_24);
+            arrayAdapter.setIcon(R.drawable.ic_baseline_scatter_plot_42);
         }else if(selectedCategory.equals(getString(R.string.plant_protection))) {
             arrayAdapter.setIcon(R.drawable.ic_baseline_bug_report_42);
         }else if(selectedCategory.equals(getString(R.string.harvest))) {
-            arrayAdapter.setIcon(R.drawable.ic_baseline_filter_vintage_24);
+            arrayAdapter.setIcon(R.drawable.ic_baseline_filter_vintage_42);
         }
 
         fieldActionList.setAdapter(arrayAdapter);
