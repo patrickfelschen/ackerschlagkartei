@@ -5,6 +5,7 @@ import java.util.Date;
 public class DocumentModel {
     private String contentType;
     private String url;
+    private String uri;
     private Date uploadDate;
 
     public DocumentModel() {
@@ -17,6 +18,10 @@ public class DocumentModel {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getUri() {
+        return uri;
     }
 
     public Date getUploadDate() {
