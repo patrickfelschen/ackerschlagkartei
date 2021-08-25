@@ -21,6 +21,7 @@ import de.prog3.ackerschlagkartei.data.repositories.WeatherRepository;
 public class FieldDetailsViewModel extends AndroidViewModel {
     private final Application application;
     private MutableLiveData<FieldModel> fieldModelMutableLiveData;
+    private FirestoreRepository firestoreRepository;
 
     private final MutableLiveData<FieldModel> selectedFieldModel;
 
@@ -28,6 +29,7 @@ public class FieldDetailsViewModel extends AndroidViewModel {
         super(application);
 
         this.application = application;
+        this.firestoreRepository = new FirestoreRepository(application);
         this.selectedFieldModel = new MutableLiveData<>();
     }
 
@@ -36,7 +38,10 @@ public class FieldDetailsViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<FieldModel> getSelectedFieldModel() {
-        return this.selectedFieldModel;
+        if(this.selectedFieldModel == null) {
+            return new MutableLiveData<>();
+        }
+        return firestoreRepository.getFieldMutableLiveData(this.selectedFieldModel.getValue().getUid());
     }
 
 }
