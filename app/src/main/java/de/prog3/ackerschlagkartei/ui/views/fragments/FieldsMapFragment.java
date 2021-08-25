@@ -35,14 +35,15 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     private FieldsMapViewModel fieldsMapViewModel;
+    private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
     private MapView mapView;
     private GoogleMap googleMap;
-    private ProgressBar progressBar;
     private List<FieldModel> currentFieldModels;
 
     public FieldsMapFragment() { }
@@ -68,6 +69,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         this.fieldsMapViewModel = new ViewModelProvider(this).get(FieldsMapViewModel.class);
+        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
         this.navController = Navigation.findNavController(view);
 
         this.mapView.setVisibility(View.INVISIBLE);
@@ -173,6 +175,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     private final GoogleMap.OnPolygonClickListener onPolygonClick = new GoogleMap.OnPolygonClickListener() {
         @Override
         public void onPolygonClick(@NonNull Polygon polygon) {
+            fieldDetailsViewModel.setSelectedFieldModel((FieldModel)polygon.getTag());
             navController.navigate(R.id.action_fieldsMapFragment_to_fieldDetailsFragment);
         }
     };
