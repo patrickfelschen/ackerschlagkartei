@@ -6,22 +6,35 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
+
+import de.prog3.ackerschlagkartei.data.models.ActionModel;
+import de.prog3.ackerschlagkartei.data.models.FieldModel;
+import de.prog3.ackerschlagkartei.data.repositories.FirestoreRepository;
+
 public class FieldActionsViewModel extends AndroidViewModel {
     private final Application application;
-    private final MutableLiveData<String> actionCategory;
+    private FirestoreRepository firestoreRepository;
+    private String actionCategory;
 
     public FieldActionsViewModel(@NonNull Application application) {
         super(application);
         this.application = application;
 
-        this.actionCategory = new MutableLiveData<>();
+        this.firestoreRepository = new FirestoreRepository(application);
+
+        this.actionCategory = "";
     }
 
     public void setActionCategory(String actionCategory) {
-        this.actionCategory.setValue(actionCategory);
+        this.actionCategory = actionCategory;
     }
 
-    public MutableLiveData<String> getActionCategory() {
+    public String getActionCategory() {
         return this.actionCategory;
+    }
+
+    public MutableLiveData<List<ActionModel>> getActions(FieldModel fieldModel) {
+        return this.firestoreRepository.getActionListGetData(fieldModel.getUid(), actionCategory);
     }
 }
