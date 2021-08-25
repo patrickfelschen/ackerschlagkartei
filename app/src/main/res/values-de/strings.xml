@@ -3,6 +3,13 @@
 <resources>
     <string name="app_name">Ackerschlagkartei</string>
 
+    <string name="fragment_sign_in">Anmelden</string>
+    <string name="fragment_sign_up">Registrieren</string>
+    <string name="fragment_reset_password">Passwort Zurücksetzen</string>
+    <string name="fragment_fields_map">Felder Karte</string>
+    <string name="fragment_fields_list">Felder Liste</string>
+    <string name="fragment_field_add">Feld Hinzufügen</string>
+
     <!-- SignInActivity -->
     <string name="et_email_hint">E-Mail Adresse</string>
     <string name="et_password_hint">Passwort</string>

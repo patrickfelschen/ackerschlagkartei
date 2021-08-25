@@ -1,6 +1,5 @@
 package de.prog3.ackerschlagkartei.ui.adapters;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,11 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
-import de.prog3.ackerschlagkartei.ui.views.activities.FieldDetailsActivity;
 
-public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOverviewListAdapter.ViewHolder> {
+public class FieldsListAdapter extends RecyclerView.Adapter<FieldsListAdapter.ViewHolder> {
     private List<FieldModel> fieldModelList;
 
-    public FieldsOverviewListAdapter() {
+    public FieldsListAdapter() {
         fieldModelList = new ArrayList<>();
     }
 
@@ -61,9 +59,9 @@ public class FieldsOverviewListAdapter extends RecyclerView.Adapter<FieldsOvervi
                 @Override
                 public void onClick(View v) {
                     FieldModel fieldModel = (FieldModel) itemView.getTag();
-                    Intent i = new Intent(v.getContext(), FieldDetailsActivity.class);
-                    i.putExtra("fieldModelUid", fieldModel.getUid());
-                    v.getContext().startActivity(i);
+                    //Intent i = new Intent(v.getContext(), FieldDetailsActivity.class);
+                    //i.putExtra("fieldModelUid", fieldModel.getUid());
+                    //v.getContext().startActivity(i);
                 }
             });
         }

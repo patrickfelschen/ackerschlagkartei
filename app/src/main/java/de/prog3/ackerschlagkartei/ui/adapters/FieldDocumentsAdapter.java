@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 
-public class FieldDocumentsRecyclerViewAdapter extends RecyclerView.Adapter<FieldDocumentsRecyclerViewAdapter.ViewHolder> {
+public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAdapter.ViewHolder> {
 
     private final String[] mData;
     private final LayoutInflater mInflater;
@@ -33,21 +33,21 @@ public class FieldDocumentsRecyclerViewAdapter extends RecyclerView.Adapter<Fiel
         }
     }
 
-    public FieldDocumentsRecyclerViewAdapter(Context context, String[] data) {
+    public FieldDocumentsAdapter(Context context, String[] data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
 
     @NonNull
     @Override
-    public FieldDocumentsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_field_document, parent, false);
 
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FieldDocumentsRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.myTextView.setText(mData[position]);
     }
 

@@ -13,14 +13,14 @@ import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.data.repositories.AuthRepository;
 import de.prog3.ackerschlagkartei.data.repositories.FirestoreRepository;
 
-public class FieldsOverviewViewModel extends AndroidViewModel {
+public class FieldsViewModel extends AndroidViewModel {
     private final AuthRepository authRepository;
     private final MutableLiveData<FirebaseUser> userMutableLiveData;
 
     private final MutableLiveData<List<FieldModel>> fieldMutableLiveData;
     private final FirestoreRepository firestoreRepository;
 
-    public FieldsOverviewViewModel(Application application) {
+    public FieldsViewModel(Application application) {
         super(application);
 
         this.authRepository = new AuthRepository(application);

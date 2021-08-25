@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,7 +7,7 @@
     tools:context=".ui.views.fragments.SignInFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etEmailLayout"
+        android:id="@+id/et_email_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etPasswordLayout"
+        android:id="@+id/et_password_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmailLayout">
+        app:layout_constraintTop_toBottomOf="@+id/et_email_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_sign_in_password"
@@ -69,7 +70,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password_layout" />
 
     <Button
         android:id="@+id/btn_open_password_reset"
@@ -85,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@id/btn_sign_in" />
 
     <TextView
-        android:id="@+id/orDivider"
+        android:id="@+id/or_divider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -117,7 +118,7 @@
         android:layout_marginBottom="20dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/btn_open_sign_up"
-        app:layout_constraintEnd_toStartOf="@+id/orDivider"
+        app:layout_constraintEnd_toStartOf="@+id/or_divider"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
@@ -129,6 +130,6 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/btn_open_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/orDivider" />
+        app:layout_constraintStart_toEndOf="@+id/or_divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

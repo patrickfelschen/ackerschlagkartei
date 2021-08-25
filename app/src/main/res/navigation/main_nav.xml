@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.SignInFragment"
+        android:label="@string/fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_signInFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_signInFragment_to_fieldMapFragment"
+            app:destination="@id/fieldsMapFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.SignUpFragment"
+        android:label="@string/fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_fieldMapFragment"
+            app:destination="@id/fieldsMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.ResetPasswordFragment"
+        android:label="@string/fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" />
+    <fragment
+        android:id="@+id/fieldsListFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldsListFragment"
+        android:label="@string/fragment_fields_list"
+        tools:layout="@layout/fragment_fields_list">
+        <action
+            android:id="@+id/action_fieldListFragment_to_fieldAddFragment"
+            app:destination="@id/fieldAddFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fieldsListFragment_to_fieldDetailsFragment"
+            app:destination="@id/fieldDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldsMapFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldsMapFragment"
+        android:label="@string/fragment_fields_map"
+        tools:layout="@layout/fragment_fields_map">
+        <action
+            android:id="@+id/action_fieldMapFragment_to_fieldListFragment"
+            app:destination="@id/fieldsListFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fieldMapFragment_to_fieldAddFragment"
+            app:destination="@id/fieldAddFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fieldsMapFragment_to_fieldDetailsFragment"
+            app:destination="@id/fieldDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldAddFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldAddFragment"
+        android:label="@string/fragment_field_add"
+        tools:layout="@layout/fragment_field_add" />
+    <include app:graph="@navigation/details_nav" />
+    <fragment
+        android:id="@+id/fieldDetailsFragment"
+        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDetailsFragment"
+        android:label="fragment_field_details"
+        tools:layout="@layout/fragment_field_details" />
+</navigation>

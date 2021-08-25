@@ -19,15 +19,14 @@ import androidx.navigation.Navigation;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.ui.viewmodels.AuthViewModel;
 
-public class SignInFragment extends Fragment {
+public class ResetPasswordFragment extends Fragment {
     private AuthViewModel authViewModel;
     private NavController navController;
 
-    private Button openSignUpButton;
-    private Button openResetPasswordButton;
-    private Button signInButton;
+    private Button btnResetPassword;
+    private Button btnReturnToSignIn;
 
-    public SignInFragment() { }
+    public ResetPasswordFragment() { }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,10 +36,9 @@ public class SignInFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
-        this.openSignUpButton = view.findViewById(R.id.btn_open_sign_up);
-        this.openResetPasswordButton = view.findViewById(R.id.btn_open_password_reset);
-        this.signInButton = view.findViewById(R.id.btn_sign_in);
+        View view = inflater.inflate(R.layout.fragment_reset_password, container, false);
+        this.btnResetPassword = view.findViewById(R.id.btn_reset_password);
+        this.btnReturnToSignIn = view.findViewById(R.id.btn_return_to_sign_in);
         return view;
     }
 
@@ -51,24 +49,17 @@ public class SignInFragment extends Fragment {
         this.authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         this.navController = Navigation.findNavController(view);
 
-        this.openSignUpButton.setOnClickListener(new View.OnClickListener() {
+        this.btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_signInFragment_to_signUpFragment);
+                navController.navigateUp();
             }
         });
 
-        this.openResetPasswordButton.setOnClickListener(new View.OnClickListener() {
+        this.btnReturnToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_signInFragment_to_resetPasswordFragment);
-            }
-        });
-
-        this.signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_signInFragment_to_fieldMapFragment);
+                navController.navigateUp();
             }
         });
     }

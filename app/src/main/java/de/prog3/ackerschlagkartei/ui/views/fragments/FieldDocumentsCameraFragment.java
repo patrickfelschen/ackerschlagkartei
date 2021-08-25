@@ -2,77 +2,65 @@ package de.prog3.ackerschlagkartei.ui.views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.concurrent.ExecutionException;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 
 public class FieldDocumentsCameraFragment extends Fragment {
+    private FieldDetailsViewModel fieldDetailsViewModel;
+    private NavController navController;
 
-    private ImageCapture imageCapture;
-    private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private PreviewView previewView;
-
-
-    public FieldDocumentsCameraFragment() {
-        // Required empty public constructor
-    }
+    public FieldDocumentsCameraFragment() { }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_field_documents_camera, container, false);
+        return view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_field_documents_camera, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        this.previewView = view.findViewById(R.id.previewView);
-        this.cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
+        this.fieldDetailsViewModel = new ViewModelProvider(this).get(FieldDetailsViewModel.class);
+        this.navController = Navigation.findNavController(view);
+    }
 
-        this.cameraProviderFuture.addListener(() -> {
-            try {
-                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
-                Preview preview = new Preview.Builder().build();
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
-                imageCapture = new ImageCapture.Builder()
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                        .build();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 
-                CameraSelector cameraSelector = new CameraSelector.Builder()
-                        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                        .build();
-
-                Camera camera = cameraProvider.bindToLifecycle(
-                        this,
-                        cameraSelector,
-                        preview,
-                        imageCapture);
-
-
-                preview.setSurfaceProvider(previewView.getSurfaceProvider());
-
-            } catch (InterruptedException | ExecutionException e) {
-                Toast.makeText(requireContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }, ContextCompat.getMainExecutor(requireContext()));
-
-        return view;
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

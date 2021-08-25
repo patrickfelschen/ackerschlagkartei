@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_baseline_bug_report_24"
         android:title="@string/nav_ground" />
     <item
-        android:id="@+id/fieldActionsFragment"
+        android:id="@+id/fieldActionsCategoryFragment"
         android:icon="@drawable/ic_baseline_assignment_24"
         android:title="@string/nav_actions" />
     <item
@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_baseline_info_24"
         android:title="@string/nav_info" />
     <item
-        android:id="@+id/fieldImagesFragment"
+        android:id="@+id/fieldDocumentsFragment"
         android:icon="@drawable/ic_baseline_photo_library_24"
         android:title="@string/nav_documents" />
 

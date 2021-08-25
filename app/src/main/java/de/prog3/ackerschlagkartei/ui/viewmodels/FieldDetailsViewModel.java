@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.firebase.Timestamp;
-
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +92,14 @@ public class FieldDetailsViewModel extends AndroidViewModel {
 
     public void uploadFieldDocument(Uri contentUri) {
         this.storageRepository.uploadFieldDocument(fieldModelMutableLiveData.getValue().getUid(), contentUri);
-        this.firestoreRepository.createDocumentModel(fieldModelMutableLiveData.getValue().getUid(), new DocumentModel("", "", Timestamp.now().toDate()));
+        //this.firestoreRepository.createDocumentModel(fieldModelMutableLiveData.getValue().getUid(), new DocumentModel("", "", Timestamp.now().toDate()));
+    }
+
+    public void getFieldListData(String fieldId){
+        this.firestoreRepository.getDocumentListGetData(fieldId);
+    }
+
+    public void createFieldDocument(String fieldId, Uri contentUri, DocumentModel documentModel){
+        this.firestoreRepository.createDocumentModel(fieldId, documentModel);
     }
 }
