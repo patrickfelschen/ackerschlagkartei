@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -19,6 +20,8 @@ public class FieldsMapViewModel extends AndroidViewModel {
 
     private final AuthRepository authRepository;
     private final FirestoreRepository firestoreRepository;
+
+    private FieldModel selectedFieldModel;
 
     public FieldsMapViewModel(@NonNull Application application) {
         super(application);
@@ -36,4 +39,11 @@ public class FieldsMapViewModel extends AndroidViewModel {
         return this.firestoreRepository.getFieldListGetData();
     }
 
+    public FieldModel getSelectedFieldModel() {
+        return selectedFieldModel;
+    }
+
+    public void setSelectedFieldModel(FieldModel selectedFieldModel) {
+        this.selectedFieldModel = selectedFieldModel;
+    }
 }

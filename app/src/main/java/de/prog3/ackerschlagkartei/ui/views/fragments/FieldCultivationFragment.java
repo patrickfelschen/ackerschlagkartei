@@ -26,9 +26,10 @@ import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.data.models.WeatherModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldCultivationViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldCultivationFragment extends Fragment {
-    private FieldDetailsViewModel fieldDetailsViewModel;
+    private FieldsMapViewModel fieldsMapViewModel;
     private FieldCultivationViewModel fieldCultivationViewModel;
     private NavController navController;
 
@@ -43,6 +44,8 @@ public class FieldCultivationFragment extends Fragment {
     private ArrayAdapter<CharSequence> cropAdapter;
     private ArrayAdapter<CharSequence> secondaryCropAdapter;
     private ArrayAdapter<CharSequence> zwfGroupAdapter;
+
+    private FieldModel selectedField;
 
     public FieldCultivationFragment() { }
 
@@ -90,13 +93,14 @@ public class FieldCultivationFragment extends Fragment {
         this.ddNextCrop.setAdapter(this.cropAdapter);
         this.ddZwfGroup.setAdapter(this.zwfGroupAdapter);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
         this.fieldCultivationViewModel = new ViewModelProvider(requireActivity()).get(FieldCultivationViewModel.class);
 
-        this.fieldDetailsViewModel.getSelectedFieldModel().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+        this.selectedField = this.fieldsMapViewModel.getSelectedFieldModel();
+
+        this.fieldCultivationViewModel.getFieldModelMutableLiveData(this.selectedField).observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
             @Override
             public void onChanged(FieldModel fieldModel) {
-                fieldCultivationViewModel.setSelectedField(fieldModel);
                 ddPreviousCrop.setText(fieldModel.getCultivation().getPreviousCrop(), false);
                 ddPrimaryCrop.setText(fieldModel.getCultivation().getPrimaryCrop(), false);
                 ddSecondaryCrop.setText(fieldModel.getCultivation().getSecondaryCrop(), false);
@@ -120,7 +124,7 @@ public class FieldCultivationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = cropAdapter.getItem(position).toString();
 
-                fieldCultivationViewModel.updateField("cultivation.previousCrop",changes);
+                fieldCultivationViewModel.updateField(selectedField,"cultivation.previousCrop",changes);
 
                 view.clearFocus();
                 ddPreviousCrop.clearFocus();
@@ -132,7 +136,7 @@ public class FieldCultivationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = cropAdapter.getItem(position).toString();
 
-                fieldCultivationViewModel.updateField("cultivation.primaryCrop",changes);
+                fieldCultivationViewModel.updateField(selectedField,"cultivation.primaryCrop",changes);
                 view.clearFocus();
                 ddPrimaryCrop.clearFocus();
             }
@@ -143,7 +147,7 @@ public class FieldCultivationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = secondaryCropAdapter.getItem(position).toString();
 
-                fieldCultivationViewModel.updateField("cultivation.secondaryCrop", changes);
+                fieldCultivationViewModel.updateField(selectedField,"cultivation.secondaryCrop", changes);
                 view.clearFocus();
                 ddSecondaryCrop.clearFocus();
             }
@@ -154,7 +158,7 @@ public class FieldCultivationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = zwfGroupAdapter.getItem(position).toString();
 
-                fieldCultivationViewModel.updateField("cultivation.zwfGroup", changes);
+                fieldCultivationViewModel.updateField(selectedField,"cultivation.zwfGroup", changes);
                 view.clearFocus();
                 ddZwfGroup.clearFocus();
             }
@@ -165,7 +169,7 @@ public class FieldCultivationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = cropAdapter.getItem(position).toString();
 
-                fieldCultivationViewModel.updateField("cultivation.nextCrop", changes);
+                fieldCultivationViewModel.updateField(selectedField,"cultivation.nextCrop", changes);
                 view.clearFocus();
                 ddNextCrop.clearFocus();
             }

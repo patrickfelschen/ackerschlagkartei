@@ -26,10 +26,11 @@ import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.adapters.FieldsListAdapter;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsListViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldsListFragment extends Fragment implements ItemClickListener {
     private FieldsListViewModel fieldsListViewModel;
-    private FieldDetailsViewModel fieldDetailsViewModel;
+    private FieldsMapViewModel fieldsMapViewModel;
 
     private NavController navController;
 
@@ -57,7 +58,7 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         this.fieldsListViewModel = new ViewModelProvider(requireActivity()).get(FieldsListViewModel.class);
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
 
         this.navController = Navigation.findNavController(view);
         this.rvFieldModels.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -108,7 +109,10 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
     @Override
     public void onItemClick(View view, int position) {
         FieldModel selectedField = this.fieldsListAdapter.getItem(position);
-        this.fieldDetailsViewModel.setSelectedFieldModel(selectedField);
+
+        this.fieldsListViewModel.setSelectedFieldModel(selectedField);
+        this.fieldsMapViewModel.setSelectedFieldModel(selectedField);
+
         this.navController.navigate(R.id.action_fieldsListFragment_to_fieldDetailsFragment);
     }
 

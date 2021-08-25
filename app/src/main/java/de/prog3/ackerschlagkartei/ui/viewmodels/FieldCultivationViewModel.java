@@ -14,7 +14,6 @@ import de.prog3.ackerschlagkartei.data.repositories.WeatherRepository;
 
 public class FieldCultivationViewModel extends AndroidViewModel {
     private final Application application;
-    private MutableLiveData<FieldModel> selectedField;
     private FirestoreRepository firestoreRepository;
     private WeatherRepository weatherRepository;
 
@@ -24,34 +23,22 @@ public class FieldCultivationViewModel extends AndroidViewModel {
         this.application = application;
         this.firestoreRepository = new FirestoreRepository(application);
         this.weatherRepository = new WeatherRepository(application);
-
-        this.selectedField = new MutableLiveData<>();
     }
 
-    public void setSelectedField(FieldModel selectedField) {
-        this.selectedField = firestoreRepository.getFieldMutableLiveData(selectedField.getUid());
+    public MutableLiveData<FieldModel> getFieldModelMutableLiveData(@NonNull FieldModel selectedField) {
+        return this.firestoreRepository.getFieldMutableLiveData(selectedField.getUid());
     }
 
-    public MutableLiveData<FieldModel> getSelectedField() {
-        return this.selectedField;
-    }
-
-    public MutableLiveData<FieldModel> getFieldModelMutableLiveData(@NonNull String fieldUid) {
-        return this.firestoreRepository.getFieldMutableLiveData(fieldUid);
-    }
-
-    public void loadWeather(@NonNull FieldModel fieldModel) {
-        this.weatherRepository.loadWeather(fieldModel.getInfo().getPositions().get(0));
+    public void loadWeather(@NonNull FieldModel selectedField) {
+        this.weatherRepository.loadWeather(selectedField.getInfo().getPositions().get(0));
     }
 
     public MutableLiveData<WeatherModel> getWeatherMutableLiveData() {
         return this.weatherRepository.getWeatherModelGetData();
     }
 
-    public void updateField(String field, Object changes) {
-        if (selectedField == null) {
-            return;
-        }
-        this.firestoreRepository.updateFieldModel(selectedField.getValue(), field, changes);
+    public void updateField(@NonNull FieldModel selectedField, @NonNull String field, @NonNull Object changes) {
+
+        this.firestoreRepository.updateFieldModel(selectedField, field, changes);
     }
 }

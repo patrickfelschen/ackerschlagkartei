@@ -18,6 +18,8 @@ public class FieldsListViewModel extends AndroidViewModel {
     private final AuthRepository authRepository;
     private final FirestoreRepository firestoreRepository;
 
+    private FieldModel selectedFieldModel;
+
     public FieldsListViewModel(@NonNull Application application) {
         super(application);
         this.application = application;
@@ -34,5 +36,11 @@ public class FieldsListViewModel extends AndroidViewModel {
         return this.firestoreRepository.getFieldListGetData();
     }
 
+    public FieldModel getSelectedFieldModel() {
+        return selectedFieldModel;
+    }
 
+    public void setSelectedFieldModel(FieldModel selectedFieldModel) {
+        this.selectedFieldModel = selectedFieldModel;
+    }
 }

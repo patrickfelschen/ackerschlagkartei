@@ -37,11 +37,12 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsListViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     private FieldsMapViewModel fieldsMapViewModel;
-    private FieldDetailsViewModel fieldDetailsViewModel;
+    private FieldsListViewModel fieldsListViewModel;
     private NavController navController;
 
     private MapView mapView;
@@ -70,7 +71,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldsListViewModel = new ViewModelProvider(requireActivity()).get(FieldsListViewModel.class);
 
         this.navController = Navigation.findNavController(view);
 
@@ -127,7 +128,11 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         this.googleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
             @Override
             public void onPolygonClick(@NonNull Polygon polygon) {
-                fieldDetailsViewModel.setSelectedFieldModel((FieldModel) polygon.getTag());
+                FieldModel selectedField = (FieldModel) polygon.getTag();
+
+                fieldsListViewModel.setSelectedFieldModel(selectedField);
+                fieldsMapViewModel.setSelectedFieldModel(selectedField);
+
                 navController.navigate(R.id.action_fieldsMapFragment_to_fieldDetailsFragment);
             }
         });
