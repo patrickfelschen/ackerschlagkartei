@@ -94,8 +94,12 @@
     <fragment
         android:id="@+id/fieldDetailsFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDetailsFragment"
-        android:label="fragment_field_details"
-        tools:layout="@layout/fragment_field_details" />
+        android:label="@string/fragment_details"
+        tools:layout="@layout/fragment_field_details">
+        <action
+            android:id="@+id/action_fieldDetailsFragment_to_details_nav"
+            app:destination="@id/details_nav" />
+    </fragment>
     <fragment
         android:id="@+id/splashFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.SplashFragment"

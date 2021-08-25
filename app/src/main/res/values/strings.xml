@@ -10,6 +10,7 @@
     <string name="fragment_fields_list">Fields Map</string>
     <string name="fragment_field_add">Add Field</string>
     <string name="fragment_splash">Loading...</string>
+    <string name="fragment_details">Details</string>
     <string name="fragment_cultivation">Cultivation</string>
     <string name="fragment_ground">Ground</string>
     <string name="fragment_actions">Actions</string>
