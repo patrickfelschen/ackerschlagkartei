@@ -9,24 +9,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
+import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldInfoViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
-    private FieldDetailsViewModel fieldDetailsViewModel;
+    private FieldsMapViewModel fieldsMapViewModel;
+    private FieldInfoViewModel fieldInfoViewModel;
+
     private NavController navController;
 
     private MapView mapView;
@@ -38,6 +54,8 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     private CheckBox cbWaterProtectionArea;
     private CheckBox cbRedArea;
     private CheckBox cbPhosphateSensitiveArea;
+
+    private FieldModel selectedFieldModel;
 
     public FieldInfoFragment() { }
 
@@ -71,7 +89,72 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
+        this.fieldInfoViewModel = new ViewModelProvider(requireActivity()).get(FieldInfoViewModel.class);
+
+        this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
+
+        this.fieldInfoViewModel.getFieldModelMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+            @Override
+            public void onChanged(FieldModel fieldModel) {
+                etFieldInfoDescription.setText(fieldModel.getInfo().getDescription());
+                etFieldInfoArea.setText(String.valueOf(fieldModel.getInfo().getArea()));
+                cbWaterProtectionArea.setChecked(fieldModel.getInfo().isWaterProtectionArea());
+                cbRedArea.setChecked(fieldModel.getInfo().isRedArea());
+                cbPhosphateSensitiveArea.setChecked(fieldModel.getInfo().isPhosphateSensitiveArea());
+
+                createFieldPolygon();
+            }
+        });
+
+        this.etFieldInfoDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String changes = etFieldInfoDescription.getText().toString();
+                    fieldInfoViewModel.updateField(selectedFieldModel,"info.description", changes);
+                    v.clearFocus();
+                    etFieldInfoDescription.clearFocus();
+                }
+            }
+        });
+
+        this.etFieldInfoArea.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
+                    fieldInfoViewModel.updateField(selectedFieldModel,"info.area", changes);
+                    v.clearFocus();
+                    etFieldInfoArea.clearFocus();
+                }
+            }
+        });
+
+        this.cbWaterProtectionArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldInfoViewModel.updateField(selectedFieldModel,"info.waterProtectionArea", isChecked);
+                cbWaterProtectionArea.clearFocus();
+            }
+        });
+
+        this.cbRedArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldInfoViewModel.updateField(selectedFieldModel,"info.redArea", isChecked);
+                cbRedArea.clearFocus();
+            }
+        });
+
+        this.cbPhosphateSensitiveArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldInfoViewModel.updateField(selectedFieldModel,"info.phosphateSensitiveArea", isChecked);
+                cbPhosphateSensitiveArea.clearFocus();
+            }
+        });
+
         this.navController = Navigation.findNavController(view);
 
     }
@@ -79,12 +162,49 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onStart() {
         super.onStart();
+        this.mapView.onStart();
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        this.createFieldPolygon();
+    }
+
+    private void createFieldPolygon() {
+        if (googleMap == null || this.selectedFieldModel == null) {
+            return;
+        }
+
+        googleMap.clear();
+        LatLngBounds.Builder latLngBounds = new LatLngBounds.Builder();
+
+        List<LatLng> latLngs = new ArrayList<>();
+
+        for (GeoPoint point : selectedFieldModel.getInfo().getPositions()) {
+            LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
+            latLngs.add(latLng);
+            latLngBounds.include(latLng);
+        }
+
+        Polygon polygon = googleMap.addPolygon(new PolygonOptions()
+                .addAll(latLngs)
+                .fillColor(R.color.field_polygon)
+                .clickable(true)
+                .strokeWidth(2));
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
 
     }
+
+    private final View.OnClickListener deleteFieldButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            fieldInfoViewModel.deleteFieldModel(selectedFieldModel);
+        }
+    };
 
 
     @Override
