@@ -79,7 +79,7 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
         this.navController = Navigation.findNavController(view);
 
-        this.rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), 4));
+        this.rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), 3));
 
         this.fieldDocumentsViewModel.getDocumentsMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<List<DocumentModel>>() {
             @Override

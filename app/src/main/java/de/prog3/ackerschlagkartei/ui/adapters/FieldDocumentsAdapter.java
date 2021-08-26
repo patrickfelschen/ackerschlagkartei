@@ -70,10 +70,9 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
         if (documentModel.getContentType().equals("image/jpeg")) {
             StorageReference sr = FirebaseStorage.getInstance().getReference().child(documentModel.getUri());
 
-            //Glide.with(this.context).load(sr).into(holder.ivThumbnail);
             Glide
                     .with(this.context)
-                    .load("http://goo.gl/gEgYUd")
+                    .load(sr)
                     .centerCrop()
                     .placeholder(R.drawable.ic_baseline_photo_camera_24)
                     .into(holder.ivThumbnail);
