@@ -13,7 +13,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="         "
+        android:layout_marginBottom="10dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/dd_previous_crop_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +87,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dd_zwf_group_layout"
+        android:id="@+id/dd_zwf_culture_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,17 +99,17 @@
         app:layout_constraintTop_toBottomOf="@+id/dd_secondary_crop_layout">
 
         <AutoCompleteTextView
-            android:id="@+id/dd_zwf_group"
+            android:id="@+id/dd_next_crop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_zwf_group">
+            android:hint="@string/dd_next_crop">
 
         </AutoCompleteTextView>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dd_zwf_culture_layout"
+        android:id="@+id/dd_zwf_group_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,13 +118,13 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dd_zwf_group_layout">
+        app:layout_constraintTop_toBottomOf="@+id/dd_zwf_culture_layout">
 
         <AutoCompleteTextView
-            android:id="@+id/dd_next_crop"
+            android:id="@+id/dd_zwf_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dd_next_crop">
+            android:hint="@string/dd_zwf_group">
 
         </AutoCompleteTextView>
 

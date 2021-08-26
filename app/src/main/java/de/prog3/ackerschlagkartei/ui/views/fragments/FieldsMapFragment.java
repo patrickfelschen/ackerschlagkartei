@@ -183,7 +183,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
             Polygon polygon = googleMap.addPolygon(new PolygonOptions()
                     .addAll(latLngs)
-                    .fillColor(R.color.field_polygon)
+                    .fillColor(ContextCompat.getColor(requireActivity(), R.color.field_polygon))
                     .clickable(true)
                     .strokeWidth(2));
 

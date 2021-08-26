@@ -390,7 +390,7 @@
 
     <!-- FieldGroundFragment -->
     <string name="dd_ground">Boden</string>
-    <string name="dd_bkr">BKR</string>
+    <string name="dd_bkr">Boden-Klima-Raum</string>
     <string name="et_humus">Humus</string>
     <string name="et_ph_value">PH-Wert</string>
     <string name="et_phosphorus">Phosphor</string>

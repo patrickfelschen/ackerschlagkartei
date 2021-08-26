@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -124,7 +125,7 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
 
                 polygon = googleMap.addPolygon(new PolygonOptions()
                         .addAll(fieldLatLngs)
-                        .fillColor(R.color.field_polygon)
+                        .fillColor(ContextCompat.getColor(requireActivity(), R.color.field_polygon))
                         .strokeWidth(2));
             }
         }

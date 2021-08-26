@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -190,7 +191,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
         Polygon polygon = googleMap.addPolygon(new PolygonOptions()
                 .addAll(latLngs)
-                .fillColor(R.color.field_polygon)
+                .fillColor(ContextCompat.getColor(requireActivity(), R.color.field_polygon))
                 .clickable(true)
                 .strokeWidth(2));
 
