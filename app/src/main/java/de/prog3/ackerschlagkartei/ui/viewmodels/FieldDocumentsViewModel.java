@@ -41,4 +41,8 @@ public class FieldDocumentsViewModel extends AndroidViewModel {
         this.storageRepository.uploadFieldDocument(selectedField.getUid(), documentUri);
     }
 
+    public void updateBytes(@NonNull FieldModel selectedField, byte[] data){
+        this.storageRepository.uploadBytes(selectedField.getUid(), data);
+    }
+
 }

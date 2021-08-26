@@ -61,6 +61,29 @@ public class StorageRepository {
         });
     }
 
+    public void uploadBytes(String fieldId, byte[] data){
+        StorageReference storageReference = firebaseStorage
+                .getReference()
+                .child("Users")
+                .child(firebaseAuth.getUid())
+                .child("Fields")
+                .child(fieldId)
+                .child("Documents")
+                .child(UUID.randomUUID().toString());
+
+        storageReference.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
     public void downloadFieldDocument(DocumentModel documentModel){
 /*
         this.firebaseStorage.getReference().child(documentModel.getUri()).getFile().addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

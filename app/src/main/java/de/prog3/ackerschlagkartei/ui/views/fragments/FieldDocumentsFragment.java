@@ -1,9 +1,12 @@
 package de.prog3.ackerschlagkartei.ui.views.fragments;
 
-import android.content.Intent;
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,12 +17,10 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.ActivityResultRegistry;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityOptionsCompat;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +29,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
@@ -49,7 +51,8 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
 
     private FieldModel selectedFieldModel;
 
-    public FieldDocumentsFragment(){}
+    public FieldDocumentsFragment() {
+    }
 
 
     @Override
@@ -110,31 +113,49 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         int id = item.getItemId();
 
         if (id == R.id.btn_add_doc) {
-
+            getContentActivity.launch("application/pdf");
+            return true;
         }
 
         if (id == R.id.btn_add_image) {
-
+            askPermissionAndTakePicture.launch(Manifest.permission.CAMERA);
+            return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+    ActivityResultLauncher<String> askPermissionAndTakePicture =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if(!result) return;
 
-    ActivityResultLauncher<String> mGetContent =
-            registerForActivityResult(new ActivityResultContracts.GetContent(),
-            new ActivityResultCallback<Uri>() {
-                @Override
-                public void onActivityResult(Uri uri) {
-                    fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
-                }
-            });
+            takePictureActivity.launch(null);
+        }
+    });
 
-    ActivityResultLauncher<Void> mTakePicture =
-            registerForActivityResult(new ActivityResultContracts.TakePicturePreview(),
-            new ActivityResultCallback<Bitmap>() {
+    ActivityResultLauncher<String> getContentActivity =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri uri) {
+            if (uri == null) return;
+
+            fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
+        }
+    });
+
+    ActivityResultLauncher<Void> takePictureActivity =
+            registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
         @Override
         public void onActivityResult(Bitmap result) {
+            if (result == null) return;
 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            result.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            fieldDocumentsViewModel.updateBytes(selectedFieldModel, data);
         }
     });
 
