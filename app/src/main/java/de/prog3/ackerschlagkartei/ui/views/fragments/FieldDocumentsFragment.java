@@ -2,13 +2,8 @@ package de.prog3.ackerschlagkartei.ui.views.fragments;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +17,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -32,8 +26,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.BuildConfig;
@@ -55,11 +49,13 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
     private FieldDocumentsAdapter fieldDocumentsAdapter;
 
     private FieldModel selectedFieldModel;
-
     private DocumentModel selectedDocumentModel;
 
-    public FieldDocumentsFragment() {
-    }
+    private File tmpFile;
+    private Uri tmpImgUri;
+
+
+    public FieldDocumentsFragment() { }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,6 +107,13 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
             }
         });
 
+        try {
+            this.tmpFile = File.createTempFile("img_", null);
+            this.tmpImgUri = FileProvider.getUriForFile(requireActivity(), BuildConfig.APPLICATION_ID + ".provider", tmpFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -148,17 +151,29 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         return super.onOptionsItemSelected(item);
     }
 
-    ActivityResultLauncher<String> askPermissionAndTakePicture =
+    private final ActivityResultLauncher<String> askPermissionAndTakePicture =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
                 @Override
                 public void onActivityResult(Boolean result) {
                     if (!result) return;
 
-                    takePictureActivity.launch(null);
+                    takePictureActivity.launch(tmpImgUri);
                 }
             });
 
-    ActivityResultLauncher<String> getContentActivity =
+    private final ActivityResultLauncher<Uri> takePictureActivity =
+            registerForActivityResult(new ActivityResultContracts.TakePicture(), new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if (!result) return;
+
+                    Toast.makeText(requireActivity(), "asdasdasd" +tmpImgUri.toString(), Toast.LENGTH_SHORT).show();
+
+                    fieldDocumentsViewModel.updateDocument(selectedFieldModel, tmpImgUri);
+                }
+            });
+
+    private final ActivityResultLauncher<String> getContentActivity =
             registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri uri) {
@@ -168,19 +183,7 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
                 }
             });
 
-    ActivityResultLauncher<Void> takePictureActivity =
-            registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
-                @Override
-                public void onActivityResult(Bitmap result) {
-                    if (result == null) return;
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    result.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
-
-                    fieldDocumentsViewModel.updateBytes(selectedFieldModel, data);
-                }
-            });
 
     @Override
     public void onDestroy() {
