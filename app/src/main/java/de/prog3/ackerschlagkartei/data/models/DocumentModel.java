@@ -4,24 +4,22 @@ import java.util.Date;
 
 public class DocumentModel {
     private String contentType;
-    private String url;
-    private String uri;
+    private String uriThumbnail;
+    private String uriFullsize;
     private Date uploadDate;
 
-    public DocumentModel() {
-
-    }
+    public DocumentModel() { }
 
     public String getContentType() {
         return contentType;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUriThumbnail() {
+        return uriThumbnail;
     }
 
-    public String getUri() {
-        return uri;
+    public String getUriFullsize() {
+        return uriFullsize;
     }
 
     public Date getUploadDate() {

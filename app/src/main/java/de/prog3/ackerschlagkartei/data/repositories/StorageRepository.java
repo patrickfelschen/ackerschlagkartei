@@ -14,6 +14,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import de.prog3.ackerschlagkartei.data.models.DocumentModel;
@@ -27,6 +29,7 @@ public class StorageRepository {
     private final FirebaseAuth firebaseAuth;
 
     private final MutableLiveData<Status> uploadDocumentStatus;
+    private final MutableLiveData<File> downloadDocumentFile;
 
     public StorageRepository(Application application) {
         this.application = application;
@@ -34,6 +37,7 @@ public class StorageRepository {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         this.uploadDocumentStatus = new MutableLiveData<>(Status.INITIAL);
+        this.downloadDocumentFile = new MutableLiveData<>();
     }
 
     public void uploadFieldDocument(String fieldId, Uri contentUri) {
@@ -85,11 +89,21 @@ public class StorageRepository {
     }
 
     public void downloadFieldDocument(DocumentModel documentModel){
-/*
-        this.firebaseStorage.getReference().child(documentModel.getUri()).getFile().addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+        File localFile;
+
+        try {
+            localFile = File.createTempFile("doc_", null);
+        }catch (IOException e){
+            return;
+        }
+
+        this.firebaseStorage.getReference()
+                .child(documentModel.getUriFullsize())
+                .getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
+                downloadDocumentFile.postValue(localFile);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -98,10 +112,9 @@ public class StorageRepository {
             }
         });
 
- */
-
     }
 
-
-
+    public MutableLiveData<File> getDownloadDocumentFile() {
+        return downloadDocumentFile;
+    }
 }

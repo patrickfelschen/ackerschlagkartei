@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -92,6 +95,14 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.onStart();
     }
 
+    ActivityResultLauncher<String> askPermissionLocation =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if(!result) return;
+                }
+            });
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -137,6 +148,9 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         });
 
         this.createFieldPolygons();
+
+        this.askPermissionLocation.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        this.askPermissionLocation.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //TODO: ask for permissions

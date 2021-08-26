@@ -68,10 +68,9 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
         holder.myTextView.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(documentModel.getUploadDate()));
 
         if (documentModel.getContentType().equals("image/jpeg")) {
-            StorageReference sr = FirebaseStorage.getInstance().getReference().child(documentModel.getUri());
+            StorageReference sr = FirebaseStorage.getInstance().getReference().child(documentModel.getUriThumbnail());
 
-            Glide
-                    .with(this.context)
+            Glide.with(this.context)
                     .load(sr)
                     .centerCrop()
                     .placeholder(R.drawable.ic_baseline_photo_camera_24)

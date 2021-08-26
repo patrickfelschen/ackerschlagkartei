@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.data.models.DocumentModel;
@@ -21,12 +23,16 @@ public class FieldDocumentsViewModel extends AndroidViewModel {
     private FirestoreRepository firestoreRepository;
     private StorageRepository storageRepository;
 
+    private MutableLiveData<File> fileMutableLiveData;
+
     public FieldDocumentsViewModel(@NonNull Application application) {
         super(application);
 
         this.application = application;
         this.firestoreRepository = new FirestoreRepository(application);
         this.storageRepository = new StorageRepository(application);
+
+        fileMutableLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<FieldModel> getFieldModelMutableLiveData(@NonNull FieldModel selectedField) {
@@ -43,6 +49,16 @@ public class FieldDocumentsViewModel extends AndroidViewModel {
 
     public void updateBytes(@NonNull FieldModel selectedField, byte[] data){
         this.storageRepository.uploadBytes(selectedField.getUid(), data);
+    }
+
+    public void downloadDocument(DocumentModel documentModel) {
+
+        storageRepository.downloadFieldDocument(documentModel);
+
+    }
+
+    public MutableLiveData<File> getFileMutableLiveData(){
+        return storageRepository.getDownloadDocumentFile();
     }
 
 }

@@ -1,10 +1,12 @@
 package de.prog3.ackerschlagkartei.ui.views.fragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
@@ -53,7 +56,6 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
 
     public FieldDocumentsFragment() {
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,9 +99,24 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         super.onStart();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(requireContext(), fieldDocumentsAdapter.getItem(position).getUrl(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(requireContext(), fieldDocumentsAdapter.getItem(position).getUriFullsize(), Toast.LENGTH_SHORT).show();
+
+        DocumentModel doc = fieldDocumentsAdapter.getItem(position);
+
+        fieldDocumentsViewModel.downloadDocument(doc);
+
+        fieldDocumentsViewModel.getFileMutableLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+            @Override
+            public void onChanged(File file) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file), doc.getContentType());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -127,37 +144,37 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
 
     ActivityResultLauncher<String> askPermissionAndTakePicture =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-        @Override
-        public void onActivityResult(Boolean result) {
-            if(!result) return;
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if (!result) return;
 
-            takePictureActivity.launch(null);
-        }
-    });
+                    takePictureActivity.launch(null);
+                }
+            });
 
     ActivityResultLauncher<String> getContentActivity =
             registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-        @Override
-        public void onActivityResult(Uri uri) {
-            if (uri == null) return;
+                @Override
+                public void onActivityResult(Uri uri) {
+                    if (uri == null) return;
 
-            fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
-        }
-    });
+                    fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
+                }
+            });
 
     ActivityResultLauncher<Void> takePictureActivity =
             registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
-        @Override
-        public void onActivityResult(Bitmap result) {
-            if (result == null) return;
+                @Override
+                public void onActivityResult(Bitmap result) {
+                    if (result == null) return;
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            result.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] data = baos.toByteArray();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    result.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] data = baos.toByteArray();
 
-            fieldDocumentsViewModel.updateBytes(selectedFieldModel, data);
-        }
-    });
+                    fieldDocumentsViewModel.updateBytes(selectedFieldModel, data);
+                }
+            });
 
     @Override
     public void onDestroy() {
