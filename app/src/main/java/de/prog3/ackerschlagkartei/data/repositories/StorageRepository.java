@@ -1,7 +1,9 @@
 package de.prog3.ackerschlagkartei.data.repositories;
 
 import android.app.Application;
+import android.content.Intent;
 import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -89,28 +91,29 @@ public class StorageRepository {
     }
 
     public void downloadFieldDocument(DocumentModel documentModel){
-        File localFile;
 
         try {
-            localFile = File.createTempFile("doc_", null);
+            File localFile = File.createTempFile("doc_", null);
+
+            this.firebaseStorage.getReference()
+                    .child(documentModel.getUriFullsize())
+                    .getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            downloadDocumentFile.postValue(localFile);
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }catch (IOException e){
+            Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             return;
         }
-
-        this.firebaseStorage.getReference()
-                .child(documentModel.getUriFullsize())
-                .getFile(localFile)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                downloadDocumentFile.postValue(localFile);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
 
     }
 

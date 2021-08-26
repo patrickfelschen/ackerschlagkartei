@@ -29,15 +29,7 @@
         android:id="@+id/fieldDocumentsFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDocumentsFragment"
         android:label="@string/fragment_documents"
-        tools:layout="@layout/fragment_field_documents">
-        <action
-            android:id="@+id/action_fieldDocumentsFragment_to_fieldDocumentsCameraFragment"
-            app:destination="@id/fieldDocumentsCameraFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/fragment_field_documents"/>
     <fragment
         android:id="@+id/fieldActionsCategoryFragment"
         android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldActionsCategoryFragment"
@@ -51,9 +43,4 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
-    <fragment
-        android:id="@+id/fieldDocumentsCameraFragment"
-        android:name="de.prog3.ackerschlagkartei.ui.views.fragments.FieldDocumentsCameraFragment"
-        android:label="fragment_field_documents_camera"
-        tools:layout="@layout/fragment_field_documents_camera" />
 </navigation>

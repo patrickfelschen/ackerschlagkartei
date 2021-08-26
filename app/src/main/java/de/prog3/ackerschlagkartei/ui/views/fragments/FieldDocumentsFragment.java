@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +36,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
+import de.prog3.ackerschlagkartei.BuildConfig;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
 import de.prog3.ackerschlagkartei.data.models.DocumentModel;
@@ -53,6 +55,8 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
     private FieldDocumentsAdapter fieldDocumentsAdapter;
 
     private FieldModel selectedFieldModel;
+
+    private DocumentModel selectedDocumentModel;
 
     public FieldDocumentsFragment() {
     }
@@ -81,7 +85,7 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
         this.navController = Navigation.findNavController(view);
 
-        this.rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+        this.rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), 4));
 
         this.fieldDocumentsViewModel.getDocumentsMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<List<DocumentModel>>() {
             @Override
@@ -92,6 +96,21 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
             }
         });
 
+        this.fieldDocumentsViewModel.getFileMutableLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+            @Override
+            public void onChanged(File file) {
+                if (file == null) return;
+                if (selectedDocumentModel == null) return;
+
+                Uri uri = FileProvider.getUriForFile(requireActivity(), BuildConfig.APPLICATION_ID + ".provider", file);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(uri, selectedDocumentModel.getContentType());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -99,24 +118,11 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         super.onStart();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onItemClick(View view, int position) {
-        //Toast.makeText(requireContext(), fieldDocumentsAdapter.getItem(position).getUriFullsize(), Toast.LENGTH_SHORT).show();
-
         DocumentModel doc = fieldDocumentsAdapter.getItem(position);
-
-        fieldDocumentsViewModel.downloadDocument(doc);
-
-        fieldDocumentsViewModel.getFileMutableLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
-            @Override
-            public void onChanged(File file) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(file), doc.getContentType());
-                startActivity(intent);
-            }
-        });
-
+        this.selectedDocumentModel = doc;
+        this.fieldDocumentsViewModel.downloadDocument(doc);
     }
 
     @Override

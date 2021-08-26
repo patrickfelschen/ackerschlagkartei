@@ -52,9 +52,7 @@ public class FieldDocumentsViewModel extends AndroidViewModel {
     }
 
     public void downloadDocument(DocumentModel documentModel) {
-
-        storageRepository.downloadFieldDocument(documentModel);
-
+        this.storageRepository.downloadFieldDocument(documentModel);
     }
 
     public MutableLiveData<File> getFileMutableLiveData(){
