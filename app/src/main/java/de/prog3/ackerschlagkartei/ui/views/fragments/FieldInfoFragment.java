@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -93,6 +94,8 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.fieldInfoViewModel = new ViewModelProvider(requireActivity()).get(FieldInfoViewModel.class);
 
         this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
+
+        this.deleteFieldButton.setOnClickListener(deleteFieldButtonClick);
 
         this.fieldInfoViewModel.getFieldModelMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
             @Override
@@ -203,6 +206,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         @Override
         public void onClick(View v) {
             fieldInfoViewModel.deleteFieldModel(selectedFieldModel);
+            navController.navigate(R.id.action_fieldInfoFragment_to_mainActivity);
         }
     };
 

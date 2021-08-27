@@ -182,6 +182,7 @@ public class FirestoreRepository {
             @Override
             public void onSuccess(Void unused) {
                 fieldDeleteStatus.postValue(Status.SUCCESS);
+                Toast.makeText(application, "Feld " + fieldModel.getInfo().getDescription() + " gelöscht", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
