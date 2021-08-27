@@ -166,13 +166,13 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
         String fieldDescription = etDescription.getText().toString();
 
         if (TextUtils.isEmpty(fieldDescription)) {
-            etDescription.setError("Description cannot be empty");
+            etDescription.setError(getString(R.string.error_description_empty));
             etDescription.requestFocus();
             return;
         }
 
         if (fieldPositions.isEmpty()) {
-            etDescription.setError("Positions cannot be empty");
+            etDescription.setError(getString(R.string.error_positions_empty));
             etDescription.requestFocus();
             return;
         }
