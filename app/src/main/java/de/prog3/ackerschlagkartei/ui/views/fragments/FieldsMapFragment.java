@@ -122,8 +122,8 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         if (id == R.id.menu_sign_out) {
-            navController.navigate(R.id.signInFragment);
-            this.fieldsMapViewModel.logout();
+            navController.navigate(R.id.action_fieldsMapFragment_to_profileFragment);
+            //this.fieldsMapViewModel.logout();
             return true;
         }
         return super.onOptionsItemSelected(item);

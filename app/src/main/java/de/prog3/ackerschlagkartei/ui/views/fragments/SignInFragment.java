@@ -47,7 +47,7 @@ public class SignInFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         this.btnOpenSignUp = view.findViewById(R.id.btn_open_sign_up);
         this.btnOpenResetPassword = view.findViewById(R.id.btn_open_password_reset);
-        this.btnSignIn = view.findViewById(R.id.btn_sign_in);
+        this.btnSignIn = view.findViewById(R.id.btn_sign_out);
 
         this.etSignInEmail = view.findViewById(R.id.et_sign_in_email);
         this.etSignInPassword = view.findViewById(R.id.et_sign_in_password);

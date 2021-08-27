@@ -16,6 +16,7 @@
     <string name="fragment_actions">Maßnahmen</string>
     <string name="fragment_info">Info</string>
     <string name="fragment_documents">Dokumente</string>
+    <string name="fragment_profile">Profil</string>
 
     <!-- SignInActivity -->
     <string name="et_email_hint">E-Mail Adresse</string>
@@ -28,7 +29,7 @@
     <!-- FieldsOverviewActivity -->
     <string name="appbar_title">Felderübersicht</string>
     <string name="menu_change_view">Ansicht wechseln</string>
-    <string name="menu_sign_out">Abmelden</string>
+    <string name="menu_open_profile">Profil</string>
     <string name="menu_search">Suchen</string>
     <string name="menu_add_field">Hinzufügen</string>
 
@@ -489,4 +490,8 @@
     <!-- FieldAddFragment -->
     <string name="error_description_empty">Beschreibung darf nicht leer sein</string>
     <string name="error_positions_empty">Feldpositionen dürfen nicht leer sein</string>
+
+    <!-- ProfileFragment -->
+    <string name="sign_out_btn">Abmelden</string>
+
 </resources>

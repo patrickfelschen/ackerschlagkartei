@@ -16,6 +16,7 @@
     <string name="fragment_actions">Actions</string>
     <string name="fragment_info">Info</string>
     <string name="fragment_documents">Documents</string>
+    <string name="fragment_profile">Profile</string>
 
 
     <!-- SignInActivity -->
@@ -29,7 +30,7 @@
     <!-- FieldsOverviewActivity -->
     <string name="appbar_title">Fieldoverview</string>
     <string name="menu_change_view">Change view</string>
-    <string name="menu_sign_out">Sign out</string>
+    <string name="menu_open_profile">Profile</string>
     <string name="menu_search">Search</string>
     <string name="menu_add_field">Add</string>
 
@@ -488,11 +489,12 @@
     <!-- FieldImages -->
     <string name="btn_add_image">Take photo</string>
     <string name="btn_attach_doc">Attach Document</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- FieldAddFragment -->
     <string name="error_description_empty">Description cannot be empty</string>
     <string name="error_positions_empty">Positions cannot be empty</string>
+
+    <!-- ProfileFragment -->
+    <string name="sign_out_btn">Sign Out</string>
 
 </resources>

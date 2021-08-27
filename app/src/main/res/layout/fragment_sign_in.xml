@@ -56,7 +56,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/btn_sign_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -81,7 +81,7 @@
         android:text="@string/btn_open_password_reset_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_sign_in" />
+        app:layout_constraintTop_toBottomOf="@id/btn_sign_out" />
 
     <TextView
         android:id="@+id/or_divider"
