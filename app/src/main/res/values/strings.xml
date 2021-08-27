@@ -27,6 +27,15 @@
     <string name="lb_divider_text">OR</string>
     <string name="btn_open_sign_up_text">Sign up</string>
 
+    <string name="error_empty_email">E-Mail can not be empty</string>
+    <string name="error_empty_password">Password can not be empty</string>
+    <string name="error_short_password">Password is too short</string>
+    <string name="error_match_password">Passwords do not match</string>
+
+    <!-- SignUpActivity -->
+    <string name="et_sign_up_password_confirm">Confirm</string>
+    <string name="btn_sign_up_text">Create account</string>
+
     <!-- FieldsOverviewActivity -->
     <string name="appbar_title">Fieldoverview</string>
     <string name="menu_change_view">Change view</string>
@@ -37,10 +46,6 @@
     <!-- ForgotPasswordActivity -->
     <string name="et_forgot_password_hint">Forgot password</string>
     <string name="btn_return_to_sign_in">Return to Login</string>
-
-    <!-- SignUpActivity -->
-    <string name="et_sign_up_password_confirm">Confirm</string>
-    <string name="btn_sign_up_text">Create account</string>
 
     <!-- FieldsOverviewActivity -->
 

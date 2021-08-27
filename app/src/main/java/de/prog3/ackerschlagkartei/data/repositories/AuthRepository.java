@@ -42,15 +42,17 @@ public class AuthRepository {
     }
 
     public void register(String email, String password) {
+        this.logoutStatus.postValue(Status.INITIAL);
         this.registerStatus.postValue(Status.LOADING);
         this.firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 if (authResult.getUser() != null) {
                     authResult.getUser().sendEmailVerification();
+
+                    registerStatus.postValue(Status.SUCCESS);
+                    refreshCurrentUser();
                 }
-                registerStatus.postValue(Status.SUCCESS);
-                refreshCurrentUser();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -62,6 +64,7 @@ public class AuthRepository {
     }
 
     public void login(String email, String password) {
+        this.logoutStatus.postValue(Status.INITIAL);
         this.loginStatus.postValue(Status.LOADING);
         this.firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -82,6 +85,11 @@ public class AuthRepository {
         this.logoutStatus.postValue(Status.LOADING);
         this.firebaseAuth.signOut();
         this.refreshCurrentUser();
+
+        this.registerStatus.postValue(Status.INITIAL);
+        this.loginStatus.postValue(Status.INITIAL);
+        this.resetPasswordStatus.postValue(Status.INITIAL);
+
         this.logoutStatus.postValue(Status.SUCCESS);
     }
 

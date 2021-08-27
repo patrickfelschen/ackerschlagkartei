@@ -26,6 +26,15 @@
     <string name="lb_divider_text">ODER</string>
     <string name="btn_open_sign_up_text">Neues Konto erstellen</string>
 
+    <string name="error_empty_email">E-Mail darf nicht leer sein</string>
+    <string name="error_empty_password">Passwort darf nicht leer sein</string>
+    <string name="error_short_password">Passwort ist zu kurz</string>
+    <string name="error_match_password">Passwörter stimmen nicht überein</string>
+
+    <!-- SignUpActivity -->
+    <string name="et_sign_up_password_confirm">Passwort wiederholen</string>
+    <string name="btn_sign_up_text">Konto erstellen</string>
+
     <!-- FieldsOverviewActivity -->
     <string name="appbar_title">Felderübersicht</string>
     <string name="menu_change_view">Ansicht wechseln</string>
@@ -36,12 +45,6 @@
     <!-- ForgotPasswordActivity -->
     <string name="et_forgot_password_hint">Passwort vergessen</string>
     <string name="btn_return_to_sign_in">Zurück zur Anmeldung</string>
-
-    <!-- SignUpActivity -->
-    <string name="et_sign_up_password_confirm">Passwort wiederholen</string>
-    <string name="btn_sign_up_text">Konto erstellen</string>
-
-    <!-- FieldsOverviewActivity -->
 
     <!-- FieldDetailsActivity -->
     <string name="nav_cultivation">Anbau</string>

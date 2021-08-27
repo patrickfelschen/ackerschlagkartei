@@ -1,6 +1,7 @@
 package de.prog3.ackerschlagkartei.ui.views.fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.ui.viewmodels.AuthViewModel;
+import de.prog3.ackerschlagkartei.utils.Status;
 
 public class SignInFragment extends Fragment {
     private AuthViewModel authViewModel;
@@ -33,6 +37,8 @@ public class SignInFragment extends Fragment {
 
     private EditText etSignInEmail;
     private EditText etSignInPassword;
+
+    private ProgressBar pbLoading;
 
     public SignInFragment() { }
 
@@ -51,6 +57,8 @@ public class SignInFragment extends Fragment {
 
         this.etSignInEmail = view.findViewById(R.id.et_sign_in_email);
         this.etSignInPassword = view.findViewById(R.id.et_sign_in_password);
+
+        this.pbLoading = view.findViewById(R.id.pb_sign_in_loading);
         return view;
     }
 
@@ -61,11 +69,34 @@ public class SignInFragment extends Fragment {
         this.authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         this.navController = Navigation.findNavController(view);
 
+        /*
         this.authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if(firebaseUser != null){
                     navController.navigate(R.id.action_signInFragment_to_fieldMapFragment);
+                }
+            }
+        });
+        */
+
+        this.authViewModel.getLoginStatus().observe(getViewLifecycleOwner(), new Observer<Status>() {
+            @Override
+            public void onChanged(Status status) {
+                if(status == Status.ERROR){
+                    pbLoading.setVisibility(View.INVISIBLE);
+                    Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(status == Status.SUCCESS){
+                    navController.navigate(R.id.action_signInFragment_to_fieldMapFragment);
+                    return;
+                }
+
+                if(status == Status.LOADING){
+                    pbLoading.setVisibility(View.VISIBLE);
+                    return;
                 }
             }
         });
@@ -87,17 +118,28 @@ public class SignInFragment extends Fragment {
         this.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String emailAddress = etSignInEmail.getText().toString();
+                String password = etSignInPassword.getText().toString();
 
-                if(etSignInEmail.getText().toString().trim().isEmpty()){
+                if(TextUtils.isEmpty(emailAddress)){
+                    etSignInEmail.setError(getString(R.string.error_empty_email));
+                    etSignInEmail.requestFocus();
                     return;
                 }
 
-                if(etSignInPassword.getText().toString().trim().isEmpty()){
+                if(TextUtils.isEmpty(password)){
+                    etSignInPassword.setError(getString(R.string.error_empty_password));
+                    etSignInPassword.requestFocus();
                     return;
                 }
 
-                authViewModel.login(etSignInEmail.getText().toString().trim(), etSignInPassword.getText().toString().trim());
+                if(TextUtils.getTrimmedLength(password) < 8){
+                    etSignInPassword.setError(getString(R.string.error_short_password));
+                    etSignInPassword.requestFocus();
+                    return;
+                }
 
+                authViewModel.login(emailAddress.trim(), password.trim());
             }
         });
     }
