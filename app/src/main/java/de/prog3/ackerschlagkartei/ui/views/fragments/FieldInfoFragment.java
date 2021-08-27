@@ -1,5 +1,7 @@
 package de.prog3.ackerschlagkartei.ui.views.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -205,8 +207,24 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     private final View.OnClickListener deleteFieldButtonClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            fieldInfoViewModel.deleteFieldModel(selectedFieldModel);
-            navController.navigate(R.id.action_fieldInfoFragment_to_mainActivity);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            builder.setTitle(getString(R.string.confirm_delete));
+            builder.setPositiveButton(getString(R.string.confirm_delete_yes), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    fieldInfoViewModel.deleteFieldModel(selectedFieldModel);
+                    navController.navigate(R.id.action_fieldInfoFragment_to_mainActivity);
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(getString(R.string.confirm_delete_no), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     };
 

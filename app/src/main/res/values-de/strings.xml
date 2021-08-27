@@ -481,6 +481,9 @@
     <string name="cb_red_area">Rotes Gebiet</string>
     <string name="cb_phosphate_sensitive_area">Posphatsensibles Gebiet</string>
     <string name="btn_delete_field">Feld entfernen</string>
+    <string name="confirm_delete">Löschen bestätigen</string>
+    <string name="confirm_delete_yes">Ja</string>
+    <string name="confirm_delete_no">Nein</string>
 
     <!-- FieldImages -->
     <string name="btn_add_image">Foto erstellen</string>
