@@ -167,8 +167,6 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
                 public void onActivityResult(Boolean result) {
                     if (!result) return;
 
-                    Toast.makeText(requireActivity(), "asdasdasd" +tmpImgUri.toString(), Toast.LENGTH_SHORT).show();
-
                     fieldDocumentsViewModel.updateDocument(selectedFieldModel, tmpImgUri);
                 }
             });
