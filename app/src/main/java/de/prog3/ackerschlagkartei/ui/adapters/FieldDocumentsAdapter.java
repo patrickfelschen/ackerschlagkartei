@@ -47,11 +47,8 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
         @Override
         public void onClick(View view) {
             if (itemClickListener != null) {
-                try {
-                    itemClickListener.onItemClick(view, getAdapterPosition());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            itemClickListener.onItemClick(view, getAdapterPosition());
+
             }
         }
 
@@ -59,9 +56,8 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
         public boolean onLongClick(View view) {
             if(itemLongClickListener != null) {
                 itemLongClickListener.onItemLongClick(view, getAdapterPosition());
-            }else {
-
             }
+
             return true;
         }
     }
