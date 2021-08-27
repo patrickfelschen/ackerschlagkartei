@@ -3,6 +3,7 @@ package de.prog3.ackerschlagkartei.ui.views.fragments;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import java.util.Objects;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
@@ -135,8 +139,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etHumus.getText().toString());
-                    fieldGroundViewModel.updateField(selectedFieldModel,"ground.humus", changes);
+                    if(!etHumus.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etHumus.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.humus", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.humus", 0.0);
+                    }
                     v.clearFocus();
                     ddBkr.clearFocus();
                 }
@@ -147,8 +155,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etPhValue.getText().toString());
-                    fieldGroundViewModel.updateField(selectedFieldModel,"ground.phValue", changes);
+                    if(!etPhValue.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etPhValue.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phValue", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phValue", 0.0);
+                    }
                     v.clearFocus();
                     etPhValue.clearFocus();
                 }
@@ -159,8 +171,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etPhosphorus.getText().toString());
-                    fieldGroundViewModel.updateField(selectedFieldModel,"ground.phosphorus", changes);
+                    if(!etPhosphorus.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etPhosphorus.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phosphorus", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phosphorus", 0.0);
+                    }
                     v.clearFocus();
                     etPhosphorus.clearFocus();
                 }
@@ -171,8 +187,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etPotassium.getText().toString());
-                    fieldGroundViewModel.updateField(selectedFieldModel,"ground.potassium", changes);
+                    if(!etPotassium.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etPotassium.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.potassium", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.potassium", 0.0);
+                    }
                     v.clearFocus();
                     etPotassium.clearFocus();
                 }
@@ -183,8 +203,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etMagnesium.getText().toString());
-                    fieldGroundViewModel.updateField(selectedFieldModel,"ground.magnesium", changes);
+                    if(!etMagnesium.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etMagnesium.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.magnesium", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.magnesium", 0.0);
+                    }
                     v.clearFocus();
                     etMagnesium.clearFocus();
                 }
