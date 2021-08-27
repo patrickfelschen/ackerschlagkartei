@@ -25,13 +25,13 @@
         android:hint="@string/et_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mv_field_info">
+        app:layout_constraintTop_toBottomOf="@+id/mv_field_info"
+        app:startIconDrawable="@drawable/ic_baseline_description_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_create_24"
             android:drawablePadding="5dp"
             android:inputType="textCapWords" />
 
@@ -49,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_description_layout"
+        app:startIconDrawable="@drawable/ic_baseline_fullscreen_24"
         app:suffixText="ha">
 
         <com.google.android.material.textfield.TextInputEditText
