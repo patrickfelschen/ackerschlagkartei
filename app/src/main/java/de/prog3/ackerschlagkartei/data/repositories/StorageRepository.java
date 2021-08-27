@@ -119,41 +119,20 @@ public class StorageRepository {
 
     public void deleteDocument(DocumentModel documentModel) {
 
-        try {
-            File localFile = File.createTempFile("doc_", null);
+        this.firebaseStorage.getReference()
+                .child(documentModel.getUriFullsize())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
 
-            this.firebaseStorage.getReference()
-                    .child(documentModel.getUriFullsize())
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-            this.firebaseStorage.getReference()
-                    .child(documentModel.getUriThumbnail())
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }catch(IOException e) {
-            Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public MutableLiveData<File> getDownloadDocumentFile() {
