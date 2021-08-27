@@ -491,4 +491,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- FieldAddFragment -->
+    <string name="error_description_empty">Description cannot be empty</string>
+    <string name="error_positions_empty">Positions cannot be empty</string>
+
 </resources>

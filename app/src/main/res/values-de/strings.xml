@@ -485,4 +485,8 @@
     <!-- FieldImages -->
     <string name="btn_add_image">Foto erstellen</string>
     <string name="btn_attach_doc">Dokument anhängen</string>
+
+    <!-- FieldAddFragment -->
+    <string name="error_description_empty">Beschreibung darf nicht leer sein</string>
+    <string name="error_positions_empty">Feldpositionen dürfen nicht leer sein</string>
 </resources>
