@@ -55,6 +55,10 @@ public class FieldDocumentsViewModel extends AndroidViewModel {
         this.storageRepository.downloadFieldDocument(documentModel);
     }
 
+    public void deleteDocument(DocumentModel documentModel) {
+        this.storageRepository.deleteDocument(documentModel);
+    }
+
     public MutableLiveData<File> getFileMutableLiveData(){
         return storageRepository.getDownloadDocumentFile();
     }

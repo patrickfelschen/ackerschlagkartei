@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +15,13 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
+import de.prog3.ackerschlagkartei.data.interfaces.ItemLongClickListener;
 import de.prog3.ackerschlagkartei.data.models.DocumentModel;
 
 public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAdapter.ViewHolder> {
@@ -26,9 +29,10 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
     private final List<DocumentModel> documentModelList;
     private final LayoutInflater layoutInflater;
     private ItemClickListener itemClickListener;
+    private ItemLongClickListener itemLongClickListener;
     private Context context;
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         private TextView myTextView;
         private ImageView ivThumbnail;
 
@@ -37,13 +41,28 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
             myTextView = itemView.findViewById(R.id.info_text);
             ivThumbnail = itemView.findViewById(R.id.iv_thumbnail);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if (itemClickListener != null) {
-                itemClickListener.onItemClick(view, getAdapterPosition());
+                try {
+                    itemClickListener.onItemClick(view, getAdapterPosition());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if(itemLongClickListener != null) {
+                itemLongClickListener.onItemLongClick(view, getAdapterPosition());
+            }else {
+
+            }
+            return true;
         }
     }
 
@@ -90,5 +109,9 @@ public class FieldDocumentsAdapter extends RecyclerView.Adapter<FieldDocumentsAd
 
     public void setClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
+    }
+
+    public void setItemLongClickListener(ItemLongClickListener itemLongClickListener) {
+        this.itemLongClickListener = itemLongClickListener;
     }
 }
