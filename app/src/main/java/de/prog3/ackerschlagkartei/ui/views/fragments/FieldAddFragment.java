@@ -40,9 +40,11 @@ import java.util.List;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldAddViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
     private FieldAddViewModel fieldAddViewModel;
+    private FieldsMapViewModel fieldsMapViewModel;
     private NavController navController;
 
     private MapView mapView;
@@ -52,6 +54,7 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
 
     private final List<GeoPoint> fieldPositions = new ArrayList<>();
     private final List<LatLng> fieldLatLngs = new ArrayList<>();
+    private List<FieldModel> fieldModels;
 
     private Polygon polygon;
 
@@ -77,10 +80,13 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         this.fieldAddViewModel = new ViewModelProvider(requireActivity()).get(FieldAddViewModel.class);
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
         this.navController = Navigation.findNavController(view);
 
         this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
+
+        this.fieldModels = fieldsMapViewModel.getFieldModels();
     }
 
     @Override
@@ -103,6 +109,8 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
             //    ActivityCompat#requestPermissions
             return;
         }
+
+        this.fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.fieldModels);
 
         this.googleMap.setMyLocationEnabled(true);
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);

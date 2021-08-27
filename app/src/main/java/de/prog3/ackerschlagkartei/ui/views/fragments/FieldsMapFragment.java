@@ -16,25 +16,17 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.firebase.firestore.GeoPoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
@@ -84,7 +76,8 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onChanged(List<FieldModel> fieldModels) {
                 currentFieldModels = fieldModels;
-                createFieldPolygons();
+                fieldsMapViewModel.setFieldModels(currentFieldModels);
+                fieldsMapViewModel.createFieldPolygons(requireActivity(), googleMap, fieldModels);
             }
         });
     }
@@ -147,7 +140,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        this.createFieldPolygons();
+        fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.currentFieldModels);
 
         this.askPermissionLocation.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         this.askPermissionLocation.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -159,39 +152,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
         this.googleMap.setMyLocationEnabled(true);
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-    }
-
-    private void createFieldPolygons() {
-        if (googleMap == null || currentFieldModels == null || currentFieldModels.isEmpty()) {
-            return;
-        }
-
-        googleMap.clear();
-        LatLngBounds.Builder latLngBounds = new LatLngBounds.Builder();
-
-        for (FieldModel field : currentFieldModels) {
-
-            List<LatLng> latLngs = new ArrayList<>();
-
-            for (GeoPoint point : field.getInfo().getPositions()) {
-                if (!field.getInfo().getPositions().isEmpty()) {
-                    LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
-                    latLngs.add(latLng);
-                    latLngBounds.include(latLng);
-                }
-            }
-
-            Polygon polygon = googleMap.addPolygon(new PolygonOptions()
-                    .addAll(latLngs)
-                    .fillColor(ContextCompat.getColor(requireActivity(), R.color.field_polygon))
-                    .clickable(true)
-                    .strokeWidth(2));
-
-            polygon.setTag(field);
-        }
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));
-
     }
 
     @Override
