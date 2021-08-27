@@ -140,7 +140,7 @@
         android:label="@string/fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_profileFragment_to_splashFragment"
+            android:id="@+id/action_profileFragment_to_splashFragment2"
             app:destination="@id/splashFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"

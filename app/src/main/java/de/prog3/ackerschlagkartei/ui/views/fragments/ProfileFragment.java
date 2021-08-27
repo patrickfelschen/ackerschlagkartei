@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 authViewModel.logout();
-                navController.navigate(R.id.action_profileFragment_to_splashFragment);
+                navController.navigate(R.id.action_profileFragment_to_splashFragment2);
             }
         });
 

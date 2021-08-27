@@ -34,8 +34,11 @@ public class AuthRepository {
         this.logoutStatus = new MutableLiveData<>(Status.INITIAL);
         this.resetPasswordStatus = new MutableLiveData<>(Status.INITIAL);
 
-        this.userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+        this.refreshCurrentUser();
+    }
 
+    public void refreshCurrentUser(){
+        this.userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
     }
 
     public void register(String email, String password) {
@@ -47,13 +50,13 @@ public class AuthRepository {
                     authResult.getUser().sendEmailVerification();
                 }
                 registerStatus.postValue(Status.SUCCESS);
-                userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+                refreshCurrentUser();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 registerStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                refreshCurrentUser();
             }
         });
     }
@@ -63,14 +66,14 @@ public class AuthRepository {
         this.firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+                refreshCurrentUser();
                 loginStatus.postValue(Status.SUCCESS);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loginStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                refreshCurrentUser();
             }
         });
     }
@@ -78,6 +81,7 @@ public class AuthRepository {
     public void logout() {
         this.logoutStatus.postValue(Status.LOADING);
         this.firebaseAuth.signOut();
+        this.refreshCurrentUser();
         this.logoutStatus.postValue(Status.SUCCESS);
     }
 
@@ -92,7 +96,6 @@ public class AuthRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 resetPasswordStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
