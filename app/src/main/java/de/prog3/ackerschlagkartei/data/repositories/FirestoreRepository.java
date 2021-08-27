@@ -72,9 +72,6 @@ public class FirestoreRepository {
     }
 
     private CollectionReference getFieldCollection() {
-        if (this.firebaseAuth.getCurrentUser() == null) {
-            throw new NullPointerException("User is not logged in.");
-        }
 
         String uid = this.firebaseAuth.getUid();
 
@@ -87,6 +84,8 @@ public class FirestoreRepository {
     // FIELDMODEL
 
     public MutableLiveData<List<FieldModel>> getFieldListGetData() {
+        if(firebaseAuth.getCurrentUser() == null) return fieldListGetData;
+
         this.fieldListGetStatus.postValue(Status.LOADING);
         this.getFieldCollection().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -94,7 +93,6 @@ public class FirestoreRepository {
 
                 if (error != null) {
                     fieldListGetStatus.postValue(Status.ERROR);
-                    Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -118,6 +116,8 @@ public class FirestoreRepository {
     }
 
     public MutableLiveData<FieldModel> getFieldMutableLiveData(@NonNull String uid) {
+        if(firebaseAuth.getCurrentUser() == null) return fieldGetData;
+
         this.fieldGetStatus.postValue(Status.LOADING);
         this.getFieldCollection().document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -125,7 +125,6 @@ public class FirestoreRepository {
 
                 if (error != null) {
                     fieldGetStatus.postValue(Status.ERROR);
-                    Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -142,6 +141,8 @@ public class FirestoreRepository {
     }
 
     public void createFieldModel(@NonNull FieldModel fieldModel) {
+        if(firebaseAuth.getCurrentUser() == null) return;
+
         this.fieldCreateStatus.postValue(Status.LOADING);
         this.getFieldCollection().add(fieldModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -158,6 +159,8 @@ public class FirestoreRepository {
     }
 
     public void updateFieldModel(@NonNull FieldModel fieldModel, String field, Object changes) {
+        if(firebaseAuth.getCurrentUser() == null) return;
+
         this.fieldUpdateStatus.postValue(Status.LOADING);
         this.getFieldCollection()
                 .document(fieldModel.getUid())
@@ -177,12 +180,13 @@ public class FirestoreRepository {
     }
 
     public void deleteFieldModel(@NonNull FieldModel fieldModel) {
+        if(firebaseAuth.getCurrentUser() == null) return;
+
         this.fieldDeleteStatus.postValue(Status.LOADING);
         this.getFieldCollection().document(fieldModel.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 fieldDeleteStatus.postValue(Status.SUCCESS);
-                Toast.makeText(application, "Feld " + fieldModel.getInfo().getDescription() + " gelöscht", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -196,6 +200,8 @@ public class FirestoreRepository {
     // ACTIONMODEL
 
     public MutableLiveData<List<ActionModel>> getActionListGetData(@NonNull String fieldUid, String category) {
+        if(firebaseAuth.getCurrentUser() == null) return actionListGetData;
+
         this.actionListGetStatus.postValue(Status.LOADING);
         this.getFieldCollection()
                 .document(fieldUid)
@@ -208,8 +214,6 @@ public class FirestoreRepository {
 
                         if (error != null) {
                             actionListGetStatus.postValue(Status.ERROR);
-                            //Log.w("GetAction", error.getLocalizedMessage());
-                            //Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -233,6 +237,8 @@ public class FirestoreRepository {
     }
 
     public void createActionModel(@NonNull String fieldUid, ActionModel actionModel) {
+        if(firebaseAuth.getCurrentUser() == null) return;
+
         this.actionCreateStatus.postValue(Status.LOADING);
         this.getFieldCollection()
                 .document(fieldUid)
@@ -247,7 +253,6 @@ public class FirestoreRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 actionCreateStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -255,6 +260,8 @@ public class FirestoreRepository {
     // DOCUMENTMODEL
 
     public void createDocumentModel(@NonNull String fieldUid, DocumentModel documentModel) {
+        if(firebaseAuth.getCurrentUser() == null) return;
+
         this.documentCreateStatus.postValue(Status.LOADING);
         this.getFieldCollection()
                 .document(fieldUid)
@@ -269,12 +276,13 @@ public class FirestoreRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 documentCreateStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public MutableLiveData<List<DocumentModel>> getDocumentListGetData(@NonNull String fieldUid) {
+        if(firebaseAuth.getCurrentUser() == null) return documentListGetData;
+
         this.documentListGetStatus.postValue(Status.LOADING);
         this.getFieldCollection()
                 .document(fieldUid)
@@ -285,7 +293,6 @@ public class FirestoreRepository {
 
                         if (error != null) {
                             documentListGetStatus.postValue(Status.ERROR);
-                            //Toast.makeText(application, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
