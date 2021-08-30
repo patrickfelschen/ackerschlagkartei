@@ -431,6 +431,7 @@
     <string name="action">Maßnahme</string>
     <string name="add_action_button">Maßnahme hinzufügen</string>
     <string name="cancel_action_button">Abbrechen</string>
+    <string name="action_date">Maßnahme Datum</string>
 
     <string-array name="actions_array">
         <item>Bodenbearbeitung</item>

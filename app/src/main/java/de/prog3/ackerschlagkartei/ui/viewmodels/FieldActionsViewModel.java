@@ -43,7 +43,7 @@ public class FieldActionsViewModel extends AndroidViewModel {
         return this.firestoreRepository.getFieldMutableLiveData(selectedField.getUid());
     }
 
-    public void setAction(FieldModel fieldModel, String action, String category) {
-        this.firestoreRepository.createActionModel(fieldModel.getUid(), new ActionModel(fieldModel.getUid(), action, new Date(), category));
+    public void setAction(FieldModel fieldModel, String action, Date date, String category) {
+        this.firestoreRepository.createActionModel(fieldModel.getUid(), new ActionModel(fieldModel.getUid(), action, date, category));
     }
 }

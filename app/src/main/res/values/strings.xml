@@ -436,6 +436,7 @@
     <string name="action">Action</string>
     <string name="add_action_button">Add Action</string>
     <string name="cancel_action_button">Cancel</string>
+    <string name="action_date">Action date</string>
 
     <string-array name="actions_array">
         <item>Soil cultivation</item>
