@@ -157,6 +157,7 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
 
         if (id == R.id.add_fiel_menu_reset) {
             resetAll();
+            this.fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.fieldModels);
         }
 
         return super.onOptionsItemSelected(item);
