@@ -39,6 +39,7 @@ import java.util.List;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
+import de.prog3.ackerschlagkartei.data.models.InfoModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldInfoViewModel;
 import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
@@ -60,7 +61,8 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
     private FieldModel selectedFieldModel;
 
-    public FieldInfoFragment() { }
+    public FieldInfoFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,26 +97,30 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
         this.fieldInfoViewModel = new ViewModelProvider(requireActivity()).get(FieldInfoViewModel.class);
 
+        this.navController = Navigation.findNavController(view);
+
         this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
 
         this.fieldInfoViewModel.getFieldModelMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
             @Override
             public void onChanged(FieldModel fieldModel) {
-                etFieldInfoDescription.setText(fieldModel.getInfo().getDescription());
-                etFieldInfoArea.setText(String.valueOf(fieldModel.getInfo().getArea()));
-                cbWaterProtectionArea.setChecked(fieldModel.getInfo().isWaterProtectionArea());
-                cbRedArea.setChecked(fieldModel.getInfo().isRedArea());
-                cbPhosphateSensitiveArea.setChecked(fieldModel.getInfo().isPhosphateSensitiveArea());
-                cbVisible.setChecked(fieldModel.getInfo().isVisible());
+                InfoModel info = fieldModel.getInfo();
+
+                etFieldInfoDescription.setText(info.getDescription());
+                etFieldInfoArea.setText(String.valueOf(info.getArea()));
+                cbWaterProtectionArea.setChecked(info.isWaterProtectionArea());
+                cbRedArea.setChecked(info.isRedArea());
+                cbPhosphateSensitiveArea.setChecked(info.isPhosphateSensitiveArea());
+                cbVisible.setChecked(info.isVisible());
 
                 createFieldPolygon();
             }
         });
 
-        this.cbVisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        this.cbVisible.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel, "info.visible", isChecked);
+            public void onClick(View v) {
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.visible", cbVisible.isChecked());
                 cbVisible.clearFocus();
             }
         });
@@ -143,31 +149,29 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        this.cbWaterProtectionArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        this.cbWaterProtectionArea.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel, "info.waterProtectionArea", isChecked);
+            public void onClick(View v) {
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.waterProtectionArea", cbWaterProtectionArea.isChecked());
                 cbWaterProtectionArea.clearFocus();
             }
         });
 
-        this.cbRedArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        this.cbRedArea.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel, "info.redArea", isChecked);
+            public void onClick(View v) {
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.redArea", cbRedArea.isChecked());
                 cbRedArea.clearFocus();
             }
         });
 
-        this.cbPhosphateSensitiveArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        this.cbPhosphateSensitiveArea.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel, "info.phosphateSensitiveArea", isChecked);
+            public void onClick(View v) {
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.phosphateSensitiveArea", cbPhosphateSensitiveArea.isChecked());
                 cbPhosphateSensitiveArea.clearFocus();
             }
         });
-
-        this.navController = Navigation.findNavController(view);
 
     }
 
