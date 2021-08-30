@@ -44,9 +44,10 @@
             app:destination="@id/fieldActionsFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment><action android:id="@+id/action_global_fieldInfoFragment" app:destination="@id/fieldInfoFragment"/>
+    </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="de.prog3.ackerschlagkartei.ui.views.activities.MainActivity"

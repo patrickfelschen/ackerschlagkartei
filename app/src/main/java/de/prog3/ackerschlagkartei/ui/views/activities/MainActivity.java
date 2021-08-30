@@ -15,6 +15,7 @@ import de.prog3.ackerschlagkartei.R;
 
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.navController = Navigation.findNavController(this, R.id.main_nav_host_fragment);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.signInFragment, R.id.fieldsMapFragment).build();
+        this.appBarConfiguration = new AppBarConfiguration.Builder(R.id.signInFragment, R.id.fieldsMapFragment).build();
         NavigationUI.setupActionBarWithNavController(this, this.navController, appBarConfiguration);
 
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(this.navController, (Openable) null);
+        return NavigationUI.navigateUp(this.navController, this.appBarConfiguration) || super.onSupportNavigateUp();
     }
 }
