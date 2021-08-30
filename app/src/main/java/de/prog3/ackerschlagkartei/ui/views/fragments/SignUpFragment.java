@@ -78,7 +78,7 @@ public class SignUpFragment extends Fragment {
                 }
 
                 if(status == Status.SUCCESS){
-                    navController.navigate(R.id.action_signUpFragment_to_fieldMapFragment);
+                    navController.navigate(R.id.action_signUpFragment_to_splashFragment);
                     return;
                 }
 

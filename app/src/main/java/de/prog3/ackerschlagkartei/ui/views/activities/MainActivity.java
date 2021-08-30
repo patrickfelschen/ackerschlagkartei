@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.customview.widget.Openable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.navController = Navigation.findNavController(this, R.id.main_nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, this.navController);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.signInFragment, R.id.fieldsMapFragment).build();
+        NavigationUI.setupActionBarWithNavController(this, this.navController, appBarConfiguration);
+
     }
 
     @Override

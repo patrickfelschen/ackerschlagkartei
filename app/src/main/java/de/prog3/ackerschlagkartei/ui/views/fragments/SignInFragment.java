@@ -90,7 +90,7 @@ public class SignInFragment extends Fragment {
                 }
 
                 if(status == Status.SUCCESS){
-                    navController.navigate(R.id.action_signInFragment_to_fieldMapFragment);
+                    navController.navigate(R.id.action_signInFragment_to_splashFragment);
                     return;
                 }
 
