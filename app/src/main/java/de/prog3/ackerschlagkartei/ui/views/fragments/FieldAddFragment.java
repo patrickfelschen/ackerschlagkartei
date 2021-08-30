@@ -58,6 +58,7 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
 
     private Polygon polygon;
 
+
     public FieldAddFragment() { }
 
     @Override
@@ -72,6 +73,10 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_field_add, container, false);
         this.etDescription = view.findViewById(R.id.field_add_description);
         this.mapView = view.findViewById(R.id.mv_field_add);
+
+        this.mapView.onCreate(savedInstanceState);
+        this.mapView.getMapAsync(this);
+
         return view;
     }
 
@@ -82,9 +87,6 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
         this.fieldAddViewModel = new ViewModelProvider(requireActivity()).get(FieldAddViewModel.class);
         this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
         this.navController = Navigation.findNavController(view);
-
-        this.mapView.onCreate(savedInstanceState);
-        this.mapView.getMapAsync(this);
 
         this.fieldModels = fieldsMapViewModel.getFieldModels();
     }
@@ -104,13 +106,13 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
         this.googleMap.setOnMapClickListener(onMapClick);
         this.googleMap.setOnMapLongClickListener(onMapLongClick);
 
+        this.fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.fieldModels);
+
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             return;
         }
-
-        this.fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.fieldModels);
 
         this.googleMap.setMyLocationEnabled(true);
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);

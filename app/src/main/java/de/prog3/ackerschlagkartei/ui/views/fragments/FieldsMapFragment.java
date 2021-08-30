@@ -57,6 +57,9 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fields_map, container, false);
         this.mapView = view.findViewById(R.id.mv_fields_overview);
+
+        this.mapView.onCreate(savedInstanceState);
+        this.mapView.getMapAsync(this);
         return view;
     }
 
@@ -69,9 +72,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
         this.navController = Navigation.findNavController(view);
 
-        this.mapView.onCreate(savedInstanceState);
-        this.mapView.getMapAsync(this);
-
         this.fieldsMapViewModel.getFieldListData().observe(getViewLifecycleOwner(), new Observer<List<FieldModel>>() {
             @Override
             public void onChanged(List<FieldModel> fieldModels) {
@@ -80,6 +80,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
                 fieldsMapViewModel.createFieldPolygons(requireActivity(), googleMap, fieldModels);
             }
         });
+
     }
 
     @Override
@@ -116,7 +117,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
         if (id == R.id.menu_open_profile) {
             navController.navigate(R.id.action_fieldsMapFragment_to_profileFragment);
-            //this.fieldsMapViewModel.logout();
             return true;
         }
         return super.onOptionsItemSelected(item);

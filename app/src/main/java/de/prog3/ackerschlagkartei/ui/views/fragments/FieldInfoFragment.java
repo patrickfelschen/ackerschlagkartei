@@ -81,8 +81,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.cbRedArea = view.findViewById(R.id.cb_red_area);
         this.cbPhosphateSensitiveArea = view.findViewById(R.id.cb_phosphate_sensitive_area);
 
-        //this.deleteFieldButton.setOnClickListener(deleteFieldButtonClick);
-
+        this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
 
         return view;
@@ -240,9 +239,33 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onResume() {
+        super.onResume();
+        this.mapView.onResume();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.mapView.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        this.mapView.onLowMemory();
+    }
 
 }
