@@ -31,6 +31,9 @@
     <string name="error_empty_password">Password can not be empty</string>
     <string name="error_short_password">Password is too short</string>
     <string name="error_match_password">Passwords do not match</string>
+    <string name="error_sign_in">Sign In failed</string>
+    <string name="error_sign_up">Sign Up failed</string>
+    <string name="error_reset">Reset failed</string>
 
     <!-- SignUpActivity -->
     <string name="et_sign_up_password_confirm">Confirm</string>

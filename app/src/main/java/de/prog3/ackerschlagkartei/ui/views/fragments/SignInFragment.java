@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +19,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import com.google.firebase.auth.FirebaseUser;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.ui.viewmodels.AuthViewModel;
@@ -69,23 +66,13 @@ public class SignInFragment extends Fragment {
         this.authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         this.navController = Navigation.findNavController(view);
 
-        /*
-        this.authViewModel.getUserMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if(firebaseUser != null){
-                    navController.navigate(R.id.action_signInFragment_to_fieldMapFragment);
-                }
-            }
-        });
-        */
-
         this.authViewModel.getLoginStatus().observe(getViewLifecycleOwner(), new Observer<Status>() {
             @Override
             public void onChanged(Status status) {
                 if(status == Status.ERROR){
                     pbLoading.setVisibility(View.INVISIBLE);
-                    Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    etSignInPassword.setError(getString(R.string.error_sign_in));
+                    etSignInPassword.requestFocus();
                     return;
                 }
 

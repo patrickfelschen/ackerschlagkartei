@@ -11,6 +11,6 @@
         android:id="@+id/menu_change_view"
         android:title="@string/menu_change_view" />
     <item
-        android:id="@+id/menu_sign_out"
+        android:id="@+id/menu_open_profile"
         android:title="@string/menu_open_profile" />
 </menu>

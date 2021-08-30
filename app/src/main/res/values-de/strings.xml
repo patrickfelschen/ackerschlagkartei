@@ -30,6 +30,9 @@
     <string name="error_empty_password">Passwort darf nicht leer sein</string>
     <string name="error_short_password">Passwort ist zu kurz</string>
     <string name="error_match_password">Passwörter stimmen nicht überein</string>
+    <string name="error_sign_in">Anmeldung fehlgeschlagen</string>
+    <string name="error_sign_up">Registrierung fehlgeschlagen</string>
+    <string name="error_reset">Zurücksetzen fehlgeschlagen</string>
 
     <!-- SignUpActivity -->
     <string name="et_sign_up_password_confirm">Passwort wiederholen</string>

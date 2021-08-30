@@ -97,9 +97,8 @@ public class FieldsListFragment extends Fragment implements ItemClickListener {
             return true;
         }
 
-        if(id == R.id.menu_sign_out){
-            //this.fieldsListViewModel.logout();
-            this.navController.navigate(R.id.action_fieldsMapFragment_to_profileFragment);
+        if(id == R.id.menu_open_profile){
+            this.navController.navigate(R.id.action_fieldsListFragment_to_profileFragment);
             return true;
         }
         return super.onOptionsItemSelected(item);

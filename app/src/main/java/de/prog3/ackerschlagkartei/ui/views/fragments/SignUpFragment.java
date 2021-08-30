@@ -73,7 +73,8 @@ public class SignUpFragment extends Fragment {
 
                 if(status == Status.ERROR){
                     pbLoading.setVisibility(View.INVISIBLE);
-                    Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    etEmailAddress.setError(getString(R.string.error_sign_up));
+                    etEmailAddress.requestFocus();
                     return;
                 }
 

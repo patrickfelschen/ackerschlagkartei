@@ -114,7 +114,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
             navController.navigate(R.id.action_fieldMapFragment_to_fieldListFragment);
         }
 
-        if (id == R.id.menu_sign_out) {
+        if (id == R.id.menu_open_profile) {
             navController.navigate(R.id.action_fieldsMapFragment_to_profileFragment);
             //this.fieldsMapViewModel.logout();
             return true;
