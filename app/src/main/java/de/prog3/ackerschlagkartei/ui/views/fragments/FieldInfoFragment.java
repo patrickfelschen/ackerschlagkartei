@@ -50,13 +50,13 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
     private GoogleMap googleMap;
-    private Button deleteFieldButton;
 
     private EditText etFieldInfoDescription;
     private EditText etFieldInfoArea;
     private CheckBox cbWaterProtectionArea;
     private CheckBox cbRedArea;
     private CheckBox cbPhosphateSensitiveArea;
+    private CheckBox cbVisible;
 
     private FieldModel selectedFieldModel;
 
@@ -65,6 +65,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -74,12 +75,12 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
         this.mapView = view.findViewById(R.id.mv_field_info);
         this.mapView.onCreate(savedInstanceState);
-        this.deleteFieldButton = view.findViewById(R.id.btn_delete_field);
         this.etFieldInfoDescription = view.findViewById(R.id.et_description);
         this.etFieldInfoArea = view.findViewById(R.id.et_area);
         this.cbWaterProtectionArea = view.findViewById(R.id.cb_water_protection_area);
         this.cbRedArea = view.findViewById(R.id.cb_red_area);
         this.cbPhosphateSensitiveArea = view.findViewById(R.id.cb_phosphate_sensitive_area);
+        this.cbVisible = view.findViewById(R.id.cb_visible);
 
         this.mapView.onCreate(savedInstanceState);
         this.mapView.getMapAsync(this);
@@ -96,8 +97,6 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
         this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
 
-        this.deleteFieldButton.setOnClickListener(deleteFieldButtonClick);
-
         this.fieldInfoViewModel.getFieldModelMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
             @Override
             public void onChanged(FieldModel fieldModel) {
@@ -106,8 +105,17 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
                 cbWaterProtectionArea.setChecked(fieldModel.getInfo().isWaterProtectionArea());
                 cbRedArea.setChecked(fieldModel.getInfo().isRedArea());
                 cbPhosphateSensitiveArea.setChecked(fieldModel.getInfo().isPhosphateSensitiveArea());
+                cbVisible.setChecked(fieldModel.getInfo().isVisible());
 
                 createFieldPolygon();
+            }
+        });
+
+        this.cbVisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.visible", isChecked);
+                cbVisible.clearFocus();
             }
         });
 
@@ -116,7 +124,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     String changes = etFieldInfoDescription.getText().toString();
-                    fieldInfoViewModel.updateField(selectedFieldModel,"info.description", changes);
+                    fieldInfoViewModel.updateField(selectedFieldModel, "info.description", changes);
                     v.clearFocus();
                     etFieldInfoDescription.clearFocus();
                 }
@@ -128,7 +136,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
-                    fieldInfoViewModel.updateField(selectedFieldModel,"info.area", changes);
+                    fieldInfoViewModel.updateField(selectedFieldModel, "info.area", changes);
                     v.clearFocus();
                     etFieldInfoArea.clearFocus();
                 }
@@ -138,7 +146,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.cbWaterProtectionArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel,"info.waterProtectionArea", isChecked);
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.waterProtectionArea", isChecked);
                 cbWaterProtectionArea.clearFocus();
             }
         });
@@ -146,7 +154,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.cbRedArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel,"info.redArea", isChecked);
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.redArea", isChecked);
                 cbRedArea.clearFocus();
             }
         });
@@ -154,7 +162,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
         this.cbPhosphateSensitiveArea.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fieldInfoViewModel.updateField(selectedFieldModel,"info.phosphateSensitiveArea", isChecked);
+                fieldInfoViewModel.updateField(selectedFieldModel, "info.phosphateSensitiveArea", isChecked);
                 cbPhosphateSensitiveArea.clearFocus();
             }
         });
@@ -197,38 +205,41 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private final View.OnClickListener deleteFieldButtonClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-            builder.setTitle(getString(R.string.confirm_delete));
-            builder.setPositiveButton(getString(R.string.confirm_delete_yes), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    fieldInfoViewModel.deleteFieldModel(selectedFieldModel);
-                    navController.navigate(R.id.action_fieldInfoFragment_to_mainActivity);
-                    dialog.dismiss();
-                }
-            });
-            builder.setNegativeButton(getString(R.string.confirm_delete_no), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-    };
-
+    private void deleteFieldModel() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setTitle(getString(R.string.confirm_delete));
+        builder.setPositiveButton(getString(R.string.confirm_delete_yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fieldInfoViewModel.deleteFieldModel(selectedFieldModel);
+                navController.navigate(R.id.action_fieldInfoFragment_to_mainActivity);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.confirm_delete_no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.info_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_info_delete) {
+            this.deleteFieldModel();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

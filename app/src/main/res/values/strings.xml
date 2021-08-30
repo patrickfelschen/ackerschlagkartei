@@ -493,6 +493,7 @@
     <string name="cb_water_protection_area">Water Protection Area</string>
     <string name="cb_red_area">Red Area</string>
     <string name="cb_phosphate_sensitive_area">Phosphate Sensitive Area</string>
+    <string name="cb_visible">Visibility on Map</string>
     <string name="btn_delete_field">Delete field</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_yes">Yes</string>

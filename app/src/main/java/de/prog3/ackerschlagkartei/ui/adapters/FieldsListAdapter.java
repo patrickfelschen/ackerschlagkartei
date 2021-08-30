@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,11 +26,13 @@ public class FieldsListAdapter extends RecyclerView.Adapter<FieldsListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView fieldDescription;
         private TextView fieldArea;
+        private ImageView ivVisible;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             fieldDescription = itemView.findViewById(R.id.tv_item_field_description);
             fieldArea = itemView.findViewById(R.id.tv_item_field_area);
+            ivVisible = itemView.findViewById(R.id.iv_item_field_visible);
             itemView.setOnClickListener(this);
         }
 
@@ -59,6 +62,12 @@ public class FieldsListAdapter extends RecyclerView.Adapter<FieldsListAdapter.Vi
         FieldModel fieldModel = fieldModelList.get(position);
         holder.fieldDescription.setText(fieldModel.getInfo().getDescription());
         holder.fieldArea.setText(String.format("%.2f ha", fieldModel.getInfo().getArea()));
+        if(fieldModel.getInfo().isVisible()){
+            holder.ivVisible.setVisibility(View.INVISIBLE);
+        }else{
+            holder.ivVisible.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

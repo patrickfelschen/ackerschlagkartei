@@ -65,7 +65,7 @@ public class FieldsMapViewModel extends AndroidViewModel {
         this.selectedFieldModel = selectedFieldModel;
     }
 
-    public void createFieldPolygons(Context context, GoogleMap googleMap, List<FieldModel> fieldModels) {
+    public void createFieldPolygons(GoogleMap googleMap, List<FieldModel> fieldModels) {
         if (googleMap == null || fieldModels == null || fieldModels.isEmpty()) {
             return;
         }
@@ -87,11 +87,12 @@ public class FieldsMapViewModel extends AndroidViewModel {
 
             Polygon polygon = googleMap.addPolygon(new PolygonOptions()
                     .addAll(latLngs)
-                    .fillColor(ContextCompat.getColor(context, R.color.field_polygon))
+                    .fillColor(ContextCompat.getColor(application, R.color.field_polygon))
                     .clickable(true)
                     .strokeWidth(2));
 
             polygon.setTag(field);
+            polygon.setVisible(field.getInfo().isVisible());
         }
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds.build(), 50));

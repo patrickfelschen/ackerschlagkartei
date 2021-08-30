@@ -78,7 +78,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
             public void onChanged(List<FieldModel> fieldModels) {
                 currentFieldModels = fieldModels;
                 fieldsMapViewModel.setFieldModels(currentFieldModels);
-                fieldsMapViewModel.createFieldPolygons(requireActivity(), googleMap, fieldModels);
+                fieldsMapViewModel.createFieldPolygons(googleMap, fieldModels);
             }
         });
 
@@ -127,7 +127,7 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.currentFieldModels);
+        fieldsMapViewModel.createFieldPolygons(this.googleMap, this.currentFieldModels);
 
         checkLocationPermission();
     }

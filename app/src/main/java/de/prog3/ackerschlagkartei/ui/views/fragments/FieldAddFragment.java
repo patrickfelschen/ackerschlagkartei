@@ -109,7 +109,7 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
         this.googleMap.setOnMapClickListener(onMapClick);
         this.googleMap.setOnMapLongClickListener(onMapLongClick);
 
-        this.fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.fieldModels);
+        this.fieldsMapViewModel.createFieldPolygons(this.googleMap, this.fieldModels);
 
         this.checkLocationPermission();
 
