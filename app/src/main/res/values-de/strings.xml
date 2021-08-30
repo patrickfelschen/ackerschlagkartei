@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">Ackerschlagkartei</string>
+    <string name="app_name">ASK</string>
 
     <string name="fragment_sign_in">Anmelden</string>
     <string name="fragment_sign_up">Registrieren</string>

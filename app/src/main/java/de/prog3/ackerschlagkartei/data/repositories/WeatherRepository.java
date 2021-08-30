@@ -53,7 +53,6 @@ public class WeatherRepository {
                     weatherModelGetStatus.postValue(Status.SUCCESS);
 
                 } catch (JSONException e) {
-                    //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     weatherModelGetStatus.postValue(Status.ERROR);
                 }
 
@@ -63,7 +62,6 @@ public class WeatherRepository {
 
             @Override
             public void onErrorResponse(VolleyError e) {
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 weatherModelGetStatus.postValue(Status.ERROR);
             }
         });

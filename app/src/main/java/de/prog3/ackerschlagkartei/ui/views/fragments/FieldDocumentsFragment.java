@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -54,11 +53,10 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
     private FieldModel selectedFieldModel;
     private DocumentModel selectedDocumentModel;
 
-    private File tmpFile;
     private Uri tmpImgUri;
 
-
-    public FieldDocumentsFragment() { }
+    public FieldDocumentsFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,18 +109,17 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
             }
         });
 
+        this.createTempPictureFile();
+
+    }
+
+    private void createTempPictureFile() {
         try {
-            this.tmpFile = File.createTempFile("img_", null);
+            File tmpFile = File.createTempFile("img_", null);
             this.tmpImgUri = FileProvider.getUriForFile(requireActivity(), BuildConfig.APPLICATION_ID + ".provider", tmpFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
@@ -170,44 +167,44 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
         }
 
         if (id == R.id.btn_add_image) {
-            askPermissionAndTakePicture.launch(Manifest.permission.CAMERA);
+            requestPermissionAndTakePicture.launch(Manifest.permission.CAMERA);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private final ActivityResultLauncher<String> askPermissionAndTakePicture =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean result) {
-                    if (!result) return;
+    private final ActivityResultLauncher<String> requestPermissionAndTakePicture = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if (!result) return;
 
-                    takePictureActivity.launch(tmpImgUri);
-                }
-            });
+            takePictureActivity.launch(tmpImgUri);
+        }
+    });
 
-    private final ActivityResultLauncher<Uri> takePictureActivity =
-            registerForActivityResult(new ActivityResultContracts.TakePicture(), new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean result) {
-                    if (!result) return;
+    private final ActivityResultLauncher<Uri> takePictureActivity = registerForActivityResult(new ActivityResultContracts.TakePicture(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if (!result) return;
 
-                    fieldDocumentsViewModel.updateDocument(selectedFieldModel, tmpImgUri);
-                }
-            });
+            fieldDocumentsViewModel.updateDocument(selectedFieldModel, tmpImgUri);
+        }
+    });
 
-    private final ActivityResultLauncher<String> getContentActivity =
-            registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-                @Override
-                public void onActivityResult(Uri uri) {
-                    if (uri == null) return;
+    private final ActivityResultLauncher<String> getContentActivity = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri uri) {
+            if (uri == null) return;
 
-                    fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
-                }
-            });
+            fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
+        }
+    });
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onDestroy() {

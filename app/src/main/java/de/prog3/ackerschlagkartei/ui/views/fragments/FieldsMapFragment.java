@@ -44,7 +44,8 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
     private List<FieldModel> currentFieldModels;
 
-    public FieldsMapFragment() { }
+    public FieldsMapFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,20 +83,6 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
         });
 
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        this.mapView.onStart();
-    }
-
-    ActivityResultLauncher<String> askPermissionLocation =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean result) {
-                    if(!result) return;
-                }
-            });
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -142,16 +129,29 @@ public class FieldsMapFragment extends Fragment implements OnMapReadyCallback {
 
         fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.currentFieldModels);
 
-        this.askPermissionLocation.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-        this.askPermissionLocation.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+        checkLocationPermission();
+    }
 
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //TODO: ask for permissions
-            return;
+    private final ActivityResultLauncher<String> requestLocationPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) { }
+    });
+
+    private void checkLocationPermission() {
+        this.requestLocationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        this.requestLocationPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
+    }
 
-        this.googleMap.setMyLocationEnabled(true);
-        this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.mapView.onStart();
     }
 
     @Override
