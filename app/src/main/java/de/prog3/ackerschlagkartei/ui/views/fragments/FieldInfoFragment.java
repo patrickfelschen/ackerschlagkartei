@@ -164,12 +164,6 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        this.mapView.onStart();
-    }
-
-    @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.googleMap = googleMap;
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -193,7 +187,7 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             latLngBounds.include(latLng);
         }
 
-        Polygon polygon = googleMap.addPolygon(new PolygonOptions()
+        googleMap.addPolygon(new PolygonOptions()
                 .addAll(latLngs)
                 .fillColor(ContextCompat.getColor(requireActivity(), R.color.field_polygon))
                 .clickable(true)
@@ -236,6 +230,12 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.mapView.onStart();
     }
 
     @Override

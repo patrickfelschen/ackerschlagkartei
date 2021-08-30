@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -108,11 +111,7 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
 
         this.fieldsMapViewModel.createFieldPolygons(requireActivity(), this.googleMap, this.fieldModels);
 
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            return;
-        }
+        this.checkLocationPermission();
 
         this.googleMap.setMyLocationEnabled(true);
         this.googleMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -127,6 +126,22 @@ public class FieldAddFragment extends Fragment implements OnMapReadyCallback {
             fieldPositions.add(new GeoPoint(latLng.latitude, latLng.longitude));
         }
     };
+
+    private final ActivityResultLauncher<String> requestLocationPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) { }
+    });
+
+    private void checkLocationPermission() {
+        this.requestLocationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        this.requestLocationPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        }
+    }
 
     private final GoogleMap.OnMapLongClickListener onMapLongClick = new GoogleMap.OnMapLongClickListener() {
         @Override
