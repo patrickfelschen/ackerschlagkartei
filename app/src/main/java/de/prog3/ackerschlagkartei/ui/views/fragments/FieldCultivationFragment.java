@@ -118,6 +118,7 @@ public class FieldCultivationFragment extends Fragment {
             }
         });
 
+
         this.ddPreviousCrop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -127,6 +128,18 @@ public class FieldCultivationFragment extends Fragment {
 
                 view.clearFocus();
                 ddPreviousCrop.clearFocus();
+            }
+        });
+
+        this.ddPreviousCrop.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    String changes = ddPreviousCrop.getText().toString();
+                    fieldCultivationViewModel.updateField(selectedField, "cultivation.previousCrop", changes);
+                    v.clearFocus();
+                    ddPreviousCrop.clearFocus();
+                }
             }
         });
 
@@ -141,6 +154,18 @@ public class FieldCultivationFragment extends Fragment {
             }
         });
 
+        this.ddPrimaryCrop.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    String changes = ddPrimaryCrop.getText().toString();
+                    fieldCultivationViewModel.updateField(selectedField, "cultivation.primaryCrop", changes);
+                    v.clearFocus();
+                    ddPrimaryCrop.clearFocus();
+                }
+            }
+        });
+
         this.ddSecondaryCrop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -149,6 +174,18 @@ public class FieldCultivationFragment extends Fragment {
                 fieldCultivationViewModel.updateField(selectedField,"cultivation.secondaryCrop", changes);
                 view.clearFocus();
                 ddSecondaryCrop.clearFocus();
+            }
+        });
+
+        this.ddSecondaryCrop.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    String changes = ddSecondaryCrop.getText().toString();
+                    fieldCultivationViewModel.updateField(selectedField, "cultivation.secondaryCrop", changes);
+                    v.clearFocus();
+                    ddSecondaryCrop.clearFocus();
+                }
             }
         });
 
@@ -163,6 +200,18 @@ public class FieldCultivationFragment extends Fragment {
             }
         });
 
+        this.ddZwfGroup.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    String changes = ddZwfGroup.getText().toString();
+                    fieldCultivationViewModel.updateField(selectedField, "cultivation.zwfGroup", changes);
+                    v.clearFocus();
+                    ddZwfGroup.clearFocus();
+                }
+            }
+        });
+
         this.ddNextCrop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -171,6 +220,18 @@ public class FieldCultivationFragment extends Fragment {
                 fieldCultivationViewModel.updateField(selectedField,"cultivation.nextCrop", changes);
                 view.clearFocus();
                 ddNextCrop.clearFocus();
+            }
+        });
+
+        this.ddNextCrop.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    String changes = ddNextCrop.getText().toString();
+                    fieldCultivationViewModel.updateField(selectedField, "cultivation.nextCrop", changes);
+                    v.clearFocus();
+                    ddNextCrop.clearFocus();
+                }
             }
         });
 
