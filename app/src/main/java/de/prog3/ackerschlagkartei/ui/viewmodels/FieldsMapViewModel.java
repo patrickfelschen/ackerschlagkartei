@@ -27,7 +27,6 @@ import de.prog3.ackerschlagkartei.data.repositories.FirestoreRepository;
 public class FieldsMapViewModel extends AndroidViewModel {
     private final Application application;
 
-    private final AuthRepository authRepository;
     private final FirestoreRepository firestoreRepository;
 
     private List<FieldModel> fieldModels;
@@ -37,7 +36,6 @@ public class FieldsMapViewModel extends AndroidViewModel {
         super(application);
         this.application = application;
 
-        this.authRepository = new AuthRepository(application);
         this.firestoreRepository = new FirestoreRepository(application);
     }
 
@@ -47,10 +45,6 @@ public class FieldsMapViewModel extends AndroidViewModel {
 
     public List<FieldModel> getFieldModels() {
         return this.fieldModels;
-    }
-
-    public void logout() {
-        this.authRepository.logout();
     }
 
     public MutableLiveData<List<FieldModel>> getFieldListData() {
