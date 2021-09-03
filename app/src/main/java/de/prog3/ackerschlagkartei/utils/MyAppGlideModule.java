@@ -22,3 +22,5 @@ public class MyAppGlideModule extends AppGlideModule {
     }
 
 }
+
+// https://bumptech.github.io/glide/doc/configuration.html

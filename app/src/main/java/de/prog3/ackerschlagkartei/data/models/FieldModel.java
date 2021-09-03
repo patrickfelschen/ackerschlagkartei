@@ -12,9 +12,7 @@ public class FieldModel {
     private GroundModel ground;
     private InfoModel info;
 
-    public FieldModel() {
-        // Firestore
-    }
+    public FieldModel() { }
 
     public FieldModel(String description, List<GeoPoint> positions, double area) {
         this.cultivation = new CultivationModel("", "", "", "", "");

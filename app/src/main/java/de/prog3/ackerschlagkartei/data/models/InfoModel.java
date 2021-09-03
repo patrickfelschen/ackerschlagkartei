@@ -13,8 +13,7 @@ public class InfoModel {
     private boolean visible;
     private List<GeoPoint> positions;
 
-    public InfoModel() {
-    }
+    public InfoModel() { }
 
     public InfoModel(double area, String description, boolean phosphateSensitiveArea, boolean redArea, boolean waterProtectionArea, boolean visible, List<GeoPoint> positions) {
         this.area = area;

@@ -10,8 +10,7 @@ public class GroundModel {
     private double phosphorus;
     private double potassium;
 
-    public GroundModel() {
-    }
+    public GroundModel() { }
 
     public GroundModel(String bkr, String date, String groundType, double humus, double magnesium, double phValue, double phosphorus, double potassium) {
         this.bkr = bkr;
