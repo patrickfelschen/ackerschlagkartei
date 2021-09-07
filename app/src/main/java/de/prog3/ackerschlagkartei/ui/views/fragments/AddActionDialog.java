@@ -117,12 +117,13 @@ public class AddActionDialog extends AppCompatDialogFragment {
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                month++;
                 date.setText(year + "-" + month + "-" + dayOfMonth);
 
                 view.clearFocus();
                 date.clearFocus();
             }
-        }, 2021, 0, 1);
+        }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         date.setOnTouchListener((v, event) -> {
             final int DRAWABLE_END = 2;

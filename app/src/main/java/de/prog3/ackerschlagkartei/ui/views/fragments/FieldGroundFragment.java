@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 import de.prog3.ackerschlagkartei.R;
@@ -229,7 +230,7 @@ public class FieldGroundFragment extends Fragment {
                 view.clearFocus();
                 date.clearFocus();
             }
-        }, 2021, 0, 1);
+        }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         date.setOnTouchListener((v, event) -> {
             final int DRAWABLE_END = 2;
