@@ -129,8 +129,10 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    String changes = etFieldInfoDescription.getText().toString();
-                    fieldInfoViewModel.updateField(selectedFieldModel, "info.description", changes);
+                    if (!etFieldInfoDescription.getText().toString().isEmpty()) {
+                        String changes = etFieldInfoDescription.getText().toString();
+                        fieldInfoViewModel.updateField(selectedFieldModel, "info.description", changes);
+                    }
                     v.clearFocus();
                     etFieldInfoDescription.clearFocus();
                 }
@@ -141,8 +143,12 @@ public class FieldInfoFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
-                    fieldInfoViewModel.updateField(selectedFieldModel, "info.area", changes);
+                    if (!etFieldInfoArea.getText().toString().isEmpty()) {
+                        double changes = Double.parseDouble(etFieldInfoArea.getText().toString());
+                        fieldInfoViewModel.updateField(selectedFieldModel, "info.area", changes);
+                    } else {
+                        fieldInfoViewModel.updateField(selectedFieldModel, "info.area", 0.0);
+                    }
                     v.clearFocus();
                     etFieldInfoArea.clearFocus();
                 }
