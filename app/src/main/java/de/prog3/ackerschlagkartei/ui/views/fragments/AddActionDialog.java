@@ -62,28 +62,28 @@ public class AddActionDialog extends AppCompatDialogFragment {
                 R.array.actions_array,
                 R.layout.support_simple_spinner_dropdown_item);
 
-        if(this.selectedCategory == getString(R.string.soil_cultivation)) {
+        if(this.selectedCategory.equals(getString(R.string.soil_cultivation))) {
             actionAdapter = ArrayAdapter.createFromResource(getContext(),
                     R.array.soil_cultivation_array,
                     R.layout.support_simple_spinner_dropdown_item);
             action.setAdapter(actionAdapter);
-        }else if(this.selectedCategory == getString(R.string.sowing)) {
+        }else if(this.selectedCategory.equals(getString(R.string.sowing))) {
             actionAdapter = ArrayAdapter.createFromResource(getContext(),
                     R.array.sowing_array,
                     R.layout.support_simple_spinner_dropdown_item);
             action.setAdapter(actionAdapter);
-        }else if(this.selectedCategory == getString(R.string.fertilization)) {
+        }else if(this.selectedCategory.equals(getString(R.string.fertilization))) {
             actionAdapter = ArrayAdapter.createFromResource(getContext(),
                     R.array.fertilization_array,
                     R.layout.support_simple_spinner_dropdown_item);
             action.setAdapter(actionAdapter);
-        }else if(this.selectedCategory == getString(R.string.plant_protection)) {
+        }else if(this.selectedCategory.equals(getString(R.string.plant_protection))) {
             actionAdapter = ArrayAdapter.createFromResource(getContext(),
                     R.array.plant_protection_array,
                     R.layout.support_simple_spinner_dropdown_item);
             action.setAdapter(actionAdapter);
         }
-        else if(this.selectedCategory == getString(R.string.harvest)) {
+        else if(this.selectedCategory.equals(getString(R.string.harvest))) {
             actionAdapter = ArrayAdapter.createFromResource(getContext(),
                     R.array.harvest_array,
                     R.layout.support_simple_spinner_dropdown_item);
