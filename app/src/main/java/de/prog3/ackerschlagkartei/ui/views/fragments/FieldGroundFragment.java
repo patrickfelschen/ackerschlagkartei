@@ -3,7 +3,11 @@ package de.prog3.ackerschlagkartei.ui.views.fragments;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +16,29 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import java.util.Objects;
 
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.models.FieldModel;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldGroundViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
 public class FieldGroundFragment extends Fragment {
-    private FieldDetailsViewModel fieldDetailsViewModel;
+    private FieldsMapViewModel fieldsMapViewModel;
+    private FieldGroundViewModel fieldGroundViewModel;
+
+    private NavController navController;
+
     private AutoCompleteTextView ddGround;
     private AutoCompleteTextView ddBkr;
     private EditText etHumus;
@@ -35,18 +51,18 @@ public class FieldGroundFragment extends Fragment {
     private ArrayAdapter<CharSequence> groundTypeAdapter;
     private ArrayAdapter<CharSequence> bkrAdapter;
 
-    public FieldGroundFragment() {
-        // Required empty public constructor
-    }
+    private FieldModel selectedFieldModel;
+
+    public FieldGroundFragment() { }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_field_ground, container, false);
 
         this.groundTypeAdapter = ArrayAdapter.createFromResource(getContext(),
@@ -73,11 +89,17 @@ public class FieldGroundFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
-        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
+        this.fieldGroundViewModel = new ViewModelProvider(requireActivity()).get(FieldGroundViewModel.class);
+
+        this.navController = Navigation.findNavController(view);
+
+        this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
+
+        this.fieldGroundViewModel.getFieldModelMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<FieldModel>() {
             @Override
             public void onChanged(FieldModel fieldModel) {
                 ddGround.setText(fieldModel.getGround().getGroundType(), false);
@@ -97,7 +119,7 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = groundTypeAdapter.getItem(position).toString();
-                fieldDetailsViewModel.updateField("ground.groundType", changes);
+                fieldGroundViewModel.updateField(selectedFieldModel,"ground.groundType", changes);
                 view.clearFocus();
                 ddGround.clearFocus();
             }
@@ -107,7 +129,7 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String changes = bkrAdapter.getItem(position).toString();
-                fieldDetailsViewModel.updateField("ground.bkr", changes);
+                fieldGroundViewModel.updateField(selectedFieldModel,"ground.bkr", changes);
                 view.clearFocus();
                 ddBkr.clearFocus();
             }
@@ -117,8 +139,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etHumus.getText().toString());
-                    fieldDetailsViewModel.updateField("ground.humus", changes);
+                    if(!etHumus.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etHumus.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.humus", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.humus", 0.0);
+                    }
                     v.clearFocus();
                     ddBkr.clearFocus();
                 }
@@ -129,8 +155,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etPhValue.getText().toString());
-                    fieldDetailsViewModel.updateField("ground.phValue", changes);
+                    if(!etPhValue.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etPhValue.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phValue", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phValue", 0.0);
+                    }
                     v.clearFocus();
                     etPhValue.clearFocus();
                 }
@@ -141,8 +171,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etPhosphorus.getText().toString());
-                    fieldDetailsViewModel.updateField("ground.phosphorus", changes);
+                    if(!etPhosphorus.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etPhosphorus.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phosphorus", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.phosphorus", 0.0);
+                    }
                     v.clearFocus();
                     etPhosphorus.clearFocus();
                 }
@@ -153,8 +187,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etPotassium.getText().toString());
-                    fieldDetailsViewModel.updateField("ground.potassium", changes);
+                    if(!etPotassium.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etPotassium.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.potassium", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.potassium", 0.0);
+                    }
                     v.clearFocus();
                     etPotassium.clearFocus();
                 }
@@ -165,8 +203,12 @@ public class FieldGroundFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    double changes = Double.parseDouble(etMagnesium.getText().toString());
-                    fieldDetailsViewModel.updateField("ground.magnesium", changes);
+                    if(!etMagnesium.getText().toString().isEmpty()) {
+                        Double changes = Double.parseDouble(etMagnesium.getText().toString());
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.magnesium", changes);
+                    }else {
+                        fieldGroundViewModel.updateField(selectedFieldModel,"ground.magnesium", 0.0);
+                    }
                     v.clearFocus();
                     etMagnesium.clearFocus();
                 }
@@ -183,7 +225,7 @@ public class FieldGroundFragment extends Fragment {
                 date.setText(year + "-" + month + "-" + dayOfMonth);
 
                 String changes = date.getText().toString();
-                fieldDetailsViewModel.updateField("ground.date", changes);
+                fieldGroundViewModel.updateField(selectedFieldModel,"ground.date", changes);
                 view.clearFocus();
                 date.clearFocus();
             }
@@ -203,8 +245,22 @@ public class FieldGroundFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        getView().clearFocus();
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

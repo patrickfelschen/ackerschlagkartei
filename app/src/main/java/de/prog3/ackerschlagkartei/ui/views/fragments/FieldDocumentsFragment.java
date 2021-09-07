@@ -1,9 +1,9 @@
 package de.prog3.ackerschlagkartei.ui.views.fragments;
 
 import android.Manifest;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,50 +12,63 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import de.prog3.ackerschlagkartei.BuildConfig;
 import de.prog3.ackerschlagkartei.R;
 import de.prog3.ackerschlagkartei.data.interfaces.ItemClickListener;
-import de.prog3.ackerschlagkartei.ui.adapters.FieldDocumentsRecyclerViewAdapter;
-import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDetailsViewModel;
+import de.prog3.ackerschlagkartei.data.interfaces.ItemLongClickListener;
+import de.prog3.ackerschlagkartei.data.models.DocumentModel;
+import de.prog3.ackerschlagkartei.data.models.FieldModel;
+import de.prog3.ackerschlagkartei.ui.adapters.FieldDocumentsAdapter;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldDocumentsViewModel;
+import de.prog3.ackerschlagkartei.ui.viewmodels.FieldsMapViewModel;
 
+public class FieldDocumentsFragment extends Fragment implements ItemClickListener, ItemLongClickListener {
+    private FieldsMapViewModel fieldsMapViewModel;
+    private FieldDocumentsViewModel fieldDocumentsViewModel;
 
-public class FieldDocumentsFragment extends Fragment implements ItemClickListener {
-    private FieldDetailsViewModel fieldDetailsViewModel;
     private NavController navController;
 
     private RecyclerView rvFieldDocuments;
-    private FieldDocumentsRecyclerViewAdapter fieldDocumentsRecyclerViewAdapter;
+    private FieldDocumentsAdapter fieldDocumentsAdapter;
 
+    private FieldModel selectedFieldModel;
+    private DocumentModel selectedDocumentModel;
+
+    private Uri tmpImgUri;
 
     public FieldDocumentsFragment() {
-        // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_field_documents, container, false);
-        setHasOptionsMenu(true);
-
         this.rvFieldDocuments = view.findViewById(R.id.rv_field_documents);
-
         return view;
     }
 
@@ -63,93 +76,139 @@ public class FieldDocumentsFragment extends Fragment implements ItemClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-    }
+        this.fieldsMapViewModel = new ViewModelProvider(requireActivity()).get(FieldsMapViewModel.class);
+        this.fieldDocumentsViewModel = new ViewModelProvider(requireActivity()).get(FieldDocumentsViewModel.class);
 
-    @Override
-    public void onStart() {
-        super.onStart();
+        this.selectedFieldModel = this.fieldsMapViewModel.getSelectedFieldModel();
+        this.navController = Navigation.findNavController(view);
 
-        this.fieldDetailsViewModel = new ViewModelProvider(requireActivity()).get(FieldDetailsViewModel.class);
-        this.fieldDetailsViewModel.getFieldModelMutableLiveData().observe(getViewLifecycleOwner(), fieldData -> {
+        this.rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), 4));
 
+        this.fieldDocumentsViewModel.getDocumentsMutableLiveData(this.selectedFieldModel).observe(getViewLifecycleOwner(), new Observer<List<DocumentModel>>() {
+            @Override
+            public void onChanged(List<DocumentModel> documentModels) {
+                fieldDocumentsAdapter = new FieldDocumentsAdapter(requireContext(), documentModels);
+                fieldDocumentsAdapter.setClickListener(FieldDocumentsFragment.this);
+                fieldDocumentsAdapter.setItemLongClickListener(FieldDocumentsFragment.this);
+                rvFieldDocuments.setAdapter(fieldDocumentsAdapter);
+            }
         });
 
-        String[] data = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"};
+        this.fieldDocumentsViewModel.getFileMutableLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+            @Override
+            public void onChanged(File file) {
+                if (file == null) return;
+                if (selectedDocumentModel == null) return;
 
-        int numberOfColumns = 4;
-        rvFieldDocuments.setLayoutManager(new GridLayoutManager(requireContext(), numberOfColumns));
-        fieldDocumentsRecyclerViewAdapter = new FieldDocumentsRecyclerViewAdapter(requireContext(), data);
-        fieldDocumentsRecyclerViewAdapter.setClickListener(this);
-        rvFieldDocuments.setAdapter(fieldDocumentsRecyclerViewAdapter);
+                Uri uri = FileProvider.getUriForFile(requireActivity(), BuildConfig.APPLICATION_ID + ".provider", file);
 
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(uri, selectedDocumentModel.getContentType());
+                startActivity(intent);
+            }
+        });
+
+        this.createTempPictureFile();
+
+    }
+
+    private void createTempPictureFile() {
+        try {
+            File tmpFile = File.createTempFile("img_", null);
+            this.tmpImgUri = FileProvider.getUriForFile(requireActivity(), BuildConfig.APPLICATION_ID + ".provider", tmpFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(requireContext(), fieldDocumentsRecyclerViewAdapter.getItem(position), Toast.LENGTH_SHORT).show();
+        DocumentModel doc = fieldDocumentsAdapter.getItem(position);
+        this.selectedDocumentModel = doc;
+        this.fieldDocumentsViewModel.downloadDocument(doc);
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setTitle(getString(R.string.confirm_delete));
+        builder.setPositiveButton(getString(R.string.confirm_delete_yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DocumentModel doc = fieldDocumentsAdapter.getItem(position);
+                fieldDocumentsViewModel.deleteDocument(doc);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.confirm_delete_no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.field_images_menu, menu);
+        inflater.inflate(R.menu.documents_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.btn_add_image) {
-            openCamera();
+        int id = item.getItemId();
+
+        if (id == R.id.btn_add_doc) {
+            getContentActivity.launch("application/pdf");
+            return true;
         }
 
-        if (item.getItemId() == R.id.btn_add_doc) {
-            openFile();
+        if (id == R.id.btn_add_image) {
+            requestPermissionAndTakePicture.launch(Manifest.permission.CAMERA);
+            return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    void performCamera() {
-        this.navController.navigate(R.id.fieldImagesCameraFragment);
-    }
+    private final ActivityResultLauncher<String> requestPermissionAndTakePicture = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if (!result) return;
 
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    performCamera();
-                }
-            });
-
-    void openCamera() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            performCamera();
-        } else {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+            takePictureActivity.launch(tmpImgUri);
         }
-    }
+    });
 
-    private static final int PICK_PDF_FILE = 2;
+    private final ActivityResultLauncher<Uri> takePictureActivity = registerForActivityResult(new ActivityResultContracts.TakePicture(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if (!result) return;
 
-    private void openFile() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("application/pdf");
+            fieldDocumentsViewModel.updateDocument(selectedFieldModel, tmpImgUri);
+        }
+    });
 
-        startActivityForResult(intent, PICK_PDF_FILE);
+    private final ActivityResultLauncher<String> getContentActivity = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri uri) {
+            if (uri == null) return;
+
+            fieldDocumentsViewModel.updateDocument(selectedFieldModel, uri);
+        }
+    });
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (requestCode == PICK_PDF_FILE && resultCode == Activity.RESULT_OK) {
-            // The result data contains a URI for the document or directory that
-            // the user selected.
-            Uri uri = null;
-            if (resultData != null) {
-                uri = resultData.getData();
-                this.fieldDetailsViewModel.uploadFieldDocument(uri);
-            }
-        }
+    public void onDestroy() {
+        super.onDestroy();
     }
-
 
 }

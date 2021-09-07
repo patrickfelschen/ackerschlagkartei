@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">Ackerschlagkartei</string>
+    <string name="app_name">ASK</string>
+
+    <string name="fragment_sign_in">Sign In</string>
+    <string name="fragment_sign_up">Sign Up</string>
+    <string name="fragment_reset_password">Reset Password</string>
+    <string name="fragment_fields_map">Fields List</string>
+    <string name="fragment_fields_list">Fields Map</string>
+    <string name="fragment_field_add">Add Field</string>
+    <string name="fragment_splash">Loading...</string>
+    <string name="fragment_details">Details</string>
+    <string name="fragment_cultivation">Cultivation</string>
+    <string name="fragment_ground">Ground</string>
+    <string name="fragment_actions">Actions</string>
+    <string name="fragment_info">Info</string>
+    <string name="fragment_documents">Documents</string>
+    <string name="fragment_profile">Profile</string>
+
 
     <!-- SignInActivity -->
     <string name="et_email_hint">E-Mail</string>
@@ -11,20 +27,28 @@
     <string name="lb_divider_text">OR</string>
     <string name="btn_open_sign_up_text">Sign up</string>
 
+    <string name="error_empty_email">E-Mail can not be empty</string>
+    <string name="error_empty_password">Password can not be empty</string>
+    <string name="error_short_password">Password is too short</string>
+    <string name="error_match_password">Passwords do not match</string>
+    <string name="error_sign_in">Sign In failed</string>
+    <string name="error_sign_up">Sign Up failed</string>
+    <string name="error_reset">Reset failed</string>
+
+    <!-- SignUpActivity -->
+    <string name="et_sign_up_password_confirm">Confirm</string>
+    <string name="btn_sign_up_text">Create account</string>
+
     <!-- FieldsOverviewActivity -->
     <string name="appbar_title">Fieldoverview</string>
     <string name="menu_change_view">Change view</string>
-    <string name="menu_sign_out">Sign out</string>
+    <string name="menu_open_profile">Profile</string>
     <string name="menu_search">Search</string>
     <string name="menu_add_field">Add</string>
 
     <!-- ForgotPasswordActivity -->
     <string name="et_forgot_password_hint">Forgot password</string>
     <string name="btn_return_to_sign_in">Return to Login</string>
-
-    <!-- SignUpActivity -->
-    <string name="et_sign_up_password_confirm">Confirm</string>
-    <string name="btn_sign_up_text">Create account</string>
 
     <!-- FieldsOverviewActivity -->
 
@@ -378,7 +402,7 @@
 
     <!-- FieldGroundFragment -->
     <string name="dd_ground">Ground</string>
-    <string name="dd_bkr">BKR</string>
+    <string name="dd_bkr">Floor Climate Room</string>
     <string name="et_humus">Humus</string>
     <string name="et_ph_value">PH-Value</string>
     <string name="et_phosphorus">Phosphorus</string>
@@ -412,6 +436,7 @@
     <string name="action">Action</string>
     <string name="add_action_button">Add Action</string>
     <string name="cancel_action_button">Cancel</string>
+    <string name="action_date">Action date</string>
 
     <string-array name="actions_array">
         <item>Soil cultivation</item>
@@ -468,10 +493,21 @@
     <string name="cb_water_protection_area">Water Protection Area</string>
     <string name="cb_red_area">Red Area</string>
     <string name="cb_phosphate_sensitive_area">Phosphate Sensitive Area</string>
+    <string name="cb_visible">Visibility on Map</string>
     <string name="btn_delete_field">Delete field</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_delete_yes">Yes</string>
+    <string name="confirm_delete_no">No</string>
 
     <!-- FieldImages -->
     <string name="btn_add_image">Take photo</string>
     <string name="btn_attach_doc">Attach Document</string>
+
+    <!-- FieldAddFragment -->
+    <string name="error_description_empty">Description cannot be empty</string>
+    <string name="error_positions_empty">Positions cannot be empty</string>
+
+    <!-- ProfileFragment -->
+    <string name="sign_out_btn">Sign Out</string>
 
 </resources>

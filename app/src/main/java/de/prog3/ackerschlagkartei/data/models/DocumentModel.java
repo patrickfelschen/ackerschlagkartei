@@ -1,31 +1,36 @@
 package de.prog3.ackerschlagkartei.data.models;
 
+import com.google.firebase.firestore.DocumentId;
+
 import java.util.Date;
 
 public class DocumentModel {
-    private String description;
-    private String url;
-    private Date date;
+    @DocumentId
+    private String uid;
+    private String contentType;
+    private String uriThumbnail;
+    private String uriFullsize;
+    private Date uploadDate;
 
-    public DocumentModel() {
+    public DocumentModel() { }
 
+    public String getUid() {
+        return uid;
     }
 
-    public DocumentModel(String description, String url, Date date) {
-        this.description = description;
-        this.url = url;
-        this.date = date;
+    public String getContentType() {
+        return contentType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getUriThumbnail() {
+        return uriThumbnail;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUriFullsize() {
+        return uriFullsize;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getUploadDate() {
+        return uploadDate;
     }
 }

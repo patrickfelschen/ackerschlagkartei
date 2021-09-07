@@ -7,9 +7,7 @@ public class CultivationModel {
     private String zwfGroup;
     private String nextCrop;
 
-    public CultivationModel() {
-
-    }
+    public CultivationModel() { }
 
     public CultivationModel(String previousCrop, String primaryCrop, String secondaryCrop, String zwfGroup, String zwfCulture) {
         this.previousCrop = previousCrop;

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseUser;
 
 import de.prog3.ackerschlagkartei.data.repositories.AuthRepository;
+import de.prog3.ackerschlagkartei.utils.Status;
 
 public class AuthViewModel extends AndroidViewModel {
 
@@ -34,7 +35,27 @@ public class AuthViewModel extends AndroidViewModel {
         authRepository.resetPassword(email);
     }
 
+    public void logout(){
+        authRepository.logout();
+    }
+
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
         return userMutableLiveData;
+    }
+
+    public MutableLiveData<Status> getRegisterStatus() {
+        return authRepository.getRegisterStatus();
+    }
+
+    public MutableLiveData<Status> getLoginStatus() {
+        return authRepository.getLoginStatus();
+    }
+
+    public MutableLiveData<Status> getLogoutStatus() {
+        return authRepository.getLogoutStatus();
+    }
+
+    public MutableLiveData<Status> getResetPasswordStatus() {
+        return authRepository.getResetPasswordStatus();
     }
 }

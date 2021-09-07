@@ -34,44 +34,49 @@ public class AuthRepository {
         this.logoutStatus = new MutableLiveData<>(Status.INITIAL);
         this.resetPasswordStatus = new MutableLiveData<>(Status.INITIAL);
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
-        }
+        this.refreshCurrentUser();
+    }
+
+    public void refreshCurrentUser(){
+        this.userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
     }
 
     public void register(String email, String password) {
+        this.logoutStatus.postValue(Status.INITIAL);
         this.registerStatus.postValue(Status.LOADING);
         this.firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 if (authResult.getUser() != null) {
                     authResult.getUser().sendEmailVerification();
+
+                    registerStatus.postValue(Status.SUCCESS);
+                    refreshCurrentUser();
                 }
-                registerStatus.postValue(Status.SUCCESS);
-                userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 registerStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                refreshCurrentUser();
             }
         });
     }
 
     public void login(String email, String password) {
+        this.logoutStatus.postValue(Status.INITIAL);
         this.loginStatus.postValue(Status.LOADING);
         this.firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                userMutableLiveData.postValue(firebaseAuth.getCurrentUser());
+                refreshCurrentUser();
                 loginStatus.postValue(Status.SUCCESS);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loginStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                refreshCurrentUser();
             }
         });
     }
@@ -79,6 +84,12 @@ public class AuthRepository {
     public void logout() {
         this.logoutStatus.postValue(Status.LOADING);
         this.firebaseAuth.signOut();
+        this.refreshCurrentUser();
+
+        this.registerStatus.postValue(Status.INITIAL);
+        this.loginStatus.postValue(Status.INITIAL);
+        this.resetPasswordStatus.postValue(Status.INITIAL);
+
         this.logoutStatus.postValue(Status.SUCCESS);
     }
 
@@ -93,7 +104,6 @@ public class AuthRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 resetPasswordStatus.postValue(Status.ERROR);
-                //Toast.makeText(application, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

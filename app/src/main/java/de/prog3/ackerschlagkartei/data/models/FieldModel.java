@@ -12,14 +12,12 @@ public class FieldModel {
     private GroundModel ground;
     private InfoModel info;
 
-    public FieldModel() {
-        // Firestore
-    }
+    public FieldModel() { }
 
     public FieldModel(String description, List<GeoPoint> positions, double area) {
         this.cultivation = new CultivationModel("", "", "", "", "");
         this.ground = new GroundModel("", "", "", 0, 0, 0, 0, 0);
-        this.info = new InfoModel(area, description, false, false, false, positions);
+        this.info = new InfoModel(area, description, false, false, false, true, positions);
     }
 
     public String getUid() {
@@ -38,13 +36,4 @@ public class FieldModel {
         return info;
     }
 
-    @Override
-    public String toString() {
-        return "FieldModel{" +
-                "uid='" + uid + '\'' +
-                ", cultivation=" + cultivation +
-                ", ground=" + ground +
-                ", info=" + info +
-                '}';
-    }
 }

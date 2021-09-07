@@ -12,9 +12,7 @@ public class ActionModel {
     private Date date;
     private String type;
 
-    public ActionModel() {
-
-    }
+    public ActionModel() { }
 
     public ActionModel(String uid, String description, Date date, String type) {
         this.uid = uid;

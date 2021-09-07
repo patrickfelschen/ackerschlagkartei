@@ -10,18 +10,19 @@ public class InfoModel {
     private boolean phosphateSensitiveArea;
     private boolean redArea;
     private boolean waterProtectionArea;
+    private boolean visible;
     private List<GeoPoint> positions;
 
-    public InfoModel() {
-    }
+    public InfoModel() { }
 
-    public InfoModel(double area, String description, boolean phosphateSensitiveArea, boolean redArea, boolean waterProtectionArea, List<GeoPoint> positions) {
+    public InfoModel(double area, String description, boolean phosphateSensitiveArea, boolean redArea, boolean waterProtectionArea, boolean visible, List<GeoPoint> positions) {
         this.area = area;
         this.description = description;
         this.phosphateSensitiveArea = phosphateSensitiveArea;
         this.redArea = redArea;
         this.waterProtectionArea = waterProtectionArea;
         this.positions = positions;
+        this.visible = visible;
     }
 
     public double getArea() {
@@ -42,6 +43,10 @@ public class InfoModel {
 
     public boolean isWaterProtectionArea() {
         return waterProtectionArea;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     public List<GeoPoint> getPositions() {
