@@ -324,7 +324,7 @@ public class FirestoreRepository {
         return documentListGetData;
     }
 
-    // STATUS GETTER
+    // STATUS GETTER FOR OPTIONAL UI UPDATES
 
     public MutableLiveData<Status> getFieldListGetStatus() {
         return fieldListGetStatus;
