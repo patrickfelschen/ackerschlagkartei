@@ -110,7 +110,7 @@ public class FieldActionsFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.field_action_menu_add) {
             AddActionDialog popup = new AddActionDialog();
-            popup.show(getActivity().getSupportFragmentManager(), "AddAction");
+            popup.show(requireActivity().getSupportFragmentManager(), "AddAction");
         }
         return super.onOptionsItemSelected(item);
     }
