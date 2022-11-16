@@ -1,4 +1,4 @@
-# ackerschlagkartei
+# Ackerschlagkartei - Ackerflächen Verwaltung
 Programmierung 3 Projekt (HSOS)
 
 ![Screenshot](screenshot_1.jpg)
